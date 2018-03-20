@@ -1,16 +1,3 @@
-% Thesis project two parts: 
-% 1: Systems for exploring genomic data. Advanced statistical analyses from the
-% web-browser or any other platform. 
-% 2:  Analysis pipelines for large genomic datasets. Provenance of data. 
-% 
-% Common: 
-% - Containers
-% - Reproducibility
-%     - 1: An application is an R package with the analyses. Do not need to
-%     pre-compute results, can call functions etc. directly from the app. Build an
-%     app as containers that can be shared. 
-%     - 2: An analysis is a list of tools with 
-%     input/output data. We package each tool in a container (snapshot-ish) 
 
 % observation
 There is a rapid growth in the number of available biological datasets from the
@@ -27,66 +14,54 @@ the same methods on their own datasets. This leads to unneccesary difficilties
 to reuse known methods, and difficulties in reproducing analyses.  This has led
 to unrealized potential in the growing number of available datasets. 
 
-% LA
-% - Disse er skrevet fra “utvikler ståsted”, og med en “task” form. Hva er
-%   challenges for brukerne? Og hvem er det?
-% - Det er for vanskelig å gjøre data analyse, så det tar for lang tid å få ut
-%   resultater.
-% - Lang vei fra instrument til biologisk meningsfulle resultater.
-% - Stor variasjon i studie design, data typer, og biologiske spørsmål
-
-% “An overview” til hvem?
-% for vanskelig å analysere
-% ta det opp ett nivå (hvor ønsker å gjøre det)
-% hvorfor 
-% hva er problemet
-% 1) for mye tid pipelines (før)
-% 2) etter analyser ikke huske 
-% 3) lang vei og mennesker fra instr til tolkning
-% 4) stor variasjon i analyser (vanskelig å 
-
 
 % challenge
+There are several challenges in enabling efficient analysis and exploration of
+biological datasets. 
+The first is deep analysis pipelines: it is too time consuming to set up an
+analysis pipeline to start analyzing a biological dataset. Little effort is put
+into sharing full pipelines from raw data to interpretable results.
+The second challenge is ensuring correct tool, tool versions, databases, and
+datasets. Deep analysis pipelines use multiple tools from different developers
+to transform the data into interpretable results. Modifying any of these will
+impact the final result and must be recorded to enable reproducible analyses. 
+A third challenge is the large variation in study design, datatypes,
+and biological functions in question.
+The final challenge is interactive applications: end user-facing application
+for exploring results of statistical analyses are often decoupled from the
+analyses, simply visualizing a static dataset.  
+
+% from the above list
+As a result, here are a wealth of related work and systems. 
 \begin{enumerate*}[label=(\roman*)]
-    \item I
+    \item cwl,cwl\_runner, Arvados, Rabix, Toil, Galaxy,
+        AWE;   
+    \item pachyderm
+    \item wrt. study design, datatypes, 
+    \item rstudio, shiny, opencpu,
 \end{enumerate*} 
 
 
-
-% \begin{enumerate*}[label=(\roman*)]
-%     \item Providing an overview of the full data transformations from raw data
-%         to interpretable results; 
-%     \item Sharing analysis pipelines and exploration tools across software
-%         platforms and research groups; 
-%     \item Providing full provenance of data, tools, and tool parameters; 
-%     \item Develop end-user applications that interface with advanced
-%         statistical analyses required to explore biological datasets.  
-% \end{enumerate*} 
-
-\emph{Related work}:
-% 
-There are a wealth of related work and systems. To build analysis pipelines we
-have systems such as
-\begin{enumerate*}[label=(\roman*)]
-    \item CWL and its implementations: cwl\_runner, Arvados, Rabix, Toil, Galaxy,
-        AWE; and 
-    \item Pahchyderm. 
-\end{enumerate*}
-When the data is analyzed and ready for further exploration, we have systems
-such as
-\begin{enumerate*}[label=(\roman*)]
-    \item OpenCPU;
-    \item RStudio and Shiny; 
-    \item Renjin an R interpreter built on top of the JVM. 
-\end{enumerate*}
- 
-
 \emph{Our solution}: 
+This dissertation argues that, instead, ... 
 % unified/hollistic: unified approach/model 
 % kvik/walr (data straming/ of open source systems including Apache Spark as the
 % common foundation; Shark for SQL processing; and Spark Streaming for
 % distributed stream processing) 
 % nowac-pakken 
+
+% bruk challenges for å si hvorfor vår er bedre
+Our analysis solution has the benefit that it integrates with modern version
+control systems to provide provenance information on datasets. It also runs on a
+wide range of software platforms and is targeted to the compute infrastructure
+found in hospital environment. 
+
+Our solution to build data explorations provides the benefit of developers being
+able to develop applications in any programming language. It also facilitates
+the reuse and interface with the wealth of statistical packages directly from a
+user-interface rather than analysis scripts. 
+
+We implement walrus/kvik... 
 
 To provide an overview of the statistical analyses from raw data to
 interpretable results we propose our tool \emph{walrus}. It lets users create
@@ -104,38 +79,18 @@ databases. We have used Kvik to develop the MIxT system for exploring and
 comparing transcriptional profiles from blood and tumor samples in breast cancer
 patients. 
 
-\emph{Advantages of our solution}:
-% bruk challenges for å si hvorfor vår er bedre
 
-Our analysis solution has the benefit that it integrates with modern version
-control systems to provide provenance information on datasets. It also runs on a
-wide range of software platforms and is targeted to the compute infrastructure
-found in hospital environment. 
-
-Our solution to build data explorations provides the benefit of developers being
-able to develop applications in any programming language. It also facilitates
-the reuse and interface with the wealth of statistical packages directly from a
-user-interface rather than analysis scripts. 
-
-\emph{Methods}:
 % We implement the RDD architecture in a stack of open source systems including
 % Apache Spark as the common foundation; evaluation: 
-% Litt usikker her LA? 
-
-\emph{Long term contributions}:
-Discuss why our approach works out nicely? Benefit for future use? Clinical
-apps? 
+From a longer-term perspective, ....
 
 \emph{Thesis statement}:
-% Denne må jeg ha hjelp med! :) 
+A hollistic approach based on ...containers ... efficient analsysis of diverse
+biological datasets ... 
 % hva hollistic can ... support diverse distr. comp.
-A holistic approach to data analysis and exploration of high-throughput
-dataasets in bioinformatics??? 
+% A holistic approach to data analysis and exploration of high-throughput
+% dataasets in bioinformatics??? 
 
-% alle stegene: pre-proessering, analyser, vise apps 
-% hovedresultat: kapt 2
-% exp: bcb-paperet 
-% pipppelin epaper
 
 \section{List of papers} 
 \begin{itemize}
@@ -193,7 +148,8 @@ dataasets in bioinformatics???
 
 \section{Problems with Data Analysis and Exploration in Bioinformatics} 
     List of things that we want to fix. 
-    
+
+%  no way I'm keeping the acronym    
 \section{The Container-based Data Analysis Model (CDAM)} 
     The Solution (?) 
 
