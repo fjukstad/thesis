@@ -12,25 +12,59 @@
 %     - 2: An analysis is a list of tools with 
 %     input/output data. We package each tool in a container (snapshot-ish) 
 
-\emph{Observation}:
-Collecting large biological datasets have never been simpler or cheaper. Data
-generation is growing at an unprecedented rate. There are a wealth of software
-packages and systems to analyze and explore these datasets, but they often
-target only a small portion of the full analysis pipeline from raw data to
-interpretable results.  
+% observation
+There is a rapid growth in the number of available biological datasets from the
+decreaseing cost of data collection. This brings the opportunity to gain novel
+insights in the underlying biological mechanisms in the development and
+progression of diseases such as cancer. The growing number of datasets has led
+to the availablility of a wealth of software packages and systems to explore and
+analyze these datasets. However, these systems typically target only small
+portions of the deep analysis pipeline required to transform the raw data into
+interpretable results. While the tools are used to provide novel insights in
+diseases, there is little emphasis on reporting and sharing information about
+tool versions, input parameters, and other information that can help others use
+the same methods on their own datasets. This leads to unneccesary difficilties
+to reuse known methods, and difficulties in reproducing analyses.  This has led
+to unrealized potential in the growing number of available datasets. 
 
-\emph{Challenges}:
+% LA
+% - Disse er skrevet fra “utvikler ståsted”, og med en “task” form. Hva er
+%   challenges for brukerne? Og hvem er det?
+% - Det er for vanskelig å gjøre data analyse, så det tar for lang tid å få ut
+%   resultater.
+% - Lang vei fra instrument til biologisk meningsfulle resultater.
+% - Stor variasjon i studie design, data typer, og biologiske spørsmål
+
+% “An overview” til hvem?
+% for vanskelig å analysere
+% ta det opp ett nivå (hvor ønsker å gjøre det)
+% hvorfor 
+% hva er problemet
+% 1) for mye tid pipelines (før)
+% 2) etter analyser ikke huske 
+% 3) lang vei og mennesker fra instr til tolkning
+% 4) stor variasjon i analyser (vanskelig å 
+
+
+% challenge
 \begin{enumerate*}[label=(\roman*)]
-    \item Providing an overview of the full data transformations from raw data
-        to interpretable results; 
-    \item Sharing analysis pipelines and exploration tools across software
-        platforms and research groups; 
-    \item Providing full provenance of data, tools, and tool parameters; 
-    \item Develop end-user applications that interface with advanced
-        statistical analyses required to explore biological datasets.  
+    \item I
 \end{enumerate*} 
 
+
+
+% \begin{enumerate*}[label=(\roman*)]
+%     \item Providing an overview of the full data transformations from raw data
+%         to interpretable results; 
+%     \item Sharing analysis pipelines and exploration tools across software
+%         platforms and research groups; 
+%     \item Providing full provenance of data, tools, and tool parameters; 
+%     \item Develop end-user applications that interface with advanced
+%         statistical analyses required to explore biological datasets.  
+% \end{enumerate*} 
+
 \emph{Related work}:
+% 
 There are a wealth of related work and systems. To build analysis pipelines we
 have systems such as
 \begin{enumerate*}[label=(\roman*)]
@@ -48,6 +82,12 @@ such as
  
 
 \emph{Our solution}: 
+% unified/hollistic: unified approach/model 
+% kvik/walr (data straming/ of open source systems including Apache Spark as the
+% common foundation; Shark for SQL processing; and Spark Streaming for
+% distributed stream processing) 
+% nowac-pakken 
+
 To provide an overview of the statistical analyses from raw data to
 interpretable results we propose our tool \emph{walrus}. It lets users create
 and run analysis pipelines in bioinformatics to e.g. analyze high-throughput
@@ -65,6 +105,8 @@ comparing transcriptional profiles from blood and tumor samples in breast cancer
 patients. 
 
 \emph{Advantages of our solution}:
+% bruk challenges for å si hvorfor vår er bedre
+
 Our analysis solution has the benefit that it integrates with modern version
 control systems to provide provenance information on datasets. It also runs on a
 wide range of software platforms and is targeted to the compute infrastructure
@@ -76,6 +118,8 @@ the reuse and interface with the wealth of statistical packages directly from a
 user-interface rather than analysis scripts. 
 
 \emph{Methods}:
+% We implement the RDD architecture in a stack of open source systems including
+% Apache Spark as the common foundation; evaluation: 
 % Litt usikker her LA? 
 
 \emph{Long term contributions}:
@@ -84,6 +128,7 @@ apps?
 
 \emph{Thesis statement}:
 % Denne må jeg ha hjelp med! :) 
+% hva hollistic can ... support diverse distr. comp.
 A holistic approach to data analysis and exploration of high-throughput
 dataasets in bioinformatics??? 
 
@@ -161,3 +206,8 @@ dataasets in bioinformatics???
 \section{Summary of Results} 
 
 \section{Dissertation Plan} 
+
+
+% et kapitelle per paper (kopi tekst) 
+% ekstra related work: 
+% diskusjon, coclu
