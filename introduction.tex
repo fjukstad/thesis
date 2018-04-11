@@ -11,13 +11,13 @@ interpretable results. While the tools are used to provide novel insights in
 diseases, there is little emphasis on reporting and sharing information about
 tool versions, input parameters, and other information that can help others use
 the same methods on their own datasets. This leads to unneccesary difficilties
-to reuse known methods, and difficulties in reproducing analyses.  This has led
+to reuse known methods, and difficulties in reproducing analyses, which leads
 to unrealized potential in the growing number of available datasets. 
 
 
 % challenge
 There are several challenges in enabling efficient analysis and exploration of
-biological datasets. 
+biological datasets.
 The first is deep analysis pipelines: it is too time consuming to set up an
 analysis pipeline to start analyzing a biological dataset. Little effort is put
 into sharing full pipelines from raw data to interpretable results.
@@ -32,7 +32,26 @@ for exploring results of statistical analyses are often decoupled from the
 analyses, simply visualizing a static dataset.  
 
 % from the above list
-As a result, here are a wealth of related work and systems. 
+As a result, there are a wealth of approaches and systems to enable analysis of
+the complex biological data. To develop analysis pipelines, Galaxy\cite{galaxy}
+has for a long time provided a simple interface to set up and execute analysis
+pipelines for genomic datasets. However, the Galaxy system is less effective for
+explorative and flexible analyses.\cite{spjuth2015experiences}
+Pachyderm\cite{pachyderm} is a system for developing more flexible analyses that
+support comparison of pipeline runs from different workflow configurations and
+datasets. However it has yet to see wide-spread adpotion in Bioinformatics.
+New initiatives such as the \gls{cwl} provide users a standardized way of
+describing an analysis pipeline and has multiple implementations such as
+the reference implementation
+cwl\_runner,\footnote{\url{github.com/common-workflow-language/cwltool}}
+Arvados,\cite{arvados} Rabix,\cite{rabix} Toil,\cite{toil} Galaxy,\cite{galaxy}
+and AWE.\cite{awe} 
+
+
+With new analysis systems and frameworks continuing to be implemented every
+year, it seems that enabling reproducible analyses of high-throughput datasets
+is still an area that require thorough consideration and developer effort.
+
 \begin{enumerate*}[label=(\roman*)]
     \item cwl,cwl\_runner, Arvados, Rabix, Toil, Galaxy,
         AWE;   
@@ -61,7 +80,32 @@ able to develop applications in any programming language. It also facilitates
 the reuse and interface with the wealth of statistical packages directly from a
 user-interface rather than analysis scripts. 
 
+The resulting approach as several key advantages over current systems: 
+\begin{itemize} 
+    \item
+\end{itemize} 
+
 We implement walrus/kvik... 
+
+% We implement the RDD architecture in a stack of open source systems including
+% Apache Spark as the common foundation; evaluation: 
+From a longer-term perspective, ....
+
+\emph{Thesis statement}:
+A hollistic approach based on ...containers ... efficient analsysis of diverse
+biological datasets ... 
+% hva hollistic can ... support diverse distr. comp.
+% A holistic approach to data analysis and exploration of high-throughput
+% dataasets in bioinformatics??? 
+
+\section{Problems with Data Analysis and Exploration in Bioinformatics} 
+    List of things that we want to fix. 
+
+%  no way I'm keeping the acronym    
+\section{The Container-based Data Analysis Model (CDAM)} 
+    The Solution (?) 
+
+\section{Use of the CDAM} 
 
 To provide an overview of the statistical analyses from raw data to
 interpretable results we propose our tool \emph{walrus}. It lets users create
@@ -80,17 +124,11 @@ comparing transcriptional profiles from blood and tumor samples in breast cancer
 patients. 
 
 
-% We implement the RDD architecture in a stack of open source systems including
-% Apache Spark as the common foundation; evaluation: 
-From a longer-term perspective, ....
+\textbf{walrus}
+\textbf{kvik} 
+\textbf{mixt} 
 
-\emph{Thesis statement}:
-A hollistic approach based on ...containers ... efficient analsysis of diverse
-biological datasets ... 
-% hva hollistic can ... support diverse distr. comp.
-% A holistic approach to data analysis and exploration of high-throughput
-% dataasets in bioinformatics??? 
-
+\section{Summary of Results} 
 
 \section{List of papers} 
 \begin{itemize}
@@ -129,6 +167,16 @@ biological datasets ...
         \\ 
         Data Science and Engineering 2017.
 
+        
+
+    \item \emph{nsroot: Minimalist Process Isolation Tool Implemented With Linux
+        Namespaces.}
+        \\
+        Inge Alexander Raknes, \textbf{Bjørn Fjukstad}, Lars Ailo Bongo 
+        \\
+        NIK 2017. 
+
+
     \item \emph{Transcription factor PAX6 as a novel prognostic factor and
         putative tumour suppressor in non-small cell lung cancer} 
         \\
@@ -144,33 +192,14 @@ biological datasets ...
         Bongo
         \\
         Conference TBA 2018. 
-
-
-    \item \emph{nsroot: Minimalist Process Isolation Tool Implemented With Linux
-        Namespaces.}
-        \\
-        Inge Alexander Raknes, \textbf{Bjørn Fjukstad}, Lars Ailo Bongo 
-        \\
-        NIK 2017. 
         
 \end{itemize} 
 
-\section{Problems with Data Analysis and Exploration in Bioinformatics} 
-    List of things that we want to fix. 
 
-%  no way I'm keeping the acronym    
-\section{The Container-based Data Analysis Model (CDAM)} 
-    The Solution (?) 
 
-\section{Use of the CDAM} 
-
-\textbf{walrus}
-\textbf{kvik} 
-\textbf{mixt} 
-
-\section{Summary of Results} 
 
 \section{Dissertation Plan} 
+
 
 
 % et kapitelle per paper (kopi tekst) 
