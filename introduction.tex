@@ -15,65 +15,47 @@ analyses, which leads to unrealized potential for scientific insights and
 commercial use in the available datasets. 
 
 % challenge
-There are several challenges at hand for researchers to analyze and explore
-biological datasets. The first is the time and knowledge to find and set up the
-necessary tools to start analyzing a modern biological dataset. The second is
-ensuring the correct input parameters, tool versions, database versions, and
-dataset versions when analyzing and reporting analysis results. The final
-challenge is the need for flexible and highly configurable analysis tools to
-support the large variation in study design and datatypes. These challenges are
-common for large datasets such as high-throughput sequencing data that require
-long-running, deep analysis pipelines, as well as smaller datasets, such as
-microarray data, that require complex, but short-running analysis pipelines. 
+There are several challenges for researchers to analyze and explore biological
+datasets. These challenges are common for large datasets such as high-throughput
+sequencing data that require long-running, deep analysis pipelines, as well as
+smaller datasets, such as microarray data, that require complex, but
+short-running analysis pipelines.  The first is the time and knowledge required
+to find and set up the necessary analysis tools to start analyzing a modern
+biological dataset.  The second is ensuring the correct input parameters, tool
+versions, database versions, and dataset versions when analyzing, and reporting
+analysis results to enable reproducible science. The final challenge is the need
+for flexible and highly configurable analysis tools to support the large
+variation in study design and data types.
 
+% related 
 As a result, there are a wealth of approaches and systems to enable analysis of
-the complex biological data. To develop analysis pipelines, Galaxy\cite{galaxy}
-has for a long time provided a simple interface to set up and execute analysis
-pipelines for genomic datasets. However, the Galaxy system is less effective for
-explorative and flexible analyses.\cite{spjuth2015experiences}
-Pachyderm\cite{pachyderm} is a system for developing more flexible analyses that
-support comparison of pipeline runs from different workflow configurations and
-datasets. However it has yet to see wide-spread adpotion in Bioinformatics.
-New initiatives such as the \gls{cwl} provide users a standardized way of
-describing an analysis pipeline and has multiple implementations such as
-the reference implementation
+the complex biological data. To develop deep analysis pipelines,
+Galaxy\cite{galaxy} has for a long time provided a simple interface to set up
+and execute analysis pipelines for genomic datasets. However, the Galaxy system
+is less effective for explorative and flexible
+analyses.\cite{spjuth2015experiences} Pachyderm is a system for
+developing more flexible analyses that support comparison of pipeline runs from
+different workflow configurations and datasets.\cite{pachyderm} However it has
+yet to see wide-spread adpotion in Bioinformatics.  New initiatives such as the
+\gls{cwl} provide users a standardized way of describing an analysis pipeline
+and has multiple implementations such as the reference implementation
 cwl\_runner,\footnote{\url{github.com/common-workflow-language/cwltool}}
 Arvados,\cite{arvados} Rabix,\cite{rabix} Toil,\cite{toil} Galaxy,\cite{galaxy}
 and AWE.\cite{awe} While these systems provide system for batch-processing of
-large datasets, systems such as Shiny and OpenCPU provide interactive
-interfaces to the R programming language and the many packages for biological
-data processing in Bioconductor. 
-With new analysis systems and frameworks continuing to be implemented every
-year, it seems that enabling reproducible analyses of high-throughput datasets
-is still an area that require thorough consideration and developer effort.
+large datasets, systems such as Shiny and OpenCPU provide interactive interfaces
+to the R programming language and the many packages for biological data
+processing in Bioconductor.  With the addition of new datasets and methods every
+year, it seems that analysis of biological data requires a wide array of
+different tools and systems.
 
-\begin{enumerate*}[label=(\roman*)]
-    \item cwl,cwl\_runner, Arvados, Rabix, Toil, Galaxy,
-        AWE;   
-    \item pachyderm
-    \item wrt. study design, datatypes, 
-    \item rstudio, shiny, opencpu,
-\end{enumerate*} 
-
-
-\emph{Our solution}: 
-This dissertation argues that, instead, ... 
-% unified/hollistic: unified approach/model 
-% kvik/walr (data straming/ of open source systems including Apache Spark as the
-% common foundation; Shark for SQL processing; and Spark Streaming for
-% distributed stream processing) 
-% nowac-pakken 
-
-% bruk challenges for å si hvorfor vår er bedre
-Our analysis solution has the benefit that it integrates with modern version
-control systems to provide provenance information on datasets. It also runs on a
-wide range of software platforms and is targeted to the compute infrastructure
-found in hospital environment. 
-
-Our solution to build data explorations provides the benefit of developers being
-able to develop applications in any programming language. It also facilitates
-the reuse and interface with the wealth of statistical packages directly from a
-user-interface rather than analysis scripts. 
+% our solution
+This dissertation argues that, instead, we can design a unified approach that
+integrates disperate tools and data into fully reproducible biological data
+analysis frameworks.  In particular, we show how software container
+technologies, such as Docker, 
+provide the necessary foundation to build reproducible environments for any
+analysis pipeline, as well as a suitable environent to package an entire data
+expliration application. 
 
 The resulting approach as several key advantages over current systems: 
 \begin{itemize} 
