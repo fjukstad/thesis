@@ -52,15 +52,16 @@ different tools and systems.
 This dissertation argues that, instead, we can design a unified approach that
 integrates disperate tools and data into fully reproducible biological data
 analysis frameworks.  In particular, we show how software container
-technologies, such as Docker, 
-provide the necessary foundation to build reproducible environments for any
-analysis pipeline, as well as a suitable environent to package an entire data
-expliration application. 
+technologies, such as Docker, provide the necessary foundation to build
+reproducible environments for any analysis pipeline, as well as a suitable
+environent to package an entire data expliration application. 
 
 The resulting approach as several key advantages over current systems: 
 \begin{itemize} 
     \item
 \end{itemize} 
+
+
 
 We implement walrus/kvik... 
 
@@ -69,17 +70,15 @@ We implement walrus/kvik...
 From a longer-term perspective, ....
 
 \emph{Thesis statement}:
-A hollistic approach based on ...containers ... efficient analsysis of diverse
-biological datasets ... 
-% hva hollistic can ... support diverse distr. comp.
-% A holistic approach to data analysis and exploration of high-throughput
-% dataasets in bioinformatics??? 
+A common development model based on software container infrastructure can
+efficiently provide reproducible and easy to use environments to develop
+applications for exploring biological datasets. 
 
 \section{Problems with Data Analysis and Exploration in Bioinformatics} 
     List of things that we want to fix. 
 
 %  no way I'm keeping the acronym    
-\section{The Container-based Data Analysis Model (CDAM)} 
+\section{The Container Centric Analysis Model (CDAM)} 
     The Solution (?) 
 
 \section{Use of the CDAM} 
@@ -108,6 +107,44 @@ patients.
 \section{Summary of Results} 
 
 \section{List of papers} 
+
+
+\capstartfalse
+\begin{table}[h]
+    \centering
+    \begin{tabular}{ | l | p{9.5cm} | }
+    \hline
+         Title & Kvik: three-tier data exploration tools for flexible analysis
+         of genomic data in epidemiological studies \\ \hline
+         
+         Authors & \textbf{Bjørn Fjukstad}, Karina Standahl Olsen, Mie Jareid,
+         Eiliv Lund, Lars Ailo Bongo \\ \hline
+         
+         Description & The initial description of Kvik, and how we used it to
+         implement Kvik Pathways, a web application for browsing biologicap
+         pathway maps integrated with gene expression data from the \gls{nowac}
+         cohort. 
+         \\ \hline
+         
+         Contribution & Designed, implemented, and deployed Kvik and Kvik
+         Pathways. Evaluated the system and wrote the paper. \\ \hline
+         
+         Publication date & 15 March 2015 \\ \hline 
+
+         Publication venue & F1000 \\ \hline
+         
+         Citation & \cite{fjukstad2015kvik} \bibentry{fjukstad2015kvik} \\ \hline 
+    \end{tabular}
+    \label{resultstable}
+\end{table}
+
+
+
+
+
+
+
+
 \begin{itemize}
     \item
         \emph{Kvik: three-tier data exploration tools for flexible analysis of
@@ -176,9 +213,10 @@ patients.
 
 
 \section{Dissertation Plan} 
+This thesis is organized as follows. Chapter 2 gives a background to modern
+biological datasets, their collection, analysis tools and frameworks. Chapter 3
+describes our approach to developing systems for interactively analyzing and
+exploring biological data. Chapter 4 describes how we use the container centric
+development model to build walrus and use it in a precision medicine setting.
+Finally, Chapter 5 concludes the work and discusses future directions. 
 
-
-
-% et kapitelle per paper (kopi tekst) 
-% ekstra related work: 
-% diskusjon, coclu
