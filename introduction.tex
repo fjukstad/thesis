@@ -58,7 +58,8 @@ environent to package an entire data expliration application.
 
 The resulting approach as several key advantages over current systems: 
 \begin{itemize} 
-    \item
+    \item It simplifies sharing of 
+    \item focus on analyses not solving dependencies and installing
 \end{itemize} 
 
 
@@ -107,11 +108,11 @@ patients.
 \section{Summary of Results} 
 
 \section{List of papers} 
-
+This section contains a list of papers along with short descriptions and my
+personal contribution to each paper. 
 \capstartfalse
 \begin{table}[H]
     \centering
-    \caption{Paper 1.}
     \begin{tabular}{ | l | p{9.5cm} | }
     \hline
          Title & Kvik: three-tier data exploration tools for flexible analysis
@@ -137,12 +138,9 @@ patients.
          \hline 
     \end{tabular}
     \label{p1}
-\end{table}
 
+    \hfill 
 
-\begin{table}[H]
-    \centering
-    \caption{Paper 2.}
     \begin{tabular}{ | l | p{9.5cm} | }
     \hline
          Title & Building Applications For Interactive Data Exploration In
@@ -171,13 +169,11 @@ patients.
          \\ \hline 
     \end{tabular}
     \label{p2}
+    
 \end{table}
-
-
 
 \begin{table}[H]
     \centering
-    \caption{Paper 3.}
     \begin{tabular}{ | l | p{9.5cm} | }
     \hline
          Title & Interactions Between the Tumor and the Blood Systemic Response
@@ -207,12 +203,9 @@ patients.
          \\ \hline 
     \end{tabular}
     \label{p3}
-\end{table}
+    
+    \hfill 
 
-
-\begin{table}[H]
-    \centering
-    \caption{Paper 4.}
     \begin{tabular}{ | l | p{9.5cm} | }
     \hline
          Title & A Review of Scalable Bioinformatics Pipelines \\ \hline
@@ -235,10 +228,8 @@ patients.
     \end{tabular}
     \label{p4}
 \end{table}
-
 \begin{table}[H]
     \centering
-    \caption{Paper 5.}
     \begin{tabular}{ | l | p{9.5cm} | }
     \hline
          Title & nsroot: Minimalist Process Isolation Tool Implemented With
@@ -262,11 +253,8 @@ patients.
     \end{tabular}
     \label{p5}
 \end{table}
-
-
 \begin{table}[H]
     \centering
-    \caption{Paper 6.}
     \begin{tabular}{ | l | p{9.5cm} | }
     \hline
          Title & Transcription factor PAX6 as a novel prognostic factor and
@@ -292,12 +280,8 @@ patients.
     \end{tabular}
     \label{p6}
 \end{table}
-
-
-
 \begin{table}[H]
     \centering
-    \caption{Paper 7.}
     \begin{tabular}{ | l | p{9.5cm} | }
     \hline
          Title & Reproducible Data Analysis Pipelines in Precision Medicine \\
@@ -324,13 +308,23 @@ patients.
     \label{p6}
 \end{table}
 
+% kapittel 2
+% pippelinen + review + nowac
+% generelt + kvinner og kreft
+% kapittel 3: walrus 
+% kapittel 4: kvik/mixt 
 
+
+% Husk historien: Fra rå data gjennom komplekse analyse pipeliner og helt til
+% forskere kan svømme rundt i resultatene. 
 
 \section{Dissertation Plan} 
-This thesis is organized as follows. Chapter 2 gives a background to modern
-biological datasets, their collection, analysis tools and frameworks. Chapter 3
-describes our approach to developing systems for interactively analyzing and
-exploring biological data. Chapter 4 describes how we use the container centric
-development model to build walrus and use it in a precision medicine setting.
-Finally, Chapter 5 concludes the work and discusses future directions. 
+This thesis is organized as follows. Chapter 2 describes the characteristics of
+state-of-the-art biological datasets, the analysis required to extract knowledge
+from these, and the available tools and analysis frameworks. Chapter 3 describes
+in detail how we use a container centric development model to build a tool,
+walrus, to develop and execute deep analysis pipelines. In Chapter 4 we describe
+how we used the same model to develop applications to interactively explore
+results from statistical analyses.  Finally, Chapter 5 concludes the work and
+discusses future directions. 
 
