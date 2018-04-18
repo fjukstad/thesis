@@ -56,19 +56,27 @@ technologies, such as Docker, provide the necessary foundation to build
 reproducible environments for any analysis pipeline, as well as a suitable
 environent to package an entire data expliration application. 
 
-The resulting approach as several key advantages over current systems: 
+The resulting approach as several key advantages when implementing systems to
+analyze and explore biological data: 
 \begin{itemize} 
-    \item It simplifies sharing of 
+    \item It supports tools written in any programming language, using open
+        standards to communicate between tools and systems, enabling new systems
+        to combine the wealth of existing tools. 
+    \item It simplifies the sharing of components and tools, re
     \item focus on analyses not solving dependencies and installing
+    \item containers and reprudicibility
 \end{itemize} 
 
+We implement our approach thorugh a series of applications and tools built on
+top of a stack of open source systems including Docker as the common foundation.
+We evaluate the approach through these systems using real datasets and show its
+viability. 
 
-
-We implement walrus/kvik... 
-
-% We implement the RDD architecture in a stack of open source systems including
-% Apache Spark as the common foundation; evaluation: 
-From a longer-term perspective, ....
+From a longer-term perspective we discuss the general patterns for implementing
+modern data analysis systems for use in precision medicine and dicuss why our
+approach is a suitable option. As more datasets are produced every year,
+research will depend on systems being easy to pick up, and provide the necessary
+functionality to reproduce and share the analysis pipelines. 
 
 \emph{Thesis statement}:
 A common development model based on software container infrastructure can
@@ -139,7 +147,9 @@ personal contribution to each paper.
     \end{tabular}
     \label{p1}
 
-    \hfill 
+\end{table}
+% \hfill 
+\begin{table}[H]
 
     \begin{tabular}{ | l | p{9.5cm} | }
     \hline
@@ -171,8 +181,9 @@ personal contribution to each paper.
     \label{p2}
     
 \end{table}
-
+% \hfill 
 \begin{table}[H]
+    
     \centering
     \begin{tabular}{ | l | p{9.5cm} | }
     \hline
@@ -280,7 +291,10 @@ personal contribution to each paper.
     \end{tabular}
     \label{p6}
 \end{table}
+
+
 \begin{table}[H]
+
     \centering
     \begin{tabular}{ | l | p{9.5cm} | }
     \hline
