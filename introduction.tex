@@ -57,7 +57,7 @@ reproducible environments for any analysis pipeline, as well as a suitable
 environent to package an entire data expliration application. 
 
 The resulting approach as several key advantages when implementing systems to
-analyze and explore biological data: 
+analyze and explore biological data:
 \begin{itemize} 
     \item It supports tools written in any programming language, using open
         standards to communicate between tools and systems, enabling new systems
@@ -86,32 +86,37 @@ applications for exploring biological datasets.
 \section{Problems with Data Analysis and Exploration in Bioinformatics} 
     List of things that we want to fix. 
 
-%  no way I'm keeping the acronym    
-\section{The Container Centric Analysis Model (CDAM)} 
-    The Solution (?) 
+\section{The X Model/approach/etc.} 
+    The Solution (?). Talk about the ideas behind building apps on top of
+    containers.  
 
-\section{Use of the CDAM} 
+\section{Systems Implemented with the X Model/approach/etc.} 
+We have used the \gls{x} to implement both batch processing systems targeted at
+high-throughput analysis pipelines, as well as interactive data
+exploration systems for interactively exploring the results and emerging
+patterns from these analyses.  We discuss the different systems and areaswe have
+implemented. 
 
-To provide an overview of the statistical analyses from raw data to
-interpretable results we propose our tool \emph{walrus}. It lets users create
-and run analysis pipelines in bioinformatics to e.g. analyze high-throughput
-sequencing datasets. In addition, it tracks full provenance of the input,
-intermediate, and output data, as well as tool parameters. With \emph{walrus} we
-have successfully built analysis pipelines to detect somatic mutations in breast
-cancer patients. 
+\textbf{Deep analysis pipelines}. 
+Analysis of high-throughput sequencing datasets requires deep analysis pipelines
+with a large number of steps that transform raw data into interpretable
+results\cite{diao2015building}. We used our approach to implement walrus, a tool
+that lets users create and run analysis pipelines. In addition, it tracks full
+provenance of the input, intermediate, and output data, as well as tool
+parameters. With \emph{walrus} we have successfully built analysis pipelines to
+detect somatic mutations in breast cancer patients. 
 
-To develop applications that interface with the underlying statistical analyses
-we have built \emph{Kvik}. Kvik allows applications written in any modern
-programming language to interface with the wealth of bioinformatics packages in
-the R programming language, as well as information available through online
-databases. We have used Kvik to develop the MIxT system for exploring and
-comparing transcriptional profiles from blood and tumor samples in breast cancer
-patients. 
+\textbf{Interactive exploration}. Analysis pipelines and workflows typically
+require researchers to browse and explore the final output. In addition it may
+be useful to further explore results by modifying analysis parameters to execute
+new analyses.  To develop data exploration applications that interface with the
+underlying statistical analyses we have built \emph{Kvik}. Kvik allows
+applications written in any modern programming language to interface with the
+wealth of bioinformatics packages in the R programming language, as well as
+information available through online databases. We have used Kvik to develop the
+\gls{mixt} system for exploring and comparing transcriptional profiles from
+blood and tumor samples in breast cancer patients. 
 
-
-\textbf{walrus}
-\textbf{kvik} 
-\textbf{mixt} 
 
 \section{Summary of Results} 
 
@@ -172,7 +177,8 @@ personal contribution to each paper.
          Publication date & 20 August 2017. \\ \hline  
 
          Publication venue & The 8th ACM Conference on Bioinformatics,
-         Computational Biology, and Health Informatics (ACM BCB) August 20–23, 2017.  \\
+         Computational Biology, and Health Informatics (ACM BCB) August 20–23,
+         2017.  \\
          \hline
          
          Citation & \cite{fjukstad2017building} \bibentry{fjukstad2017building}
@@ -202,7 +208,7 @@ personal contribution to each paper.
          
          Contribution & 
          Designed, implemented, and deployed the \gls{mixt} web application.
-         Helped write the manuscript. 
+        Contributed to write the manuscript. 
          \\ \hline
          
          Publication date & 28 September 2017. \\ \hline  
@@ -251,7 +257,7 @@ personal contribution to each paper.
          Description & Describes a tool for process isolation built using Linux
          namespaces.          \\ \hline
          
-         Contribution & Helped write the
+         Contribution & Contributed to the
          manuscript, specifically to the literature review and related works.
          \\ \hline
          
@@ -269,17 +275,20 @@ personal contribution to each paper.
     \begin{tabular}{ | l | p{9.5cm} | }
     \hline
          Title & Transcription factor PAX6 as a novel prognostic factor and
-        putative tumour suppressor in non-small cell lung cancer \\ \hline
+         putative tumour suppressor in non-small cell lung cancer \\ \hline
          
          Authors & Yury Kiselev, Sigve Andersen, Charles Johannessen, 
          \textbf{Bjørn Fjukstad}, Karina Standahl Olsen, Helge Stenvold, Samer
          Al-Saad, Tom Dønnem, Elin Richardsen, Roy M Bremnes, and Lill-Tove
          Rasmussen Busund.\\ \hline
          
-         Description & 
+         Description & This paper explores the possibility of using the PAX6
+         transcription factor as a prognostic marker in non-small cell lung
+         cancer. 
          \\ \hline
          
-         Contribution & 
+         Contribution & Did the analyses to explore association between PAX6
+         gene expression and PAX6 target genes. 
          \\ \hline
          
          Publication date & 22 March 2018 \\ \hline  
