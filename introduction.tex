@@ -59,12 +59,16 @@ environent to package an entire data expliration application.
 The resulting approach as several key advantages when implementing systems to
 analyze and explore biological data:
 \begin{itemize} 
-    \item It supports tools written in any programming language, using open
-        standards to communicate between tools and systems, enabling new systems
-        to combine the wealth of existing tools. 
-    \item It simplifies the sharing of components and tools, re
-    \item focus on analyses not solving dependencies and installing
-    \item containers and reprudicibility
+    \item It supports applications using tools written in any programming
+        language, using open standards to communicate between tools and systems,
+        enabling new systems to combine the wealth of existing software. 
+    \item It simplifies the sharing of components and tools, minimizing the time
+        to start analyzing and exploring data. This allieviates the tedious
+        task of installing tolls and their dependencies. 
+    \item It enables reproducible research by packaging applications
+        and tools within self-contained environments.
+    \item It does not add any unnecessary storage or computational  overhead to
+        current approaches
 \end{itemize} 
 
 We implement our approach thorugh a series of applications and tools built on
@@ -84,7 +88,42 @@ efficiently provide reproducible and easy to use environments to develop
 applications for exploring and analyzing biological datasets. 
 
 \section{Problems with Data Analysis and Exploration in Bioinformatics} 
-    List of things that we want to fix. 
+Shell scripts have traditionally been the de facto standard for building
+bioinformatic analysis pipelines. Luckily there is a move towards using more
+sophisticated approaches with workflow and pipeline mangers such as
+Galaxy\cite{galaxy} and the \gls{cwl}\cite{cwl}, that simplify setting up the
+pipeline, maintaining, and updating it. For exploring biological data there are
+a range of tools, such as Cytoscape\cite{cytoscape} and Circos\cite{circos},
+% more tools? other tools? 
+that support importing an already-analyzed dataset to visualize and browse the
+data. 
+
+Although there are efforts to develop tools to help researchers explore and
+analyze biological datasets, they current tools have several drawbacks:
+
+\begin{enumerate}
+    \item \textbf{Complex infrastructure and maintenance:} Pipeline managers
+        often require complex compute infrastructure and are difficult to keep
+        up to date. 
+    \item \textbf{Data provenance:}  There is little support tracking changes
+        of a biological dataset or output datasets, making it difficult to
+        compare analysis output. 
+    \item \textbf{Reproducibility:} While there are tools for analyzing most
+        data types today, there is little or no effort to fully document the
+        entire pipeline from raw data to interpretable results. This includes
+        tool versions, parameters, data, and databases. 
+    \item \textbf{Limited extensibility:} Data exploration tools are often
+        developed as a single unity, making it difficult to reuse parts of the
+        application.
+    \item \textbf{Decoupling:} Data exploration tools are often decoupled from
+        the statistical analyses, making it a difficult exercise to document and
+        retrace the analyses behind the results. 
+\end{enumerate} 
+
+% vet ikke helt as... 
+Because of these drawbacks, an approach for reproducible data analysis and
+exploration would have significant benefits in usability and transparency of
+complex analyses of biological data.
 
 \section{The X Model/approach/etc.} 
     The Solution (?). Talk about the ideas behind building apps on top of
@@ -119,6 +158,8 @@ blood and tumor samples in breast cancer patients.
 
 
 \section{Summary of Results} 
+
+
 
 \section{List of papers} 
 This section contains a list of papers along with short descriptions and my
@@ -330,13 +371,6 @@ personal contribution to each paper.
     \end{tabular}
     \label{p6}
 \end{table}
-
-% kapittel 2
-% pippelinen + review + nowac
-% generelt + kvinner og kreft
-% kapittel 3: walrus 
-% kapittel 4: kvik/mixt 
-
 
 % Husk historien: Fra rå data gjennom komplekse analyse pipeliner og helt til
 % forskere kan svømme rundt i resultatene. 
