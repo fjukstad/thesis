@@ -1,20 +1,34 @@
 % observation
 There is a rapid growth in the number of available biological datasets due to
-the decreaseing cost of data collection.  This brings opportunities to gain
+the decreaseing cost of data collection. This brings opportunities to gain
 novel insights to the underlying biological mechanisms in the development and
-progression of diseases such as cancer.  The wide range of different biological
+progression of diseases such as cancer.  
+% LAB: ...that can be used to develop novel diagnostics tests and drugs for treatment?
+The wide range of different biological
 datasets has led to the development of a wealth of software packages and systems
-to explore and analyze these datasets.  However, these tools typically target
+to explore and analyze these datasets.  
+% LAB: these tools, er det software packages eller systems?
+% LAB: Jeg er egentlig ikke enig med dettte (target only a small part) eller så er det rart skrevet. Det finnes mange komplette pipelines for mange forskjellige analyser. 
+% LAB: Er det viktig å ha dette med her? Virker mer en challenge.
+However, these tools typically target
 only small portions of the deep analysis pipeline required to transform the raw
 data into interpretable results. While the tools are used to provide novel
-insights in diseases, there is little emphasis on reporting and sharing
+insights in diseases, 
+% LAB: jeg ville her ha sagt det som kommer i siste setning. Dvs det brukes altfor mye tid på å sette opp analysene og tolke resultatene
+there is little emphasis on reporting and sharing
 information about tool versions, input parameters, and other information that
-can help others use the same methods on their own datasets. This leads to
+can help others use the same methods on their own datasets. 
+% LAB: resuse known methods; eller develop new pipelines (by not reusing previous pipelines)?
+This leads to
 unneccesary difficilties to reuse known methods, and difficulties in reproducing
-analyses, which leads to unrealized potential for scientific insights and
+analyses, which leads to 
+% LAB: det, men også at det tar mye lenger tid å komme frem til ett resultat
+unrealized potential for scientific insights and
+% LAB: hva er commercial use?
 commercial use in the available datasets. 
 
 % challenge
+% LAB: spesifisere at det er "computer science" challenges. Vi nevner jo ikke alle disse biologiske og statistikk tingene (som også kan være litt challenging :)
 There are several challenges for researchers to analyze and explore biological
 datasets. These challenges are common for large datasets such as high-throughput
 sequencing data that require long-running, deep analysis pipelines, as well as
@@ -26,17 +40,27 @@ versions, database versions, and dataset versions when analyzing, and reporting
 analysis results to enable reproducible science. The final challenge is the need
 for flexible and highly configurable analysis tools to support the large
 variation in study design and data types.
+% LAB: blir "data exploration" litt borte i challenges? (og observations)? Er ikke det en viktig challenge å kombinere denne med en pipeline? Og bare å implementere en app som har de rette analysene, visualiseringene, og databasene?
 
 % related 
+% LAB: kan dette løftes til nivået over enkelt verktøy? Galaxy er en bioinformatics workflow manager. Pachyderm er en container manager med provenance...
+% LAB: De tre hoved områdene jeg kommer på i farten er: bioinformatics workflow mangers (Galaxy, CWL/toil, Bioconductor( R), big data anlaytics (Spark, Pachyderm), data exploration (webapps, R, visualization tools).
 As a result, there are a wealth of approaches and systems to enable analysis of
 the complex biological data. To develop deep analysis pipelines,
 Galaxy\cite{galaxy} has for a long time provided a simple interface to set up
-and execute analysis pipelines for genomic datasets. However, the Galaxy system
+and execute analysis pipelines for genomic datasets. 
+% LAB: litt uenig. Mange vil si at Galaxy er veldig flexibelt, så lengde du kan bruke Galaxy tools. Men er mye arbeid å lage en ny tool. Det er også ett stort system som er krevende å veldikeholde. Litt usikker på hvordan visualisering er for tiden der.
+However, the Galaxy system
 is less effective for explorative and flexible
-analyses.\cite{spjuth2015experiences} Pachyderm is a system for
+analyses.\cite{spjuth2015experiences} 
+% LAB: hva med data exploration?
+% LAB: kunne Spark også tas her? Dvs data analytics systemer, som ikke er tilpasset bioinformatics. Men nyttige som byggesteiner.
+Pachyderm is a system for
 developing more flexible analyses that support comparison of pipeline runs from
 different workflow configurations and datasets.\cite{pachyderm} However it has
-yet to see wide-spread adpotion in Bioinformatics.  New initiatives such as the
+yet to see wide-spread adpotion in Bioinformatics.  
+% Blir litt vel spesifikt her. Hva er det overordnede poenget? Hva er felles for disse?
+New initiatives such as the
 \gls{cwl} provide users a standardized way of describing an analysis pipeline
 and has multiple implementations such as the reference implementation
 cwl\_runner,\footnote{\url{github.com/common-workflow-language/cwltool}}
@@ -44,33 +68,54 @@ Arvados,\cite{arvados} Rabix,\cite{rabix} Toil,\cite{toil} Galaxy,\cite{galaxy}
 and AWE.\cite{awe} While these systems provide system for batch-processing of
 large datasets, systems such as Shiny and OpenCPU provide interactive interfaces
 to the R programming language and the many packages for biological data
-processing in Bioconductor.  With the addition of new datasets and methods every
+processing in Bioconductor.  
+% LAB: En observation? Eller konklusjon om at alle "hoved kategoriene" har mangle?
+With the addition of new datasets and methods every
 year, it seems that analysis of biological data requires a wide array of
 different tools and systems.
 
 % our solution
 This dissertation argues that, instead, we can design a unified approach that
-integrates disperate tools and data into fully reproducible biological data
-analysis frameworks.  In particular, we show how software container
-technologies, such as Docker, provide the necessary foundation to build
+integrates disperate 
+% LAB: tools eller systems? Er stor forskjell på hva folk legger i disse. Jeg vil si at approach bør dekke systems for å kunne bruke feks Spark, R, og webapps.
+tools and data into fully reproducible biological data
+analysis frameworks.  
+% LAB: er det prinsipielle at det er en container? Eller noe annet?
+In particular, we show how software container
+technologies, 
+% LAB: Docker blir for implementation spesifikt
+such as Docker, provide the necessary foundation to build
 reproducible environments for any analysis pipeline, as well as a suitable
-environent to package an entire data expliration application. 
+environment to package an entire data expliration application. 
 
 The resulting approach as several key advantages when implementing systems to
 analyze and explore biological data:
 \begin{itemize} 
+    % LAB:  challenges var:
+    % 1. time and knowledge required set up the necessary analysis tools
+    % 2. ensuring the correct input parameters, tools ...
+    % 3. need for flexible and highly configurable analysis tools 
+    
+    % jeg ser ikke hvilken challenge denne løser, er det #3?
     \item It supports applications using tools written in any programming
         language, using open standards to communicate between tools and systems,
         enabling new systems to combine the wealth of existing software. 
+    % egentlig heller ikke hvilken denne løser, kanskje halve "time and knowledge"
     \item It simplifies the sharing of components and tools, minimizing the time
         to start analyzing and exploring data. This allieviates the tedious
-        task of installing tolls and their dependencies. 
+        task of installing tools and their dependencies. 
+    % dette er challenge 2
     \item It enables reproducible research by packaging applications
         and tools within self-contained environments.
+    % dette var ikke nevnt som en challenge
     \item It does not add any unnecessary storage or computational  overhead to
         current approaches
+    % knowledge biten av #1 ser ikke ut til å være løst
+    % "unified approach" nevnes ikke
 \end{itemize} 
 
+% LAB: trenger ikke å nevne Docker
+% LAB: ett poeng som blir borte her er at det ikke bare er laget prototyper, men at det er gjort motsatt; det er først laget ting våre samarbeidspartnere har behov for; deretter er mer generelle deisgn prinsipper trekket ut
 We implement our approach thorugh a series of applications and tools built on
 top of a stack of open source systems including Docker as the common foundation.
 We evaluate the approach through these systems using real datasets and show its
