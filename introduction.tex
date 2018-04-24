@@ -134,7 +134,9 @@ applications for exploring and analyzing biological datasets.
 
 \section{Problems with Data Analysis and Exploration in Bioinformatics}
 
-% LAB: Er kanskje bedre "å snu" disse setningene. Dvs disse systemene/tools har allerede løst mange problemer, men har fortsatt limitations. Kan egentlig kopiere oppbygningen fra Zaharia
+% LAB: Er kanskje bedre "å snu" disse setningene. Dvs disse systemene/tools har
+% allerede løst mange problemer, men har fortsatt limitations. Kan egentlig
+% kopiere oppbygningen fra Zaharia
 Shell scripts have traditionally been the de facto standard for building
 bioinformatic analysis pipelines. Luckily there is a move towards using more
 sophisticated approaches with workflow and pipeline mangers such as
@@ -152,13 +154,16 @@ analyze biological datasets, they current tools have several drawbacks:
 % data exploration tools er ikke relevante
 % decoupling...
 % not reproducible
-% too complex: (i) hard to maintain, (ii) hard to scale/ optimize, (iii) hard to develop
+% too complex: (i) hard to maintain, (ii) hard to scale/ optimize, (iii) hard to
+% develop
 % Siste burde splittes opp, men det fant jeg ikke ut hvordan.
 
 \begin{enumerate}
 % LAB: Hvis det skal være ett ord for limitation kan Complexity fungere
-% Analysene starter som enkle script men de utvides med mer og mer funksjonalitet. 
-% Diffucult to maintain codebase. Does not utilize benefits of modern infrastructure systems.
+% Analysene starter som enkle script men de utvides med mer og mer
+        % funksjonalitet. 
+% Diffucult to maintain codebase. Does not utilize benefits of modern
+        % infrastructure systems.
 % Blir mer kostbar, dårligere kvalitet, og ikke skalerbar
     \item \textbf{Complex infrastructure and maintenance:} Pipeline managers
         often require complex compute infrastructure and are difficult to keep
@@ -173,7 +178,9 @@ analyze biological datasets, they current tools have several drawbacks:
         entire pipeline from raw data to interpretable results. This includes
         tool versions, parameters, data, and databases. 
 % LAB: Ett ord (Reusability)
-% Her tenker jeg at hovedproblemet er at verktøyene ikke er relevante for biologene som gjør interpratation...fordi at...så de ender ofte opp med å enten manuelt gjøre ting eller programmere sine egne messy ting
+% Her tenker jeg at hovedproblemet er at verktøyene ikke er relevante for
+% biologene som gjør interpratation...fordi at...så de ender ofte opp
+% med å enten manuelt gjøre ting eller programmere sine egne messy ting
     \item \textbf{Limited extensibility:} Data exploration tools are often
         developed as a single unity, making it difficult to reuse parts of the
         application.
@@ -195,11 +202,15 @@ complex analyses of biological data.
 % LAB: & how limiations are solved
 
 \section{Systems Implemented with the X Model/approach/etc.} 
-% LAB: walrus, Kvik, etc syens jeg hører til i "The solution". Her ville jeg heller beskrvet applications. Dvs hva er laget? hva slags problem løser den? hva er det brukt til?
+% LAB: walrus, Kvik, etc syens jeg hører til i "The solution". Her ville jeg
+% heller beskrvet applications. Dvs hva er laget? hva slags problem løser den?
+% hva er det brukt til?
 % Dvs:
-% 1. NOWAC package (men merk at data managment challenges/limitations ikke er nevnt før). Brukt til å få kontroll over NOWAC data
+% 1. NOWAC package (men merk at data managment challenges/limitations ikke er
+% nevnt før). Brukt til å få kontroll over NOWAC data
 % 2. Pippelinen. Standardi for NOWAC analyser.
-% 3. n=1, RNA-seq, ... og andre per-prosjekt-pipelines. Brukt for diverse prosjekter.
+% 3. n=1, RNA-seq, ... og andre per-prosjekt-pipelines. Brukt for diverse
+% prosjekter.
 % 4. MIxT
 % 5. Kvik Pathways, ... og andre små visualiseringer
 % 6. Bidrag til forskjellige andre paper (den nature methods saken, etc)
@@ -318,7 +329,8 @@ personal contribution to each paper.
          Michael Hallett.  \\ \hline
          
          Description & Describes the \gls{mixt} system which enables
-         identification of genes and pathways in the primary tumor that are tightly
+         identification of genes and pathways in the primary tumor that are
+         tightly
          linked to genes and pathways in the patient \gls{sr}. 
          \\ \hline
          
@@ -368,7 +380,8 @@ personal contribution to each paper.
          Title & nsroot: Minimalist Process Isolation Tool Implemented With
          Linux Namespaces.  \\ \hline
          
-         Authors & Inge Alexander Raknes, \textbf{Bjørn Fjukstad}, Lars Ailo Bongo. \\ \hline
+         Authors & Inge Alexander Raknes, \textbf{Bjørn Fjukstad}, Lars Ailo
+         Bongo. \\ \hline
          
          Description & Describes a tool for process isolation built using Linux
          namespaces.          \\ \hline
@@ -411,7 +424,8 @@ personal contribution to each paper.
 
          Publication venue & Scientific Reports 2018. \\ \hline
          
-         Citation & \cite{kiselev2018transcription} \bibentry{kiselev2018transcription} \\
+         Citation & \cite{kiselev2018transcription}
+         \bibentry{kiselev2018transcription} \\
          \hline 
     \end{tabular}
     \label{p6}
