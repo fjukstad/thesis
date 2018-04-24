@@ -132,7 +132,9 @@ A common development model based on software container infrastructure can
 efficiently provide reproducible and easy to use environments to develop
 applications for exploring and analyzing biological datasets. 
 
-\section{Problems with Data Analysis and Exploration in Bioinformatics} 
+\section{Problems with Data Analysis and Exploration in Bioinformatics}
+
+% LAB: Er kanskje bedre "å snu" disse setningene. Dvs disse systemene/tools har allerede løst mange problemer, men har fortsatt limitations. Kan egentlig kopiere oppbygningen fra Zaharia
 Shell scripts have traditionally been the de facto standard for building
 bioinformatic analysis pipelines. Luckily there is a move towards using more
 sophisticated approaches with workflow and pipeline mangers such as
@@ -146,10 +148,23 @@ data.
 Although there are efforts to develop tools to help researchers explore and
 analyze biological datasets, they current tools have several drawbacks:
 
+% LAB: (Tenker høyt) Slik ville jeg beksrevet limitations: 
+% data exploration tools er ikke relevante
+% decoupling...
+% not reproducible
+% too complex: (i) hard to maintain, (ii) hard to scale/ optimize, (iii) hard to develop
+% Siste burde splittes opp, men det fant jeg ikke ut hvordan.
+
 \begin{enumerate}
+% LAB: Hvis det skal være ett ord for limitation kan Complexity fungere
+% Analysene starter som enkle script men de utvides med mer og mer funksjonalitet. 
+% Diffucult to maintain codebase. Does not utilize benefits of modern infrastructure systems.
+% Blir mer kostbar, dårligere kvalitet, og ikke skalerbar
     \item \textbf{Complex infrastructure and maintenance:} Pipeline managers
         often require complex compute infrastructure and are difficult to keep
         up to date. 
+% LAB: Denne og reproducibility beskriver vel samme limitation (Reproducility)
+% og teksten bør si: limitation; description/ example of limitation; consequences
     \item \textbf{Data provenance:}  There is little support tracking changes
         of a biological dataset or output datasets, making it difficult to
         compare analysis output. 
@@ -157,6 +172,8 @@ analyze biological datasets, they current tools have several drawbacks:
         data types today, there is little or no effort to fully document the
         entire pipeline from raw data to interpretable results. This includes
         tool versions, parameters, data, and databases. 
+% LAB: Ett ord (Reusability)
+% Her tenker jeg at hovedproblemet er at verktøyene ikke er relevante for biologene som gjør interpratation...fordi at...så de ender ofte opp med å enten manuelt gjøre ting eller programmere sine egne messy ting
     \item \textbf{Limited extensibility:} Data exploration tools are often
         developed as a single unity, making it difficult to reuse parts of the
         application.
@@ -167,14 +184,27 @@ analyze biological datasets, they current tools have several drawbacks:
 
 % vet ikke helt as... 
 Because of these drawbacks, an approach for reproducible data analysis and
-exploration would have significant benefits in usability and transparency of
+exploration would have significant benefits in usability and 
+% LAB: transparency er nytt
+transparency of
 complex analyses of biological data.
 
 \section{The X Model/approach/etc.} 
     The Solution (?). Talk about the ideas behind building apps on top of
     containers.  
+% LAB: & how limiations are solved
 
 \section{Systems Implemented with the X Model/approach/etc.} 
+% LAB: walrus, Kvik, etc syens jeg hører til i "The solution". Her ville jeg heller beskrvet applications. Dvs hva er laget? hva slags problem løser den? hva er det brukt til?
+% Dvs:
+% 1. NOWAC package (men merk at data managment challenges/limitations ikke er nevnt før). Brukt til å få kontroll over NOWAC data
+% 2. Pippelinen. Standardi for NOWAC analyser.
+% 3. n=1, RNA-seq, ... og andre per-prosjekt-pipelines. Brukt for diverse prosjekter.
+% 4. MIxT
+% 5. Kvik Pathways, ... og andre små visualiseringer
+% 6. Bidrag til forskjellige andre paper (den nature methods saken, etc)
+% ...Combined these demonstrate how the X approach has been used for a full....
+
 We have used the \gls{x} to implement both batch processing systems targeted at
 high-throughput analysis pipelines, as well as interactive data
 exploration systems for interactively exploring the results and emerging
