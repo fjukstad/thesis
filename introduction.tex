@@ -71,55 +71,43 @@ of biological data requires a wide array of different tools and systems.
 
 % our solution
 This dissertation argues that, instead, we can design a unified approach that
-integrates disperate 
-% LAB: tools eller systems? Er stor forskjell på hva folk legger i disse. Jeg
-% vil si at approach bør dekke systems for å kunne bruke feks Spark, R, og
-% webapps.
-tools and data into fully reproducible biological data
-analysis frameworks.  
-% LAB: er det prinsipielle at det er en container? Eller noe annet?
-In particular, we show how software container
-technologies, 
-% LAB: Docker blir for implementation spesifikt
-such as Docker, provide the necessary foundation to build
-reproducible environments for any analysis pipeline, as well as a suitable
-environment to package an entire data expliration application. 
+integrates disperate systems and data into fully reproducible biological data
+analysis frameworks.  In particular, we show how software container technologies
+together with well-defined interfaces, configurations, and orchestration provide
+the necessary foundation to build reproducible environments for any analysis
+pipeline, as well as a suitable environment build an entire data exploration
+application. 
 
 The resulting approach as several key advantages when implementing systems to
 analyze and explore biological data:
 \begin{itemize} 
-    % LAB:  challenges var:
-    % 1. time and knowledge required set up the necessary analysis tools
-    % 2. ensuring the correct input parameters, tools ...
-    % 3. need for flexible and highly configurable analysis tools 
-    
-    % jeg ser ikke hvilken challenge denne løser, er det #3?
-    \item It supports applications using tools written in any programming
-        language, using open standards to communicate between tools and systems,
-        enabling new systems to combine the wealth of existing software. 
-    % egentlig heller ikke hvilken denne løser, kanskje halve "time and
-        % knowledge"
-    \item It simplifies the sharing of components and tools, minimizing the time
-        to start analyzing and exploring data. This allieviates the tedious
-        task of installing tools and their dependencies. 
-    % dette er challenge 2
     \item It enables reproducible research by packaging applications
-        and tools within self-contained environments.
-    % dette var ikke nevnt som en challenge
-    \item It does not add any unnecessary storage or computational  overhead to
-        current approaches
-    % knowledge biten av #1 ser ikke ut til å være løst
-    % "unified approach" nevnes ikke
+        and tools within containerized environments. This enables sharing of
+        tools and simplifies the tedious task of installing a specific tool. 
+
+    \item It simplifies the sharing of analysis pielines and workflows across
+        different research teams and systems. This shortens the
+        time-to-interpretation for biological datasets. 
+
+    \item It enables applications to use tools written in any programming
+        language, using open standards to communicate between tools and systems.
+        This allows for exploration tools to interface with both statistical
+        analyses and biological databases. % evt. kutte siste setning...
+        
+    \item It facilitates the development of flexible and configurable systems by
+        separating appliications and tools into small composable parts. This
+        allows developers to reuse parts of a system to fit new methods and
+        datasets. 
 \end{itemize} 
 
-% LAB: trenger ikke å nevne Docker
-% LAB: ett poeng som blir borte her er at det ikke bare er laget prototyper, men
-% at det er gjort motsatt; det er først laget ting våre samarbeidspartnere har
-% behov for; deretter er mer generelle deisgn prinsipper trekket ut
+From collaboration with researchers in systems epidemiology and precision
+medicine we were asked to develop a set of applications and systems that could
+enable them to analyze and explore their datasets. From these systems we
+extraplolated a set of general design principles to form a unified approach. 
 We implement our approach thorugh a series of applications and tools built on
-top of a stack of open source systems including Docker as the common foundation.
-We evaluate the approach through these systems using real datasets and show its
-viability. 
+top of a stack of open source systems with software containers as the common
+foundation.  We evaluate the approach through these systems using real datasets
+and show its viability. 
 
 From a longer-term perspective we discuss the general patterns for implementing
 modern data analysis systems for use in precision medicine and dicuss why our
@@ -128,21 +116,19 @@ research will depend on systems being easy to pick up, and provide the necessary
 functionality to reproduce and share the analysis pipelines. 
 
 \emph{Thesis statement}:
-A common development model based on software container infrastructure can
+A unified development model based on software container infrastructure can
 efficiently provide reproducible and easy to use environments to develop
 applications for exploring and analyzing biological datasets. 
 
 \section{Problems with Data Analysis and Exploration in Bioinformatics}
-
-% LAB: Er kanskje bedre "å snu" disse setningene. Dvs disse systemene/tools har
-% allerede løst mange problemer, men har fortsatt limitations. Kan egentlig
-% kopiere oppbygningen fra Zaharia
-Shell scripts have traditionally been the de facto standard for building
-bioinformatic analysis pipelines. Luckily there is a move towards using more
-sophisticated approaches with workflow and pipeline mangers such as
-Galaxy\cite{galaxy} and the \gls{cwl}\cite{cwl}, that simplify setting up the
-pipeline, maintaining, and updating it. For exploring biological data there are
-a range of tools, such as Cytoscape\cite{cytoscape} and Circos\cite{circos},
+Today there is a move towards using more sophisticated approaches to analyze
+biological datasets through workflow and pipeline mangers such as
+Galaxy\cite{galaxy} and the \gls{cwl}\cite{cwl}. These simplify setting up the
+analysis pipeline pipeline, maintaining, and updating it. However, these tools
+still have their limitations and shell scripts are still the de facto standard
+building analysis pipelines in bioinformatics. 
+For exploring biological data there are a range of tools, such as
+Cytoscape\cite{cytoscape} and Circos\cite{circos},
 % more tools? other tools? 
 that support importing an already-analyzed dataset to visualize and browse the
 data. 
@@ -150,43 +136,23 @@ data.
 Although there are efforts to develop tools to help researchers explore and
 analyze biological datasets, they current tools have several drawbacks:
 
-% LAB: (Tenker høyt) Slik ville jeg beksrevet limitations: 
-% data exploration tools er ikke relevante
-% decoupling...
-% not reproducible
-% too complex: (i) hard to maintain, (ii) hard to scale/ optimize, (iii) hard to
-% develop
-% Siste burde splittes opp, men det fant jeg ikke ut hvordan.
-
 \begin{enumerate}
-% LAB: Hvis det skal være ett ord for limitation kan Complexity fungere
-% Analysene starter som enkle script men de utvides med mer og mer
-        % funksjonalitet. 
-% Diffucult to maintain codebase. Does not utilize benefits of modern
-        % infrastructure systems.
-% Blir mer kostbar, dårligere kvalitet, og ikke skalerbar
-    \item \textbf{Complex infrastructure and maintenance:} Pipeline managers
-        often require complex compute infrastructure and are difficult to keep
-        up to date. 
-% LAB: Denne og reproducibility beskriver vel samme limitation (Reproducility)
-% og teksten bør si: limitation; description/ example of limitation; consequences
-    \item \textbf{Data provenance:}  There is little support tracking changes
-        of a biological dataset or output datasets, making it difficult to
-        compare analysis output. 
-    \item \textbf{Reproducibility:} While there are tools for analyzing most
-        data types today, there is little or no effort to fully document the
-        entire pipeline from raw data to interpretable results. This includes
-        tool versions, parameters, data, and databases. 
-% LAB: Ett ord (Reusability)
-% Her tenker jeg at hovedproblemet er at verktøyene ikke er relevante for
-% biologene som gjør interpratation...fordi at...så de ender ofte opp
-% med å enten manuelt gjøre ting eller programmere sine egne messy ting
-    \item \textbf{Limited extensibility:} Data exploration tools are often
-        developed as a single unity, making it difficult to reuse parts of the
-        application.
+    \item \textbf{Reusability:} Data exploration tools are often
+        developed as a single specialized application, making it difficult to
+        reuse parts of the application for other analyses or datasets. This
+        leads to duplicate development effort and abandoned projects. 
     \item \textbf{Decoupling:} Data exploration tools are often decoupled from
         the statistical analyses, making it a difficult exercise to document and
         retrace the analyses behind the results. 
+    \item \textbf{Complexity:} 
+        Analyses that start as a simple script quickly become more difficult to
+        maintain and develop as developers add new functionality to the
+        analyses.
+    \item \textbf{Reproducibility:} While there are tools for analyzing most
+        data types today, there is little or no effort to fully document the
+        entire pipeline from raw data to interpretable results. This includes
+        tool versions, parameters, data, and databases. This makes analysis
+        results difficult to reproduce. 
 \end{enumerate} 
 
 % vet ikke helt as... 
@@ -197,31 +163,10 @@ transparency of
 complex analyses of biological data.
 
 \section{The X Model/approach/etc.} 
-    The Solution (?). Talk about the ideas behind building apps on top of
-    containers.  
+% The Solution (?). Talk about the ideas behind building apps on top of
+% containers  
 % LAB: & how limiations are solved
-
-\section{Systems Implemented with the X Model/approach/etc.} 
-% LAB: walrus, Kvik, etc syens jeg hører til i "The solution". Her ville jeg
-% heller beskrvet applications. Dvs hva er laget? hva slags problem løser den?
-% hva er det brukt til?
-% Dvs:
-% 1. NOWAC package (men merk at data managment challenges/limitations ikke er
-% nevnt før). Brukt til å få kontroll over NOWAC data
-% 2. Pippelinen. Standardi for NOWAC analyser.
-% 3. n=1, RNA-seq, ... og andre per-prosjekt-pipelines. Brukt for diverse
-% prosjekter.
-% 4. MIxT
-% 5. Kvik Pathways, ... og andre små visualiseringer
-% 6. Bidrag til forskjellige andre paper (den nature methods saken, etc)
-% ...Combined these demonstrate how the X approach has been used for a full....
-
-We have used the \gls{x} to implement both batch processing systems targeted at
-high-throughput analysis pipelines, as well as interactive data
-exploration systems for interactively exploring the results and emerging
-patterns from these analyses.  We discuss the different systems and areaswe have
-implemented. 
-
+    
 \textbf{Deep analysis pipelines}. 
 Analysis of high-throughput sequencing datasets requires deep analysis pipelines
 with a large number of steps that transform raw data into interpretable
@@ -242,6 +187,29 @@ information available through online databases. We have used Kvik to develop the
 \gls{mixt} system for exploring and comparing transcriptional profiles from
 blood and tumor samples in breast cancer patients. 
 
+
+\section{Systems Implemented with the X Model/approach/etc.} 
+% LAB: walrus, Kvik, etc syens jeg hører til i "The solution". Her ville jeg
+% heller beskrvet applications. Dvs hva er laget? hva slags problem løser den?
+% hva er det brukt til?
+% Dvs:
+% 1. NOWAC package (men merk at data managment challenges/limitations ikke er
+% nevnt før). Brukt til å få kontroll over NOWAC data
+% 2. Pippelinen. Standardi for NOWAC analyser.
+% 3. n=1, RNA-seq, ... og andre per-prosjekt-pipelines. Brukt for diverse
+% prosjekter.
+% 4. MIxT
+% 5. Kvik Pathways, ... og andre små visualiseringer
+% 6. Bidrag til forskjellige andre paper (den nature methods saken, etc)
+% ...Combined ....
+
+We have used the \gls{x} to implement both batch processing systems targeted at
+high-throughput analysis pipelines, as well as interactive data
+exploration systems for interactively exploring the results and emerging
+patterns from these analyses.  We discuss the different systems and areas we
+have implemented. 
+
+Combined these demonstrate how the X approach has been used for a full
 
 \section{Summary of Results} 
 
