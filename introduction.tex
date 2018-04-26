@@ -105,7 +105,7 @@ enable them to analyze and explore their datasets. From these systems we
 extraplolated a set of general design principles to form a unified approach. 
 We implement our approach thorugh a series of applications and tools built on
 top of a stack of open source systems with software containers as the common
-foundation.  We evaluate the approach through these systems using real datasets
+foundation. We evaluate the approach through these systems using real datasets
 and show its viability. 
 
 From a longer-term perspective we discuss the general patterns for implementing
@@ -141,12 +141,12 @@ analyze biological datasets, they current tools have several drawbacks:
         reuse parts of the application for other analyses or datasets. This
         leads to duplicate development effort and abandoned projects. 
     \item \textbf{Decoupling:} Data exploration tools are often decoupled from
-        the statistical analyses, making it a difficult exercise to document and
-        retrace the analyses behind the results. 
+        the statistical analyses. This often makes it a difficult exercise to
+        document and retrace the analyses behind the results. 
     \item \textbf{Complexity:} 
         Analyses that start as a simple script quickly become more difficult to
         maintain and develop as developers add new functionality to the
-        analyses.
+        analyses. % vet ikke med denne, mangler noe her. 
     \item \textbf{Reproducibility:} While there are tools for analyzing most
         data types today, there is little or no effort to fully document the
         entire pipeline from raw data to interpretable results. This includes
@@ -156,38 +156,88 @@ analyze biological datasets, they current tools have several drawbacks:
 
 % vet ikke helt as... 
 Because of these drawbacks, an approach for reproducible data analysis and
-exploration would have significant benefits in usability and 
-% LAB: transparency er nytt
-transparency of
-complex analyses of biological data.
+exploration would have significant benefits for the complex interpretation
+of biological datasets.
 
 \section{The X Model/approach/etc.} 
 % The Solution (?). Talk about the ideas behind building apps on top of
 % containers  
-% LAB: & how limiations are solved
+% LAB: & how limiations are solved|
+From the collaboration with researchers we have developed applications for two
+specific research areas. The first to explore the datasets of a large
+population-based research cohort. The second to analyze sequencing datasets for
+use in a precision medicne setting. Although these areas require widly different
+systems with different requirements, the systems share common design patterns.
+We discuss the different areas separately before highlighting the similarities. 
+
     
 \textbf{Deep analysis pipelines}. 
 Analysis of high-throughput sequencing datasets requires deep analysis pipelines
 with a large number of steps that transform raw data into interpretable
-results\cite{diao2015building}. We used our approach to implement walrus, a tool
+results\cite{diao2015building}. There are a large number of tools available to
+perform the different processing steps, written in a wide range of programming
+languages. The tools, and their dependencies, can be difficult to install, and
+they require users to correctly manage a range of input parameters that affects
+the output results. With these observations in mind we used software containers
+to package the tools we needed for our analyses, one tool per container image.
+This made it possible to share the container image between compute systems
+without installing any dependencies or additional packages. To keep track of
+input parameters as well as the flow of data in a pipeline we designed a
+text-based specification for analysis pipelines. This specification includes
+information such as input parameters and tool versions. 
+
+This approach was then implemented in walrus, a tool
 that lets users create and run analysis pipelines. In addition, it tracks full
 provenance of the input, intermediate, and output data, as well as tool
 parameters. With \emph{walrus} we have successfully built analysis pipelines to
-detect somatic mutations in breast cancer patients. 
+detect somatic mutations in breast cancer patients, as well as an \gls{rna}-seq
+pipeline for comparison with gene expression datasets. 
 
 \textbf{Interactive exploration}. Analysis pipelines and workflows typically
 require researchers to browse and explore the final output. In addition it may
 be useful to further explore results by modifying analysis parameters to execute
-new analyses.  To develop data exploration applications that interface with the
-underlying statistical analyses we have built \emph{Kvik}. Kvik allows
+new analyses. As with analysis pipelines there are complete exploration tools as
+well as software libraries to develop custom applications. The tools often
+require users to import already analyzed datasets but provide interactive
+visualizations and point-and-click interfaces to explore the data. Users with
+programming knowledge can use the wealth of software packages for visualization
+within languages such as R or Python. With a lot modern visualization libraries
+created for the web there are also possibilities to develop applications that
+target users on any platform. From these observations we wrote an interface to
+the R programming language, that would allow us to interface with the wealth of
+existing software packages for biological data analyses from a point-and-click
+application. New data exploration applications could access analyses directly
+through this interface, removing the previous decoupling between the two. In
+addition, to provide reproducible execution environments we also packaged into
+software containers that could be easily deployed and shared. 
+
+This approach was then implemented as a part of \emph{Kvik}, a collection of
+packages to develop new data exploration applications. Kvik allows
 applications written in any modern programming language to interface with the
 wealth of bioinformatics packages in the R programming language, as well as
 information available through online databases. We have used Kvik to develop the
 \gls{mixt} system for exploring and comparing transcriptional profiles from
-blood and tumor samples in breast cancer patients. 
+blood and tumor samples in breast cancer patients, in addition to applications
+for exploring biological pathways. 
+
+\textbf{Commonalities}. 
+Both approach to build analysis pipelines and to write interactive data
+exploration applications build on the same principles. In both areas we break
+down the systems in to smaller composable units, e.g. a tool, and package these
+into a software container which are then orchestrated together. These containers
+are configured and communicate using open protocols that make it possible to
+interface with them using any programming language. We can keep track of the
+configuration of the containers and their orchestration using software
+versioning systems, and provide the necessary information to reproduce analyses
+or a complete system. 
+
 
 
 \section{Systems Implemented with the X Model/approach/etc.} 
+In this section we detail the different systems we have developed using the
+approach. 
+
+
 % LAB: walrus, Kvik, etc syens jeg hører til i "The solution". Her ville jeg
 % heller beskrvet applications. Dvs hva er laget? hva slags problem løser den?
 % hva er det brukt til?
