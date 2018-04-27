@@ -170,7 +170,6 @@ use in a precision medicne setting. Although these areas require widly different
 systems with different requirements, the systems share common design patterns.
 We discuss the different areas separately before highlighting the similarities. 
 
-    
 \textbf{Deep analysis pipelines}. 
 Analysis of high-throughput sequencing datasets requires deep analysis pipelines
 with a large number of steps that transform raw data into interpretable
@@ -221,10 +220,10 @@ blood and tumor samples in breast cancer patients, in addition to applications
 for exploring biological pathways. 
 
 \textbf{Commonalities}. 
-Both approach to build analysis pipelines and to write interactive data
+Both approaches to build analysis pipelines and to write interactive data
 exploration applications build on the same principles. In both areas we break
 down the systems in to smaller composable units, e.g. a tool, and package these
-into a software container which are then orchestrated together. These containers
+into software containers which are then orchestrated together. These containers
 are configured and communicate using open protocols that make it possible to
 interface with them using any programming language. We can keep track of the
 configuration of the containers and their orchestration using software
@@ -234,8 +233,56 @@ or a complete system.
 
 
 \section{Systems Implemented with the X Model/approach/etc.} 
-In this section we detail the different systems we have developed using the
-approach. 
+In this section we detail the different systems we have built on top of walrus
+and Kvik. 
+
+The first system we built on top of walrus was a pipeline to analyze a patient’s
+primary tumor and adjacent normal tissue, including subsequent metastatic
+lesions.\cite{walrus} We packaged the necessary tools for the analyses into
+software containers and wrote a pipeline description with all the necessary data
+processing steps. Some of the steps required us to develop specialized scripts
+to generate customized plots, but these were also wrapped in a container. From
+the analyses we discovered, among other findings, inherited germline mutations
+that are recognized to be among the top 50 mutations associated with an
+increased risk of familial breast cancer.
+
+The second analysis pipeline we implemented was to enable comparison of a
+\gls{rna}-seq dataset to gene expression values collected from the same samples.
+The pipeline preprocesses the \gls{rna} dataset for all samples, and generates
+transcript quantifications. As with the first pipeline we used existing tools
+together with specialized analysis scripts packaged into a container to ensure
+that we could reproduce the execution environments. 
+
+The first interactive data exploration application we built was Kvik Pathways.
+It allows users to explore gene expression data from the \gls{nowac} cohort in
+the context of interactive pathway maps.\cite{pathways} It is a web application
+that integrates with the R programming language to provide an interface to the
+statistical analyses. We used Kvik Pathways to repeat the analyses in a previous
+published project\cite{olsen2013plasma} that compared gene expression in blood
+from healthy women with high and low plasma ratios of essential fatty acids. 
+
+From the first application it became apparent that we could reuse parts of the
+application in the implementation of later systems. In particular, the interface
+to run analyses as well as the integration with the online databases could be
+implemented as services, packaged into containers, and reused in the next
+application we developed. Both of these were designed and implemented in Kvik,
+which could then be used and shared later. 
+
+The second application we built the \gls{mixt} web application. A system to
+explore and compare transcriptional profiles from blood and tumor samples in
+breast cancer patients. The application is built to simplify the exploration of
+results from the Matched Interactions Across Tissues (MIxT) study. Its goal was
+to identify genes and pathways in the primary breast tumor that are tightly
+linked to genes and pathways in the patient blood
+cells.\cite{dumeaux2017interactions} The web application interfaces with the
+methods implemented as an R package and integrates the results together with
+information from biological databases through a simple user interface. 
+
+A third application we developed was a simple re-deployment of the \gls{mixt}
+web application. In this application we simply replaced the R package with a new
+package that interfaced with different data. All the other components are reused
+and highlights how flexible our approach is. 
+
 
 
 % LAB: walrus, Kvik, etc syens jeg hører til i "The solution". Her ville jeg
