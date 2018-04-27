@@ -219,7 +219,7 @@ information available through online databases. We have used Kvik to develop the
 blood and tumor samples in breast cancer patients, in addition to applications
 for exploring biological pathways. 
 
-\textbf{Commonalities}. 
+\textbf{Parallels}. 
 Both approaches to build analysis pipelines and to write interactive data
 exploration applications build on the same principles. In both areas we break
 down the systems in to smaller composable units, e.g. a tool, and package these
@@ -229,7 +229,6 @@ interface with them using any programming language. We can keep track of the
 configuration of the containers and their orchestration using software
 versioning systems, and provide the necessary information to reproduce analyses
 or a complete system. 
-
 
 
 \section{Systems Implemented with the X Model/approach/etc.} 
@@ -258,8 +257,8 @@ It allows users to explore gene expression data from the \gls{nowac} cohort in
 the context of interactive pathway maps.\cite{pathways} It is a web application
 that integrates with the R programming language to provide an interface to the
 statistical analyses. We used Kvik Pathways to repeat the analyses in a previous
-published project\cite{olsen2013plasma} that compared gene expression in blood
-from healthy women with high and low plasma ratios of essential fatty acids. 
+published project that compared gene expression in blood from healthy women with
+high and low plasma ratios of essential fatty acids.\cite{olsen2013plasma}
 
 From the first application it became apparent that we could reuse parts of the
 application in the implementation of later systems. In particular, the interface
@@ -279,33 +278,21 @@ methods implemented as an R package and integrates the results together with
 information from biological databases through a simple user interface. 
 
 A third application we developed was a simple re-deployment of the \gls{mixt}
-web application. In this application we simply replaced the R package with a new
-package that interfaced with different data. All the other components are reused
-and highlights how flexible our approach is. 
+web application with a new dataset. In this application we simply replaced the R
+package with a new package that interfaced with different data. All the other
+components are reused and highlights the flexibility of the approach. 
 
+Combined these systems and applications demonstrate how the X approach is useful
+for both batch processing of datasets, as well as interactive applications. 
 
+% Hvordan skal vi knytte inn de under her? Slik som disse systemene er nå er de
+% ikke implementert med samme "approach" som jeg har gjort de over. Eller, det
+% er jo R-pakker så det er greit, men vi snakker ikke containere. 
 
-% LAB: walrus, Kvik, etc syens jeg hører til i "The solution". Her ville jeg
-% heller beskrvet applications. Dvs hva er laget? hva slags problem løser den?
-% hva er det brukt til?
-% Dvs:
 % 1. NOWAC package (men merk at data managment challenges/limitations ikke er
 % nevnt før). Brukt til å få kontroll over NOWAC data
 % 2. Pippelinen. Standardi for NOWAC analyser.
-% 3. n=1, RNA-seq, ... og andre per-prosjekt-pipelines. Brukt for diverse
-% prosjekter.
-% 4. MIxT
-% 5. Kvik Pathways, ... og andre små visualiseringer
 % 6. Bidrag til forskjellige andre paper (den nature methods saken, etc)
-% ...Combined ....
-
-We have used the \gls{x} to implement both batch processing systems targeted at
-high-throughput analysis pipelines, as well as interactive data
-exploration systems for interactively exploring the results and emerging
-patterns from these analyses.  We discuss the different systems and areas we
-have implemented. 
-
-Combined these demonstrate how the X approach has been used for a full
 
 \section{Summary of Results} 
 
