@@ -3,7 +3,9 @@ There is a rapid growth in the number of available biological datasets due to
 the decreaseing cost of data collection. This brings opportunities to gain novel
 insights to the underlying biological mechanisms in the development and
 progression of diseases such as cancer, possibly leading to the development of
-novel diagnostic tests and drugs for treatment.  The wide range of different
+novel diagnostic tests 
+% or drugs
+and drugs for treatment.  The wide range of different
 biological datasets has led to the development of a wealth of software packages
 and systems to explore and analyze these datasets.  However, there are few tools
 toat are designed with the full analysis pipeline in mind, from raw data into
@@ -12,11 +14,17 @@ diseases, there is little emphasis on reporting and sharing information about
 tool versions, input parameters, and other information that can help others use
 the same known methods on their own datasets.  This leads to unneccesary
 difficilties to reuse known methods, and difficulties in reproducing analyses,
-which leads to longer analysis times and unrealized potential for scientific
+which leads to longer analysis times 
+% and therefore
+and unrealized potential for scientific
 insights.
 
 % challenge
-There are several computational challenges challenges for researchers to analyze
+There are several 
+% LAB: computational challenges in reducing the "analysis time". MEn analysis time høres ut som kjøretid.
+computational challenges 
+% LAB: er noe som er rart med språket her. Eventuelt er det bare jeg som synes det
+for researchers to analyze
 and explore biological datasets. These challenges are common for large datasets
 such as high-throughput sequencing data that require long-running, deep analysis
 pipelines, as well as smaller datasets, such as microarray data, that require
@@ -28,17 +36,20 @@ analyzing, and reporting analysis results to enable reproducible science. A
 third challenge is efficiently exploring the results of the analyses
 interactively. This includes developing tools that can efficiently visualize the
 heterogeneous datsets and integrate them with known biology from databases to
-provide necessary information for interpreting the results.  The final challenge
+provide necessary information for interpreting the results. The final challenge
 is reusing the analysis pipelines and exploration tools with new datasets,
 methods, and research questions. 
 
-
-As a result, there are a wealth of specialized approaches and systems to enable
+As a result, there are a wealth of specialized approaches and systems 
+% to enable -> to analyze complex
+to enable
 analysis of the complex biological data. To develop deep analysis pipelines in
 bioinformatics, Galaxy\cite{galaxy} has for a long time provided a simple
 interface to set up and execute analysis pipelines for genomic datasets.
 However, the Galaxy system is less effective for explorative and flexible
-analyses where it is necessary to try out different tools with different
+analyses where it is necessary 
+% LAB: Ikke helt sikker på om jeg er enig i at dette er vanskelig. Er ett tools først i Galaxy toolshed tror jeg det er forholdsvis enkelt å teste forskjellige konfigurasjoner. Jeg mener det store problement med Galaxy, og grunnen til at mange ikke bruker det inkludert oss, er at det er vanskelig å skrive nye tools. Det er ett viktig poeng å få frem siden en av de gode tingene her er at R er så godt støttet.
+to try out different tools with different
 configurations.\cite{spjuth2015experiences} New initiatives such as the
 \gls{cwl} provide users a standardized way of describing and sharing an analysis
 pipeline, and has multiple implementations such as the reference implementation
@@ -48,7 +59,7 @@ and AWE.\cite{awe}
 While these systems provide a viable option for batch-processing of
 large biological datasets, researchers with smaller datasets at hand, can
 analyze and explore them through interactive languages and interpreters such as
-Python or the  R programming language.  Through the package repository
+Python or the  R programming language. Through the package repository
 Bioconductor, there are a wide range of R packages to analyze biological
 datasets. These include tools for both analyzing and visualizing the datasets.
 For users with little or no programming experience it is possible to access and
@@ -72,20 +83,26 @@ of biological data requires a wide array of different tools and systems.
 % our solution
 This dissertation argues that, instead, we can design a unified approach that
 integrates disperate systems and data into fully reproducible biological data
-analysis frameworks.  In particular, we show how software container technologies
+analysis frameworks. In particular, we show how software container technologies
 together with well-defined interfaces, configurations, and orchestration provide
 the necessary foundation to build reproducible analysis pipelines for biological
-datasets, as well as highly interactive data exploration applications. 
+datasets, as well as highly interactive data exploration applications.
+% LAB: Synes du at poengene med "easy to develop" og "specialized analyzes" bør være med? Enten her, eller i listen nedenfor.
 
 The resulting approach as several key advantages when implementing systems to
 analyze and explore biological data:
+% LAB: Alle advantages (andre setning) er skrevet for utviklere. Men hva er fordelen for sluttbrukere?
 \begin{itemize} 
     \item It enables reproducible research by packaging applications
         and tools within containerized environments. This enables sharing of
-        tools and simplifies the tedious task of installing specific tools. 
+        tools and simplifies 
+        % LAB: tedious er ett problem. Ett annet er at det sikrer at rett versjon av en pipeline er innstalert. Dette er særlig viktig i feks META-pipe, men også for medisinske diagnoser
+        the tedious task of installing specific tools. 
 
-    \item It simplifies the sharing of analysis pielines and workflows across
-        different research teams and systems. This shortens the
+    \item It simplifies the sharing of analysis pipelines and workflows across
+        different research teams and systems. 
+        % LAB: Jeg og mange andre ser ikke hvofor dette shortens...
+        This shortens the
         time-to-interpretation for biological datasets. 
 
     \item It enables applications to use tools written in any programming
@@ -109,9 +126,13 @@ foundation. We evaluate the approach through these systems using real datasets
 and show its viability. 
 
 From a longer-term perspective we discuss the general patterns for implementing
-modern data analysis systems for use in precision medicine and dicuss why our
+modern data analysis systems for use 
+% LAB: var veldig spesifisert long-term perspektive, kanskje bedre med en such as prec. med.
+in precision medicine and dicuss why our
 approach is a suitable option. As more datasets are produced every year,
-research will depend on systems being easy to pick up, and provide the necessary
+research will depend on systems being 
+% LAB: hva er easy to pick up i systems context?
+easy to pick up, and provide the necessary
 functionality to reproduce and share the analysis pipelines. 
 
 \emph{Thesis statement}:
@@ -129,6 +150,7 @@ building analysis pipelines in bioinformatics.
 For exploring biological data there are a range of tools, such as
 Cytoscape\cite{cytoscape} and Circos\cite{circos},
 % more tools? other tools? 
+% LAB: virker som Snakemake er populært ihvertfall på NTNU, men også andre steder
 that support importing an already-analyzed dataset to visualize and browse the
 data. 
 
@@ -141,29 +163,41 @@ analyze biological datasets, they current tools have several drawbacks:
         reuse parts of the application for other analyses or datasets. This
         leads to duplicate development effort and abandoned projects. 
     \item \textbf{Decoupling:} Data exploration tools are often decoupled from
-        the statistical analyses. This often makes it a difficult exercise to
+        the statistical analyses. This often makes it a difficult 
+        % LAB: kutt exercise
+        exercise to
         document and retrace the analyses behind the results. 
     \item \textbf{Complexity:} 
-        Analyses that start as a simple script quickly become more difficult to
+        Analyses that start as a simple script quickly become more 
+        % difficult -> complex
+        difficult to
         maintain and develop as developers add new functionality to the
         analyses. % vet ikke med denne, mangler noe her. 
+        % LAB: kan stjele argumentasjon fra ADAM paperet der de kritiserer "monolothic" bio applikasjoner. Eller fra Tanenbaum vs Linus.
     \item \textbf{Reproducibility:} While there are tools for analyzing most
         data types today, there is little or no effort to fully document the
-        entire pipeline from raw data to interpretable results. This includes
+        entire 
+        % LAB: pipeline blir feil her siden du også inkluderer interpretation. Som er ett viktig poeng.
+        pipeline from raw data to interpretable results. This includes
         tool versions, parameters, data, and databases. This makes analysis
         results difficult to reproduce. 
 \end{enumerate} 
 
 % vet ikke helt as... 
+% LAB: unified approach, men uten reproducible
 Because of these drawbacks, an approach for reproducible data analysis and
-exploration would have significant benefits for the complex interpretation
+exploration would have significant benefits for the 
+% LAB: Fra første paragraf i intro: "...which leads to longer analysis times and unrealized potential for scientific insights.". Forhåpentligvis vil "the approach" hjelpe på dette
+complex interpretation
 of biological datasets.
 
 \section{The X Model/approach/etc.} 
 % The Solution (?). Talk about the ideas behind building apps on top of
 % containers  
 % LAB: & how limiations are solved|
-From the collaboration with researchers we have developed applications for two
+From the collaboration with 
+% LAB: hva slags researchers
+researchers we have developed applications for two
 specific research areas. The first to explore the datasets of a large
 population-based research cohort. The second to analyze sequencing datasets for
 use in a precision medicne setting. Although these areas require widly different
