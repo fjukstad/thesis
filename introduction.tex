@@ -21,9 +21,11 @@ insights.
 
 % challenge
 There are several 
-% LAB: computational challenges in reducing the "analysis time". MEn analysis time høres ut som kjøretid.
+% LAB: computational challenges in reducing the "analysis time". MEn analysis
+% time høres ut som kjøretid.
 computational challenges 
-% LAB: er noe som er rart med språket her. Eventuelt er det bare jeg som synes det
+% LAB: er noe som er rart med språket her. Eventuelt er det bare jeg som synes
+% det
 for researchers to analyze
 and explore biological datasets. These challenges are common for large datasets
 such as high-throughput sequencing data that require long-running, deep analysis
@@ -48,7 +50,12 @@ bioinformatics, Galaxy\cite{galaxy} has for a long time provided a simple
 interface to set up and execute analysis pipelines for genomic datasets.
 However, the Galaxy system is less effective for explorative and flexible
 analyses where it is necessary 
-% LAB: Ikke helt sikker på om jeg er enig i at dette er vanskelig. Er ett tools først i Galaxy toolshed tror jeg det er forholdsvis enkelt å teste forskjellige konfigurasjoner. Jeg mener det store problement med Galaxy, og grunnen til at mange ikke bruker det inkludert oss, er at det er vanskelig å skrive nye tools. Det er ett viktig poeng å få frem siden en av de gode tingene her er at R er så godt støttet.
+% LAB: Ikke helt sikker på om jeg er enig i at dette er vanskelig. Er ett tools
+% først i Galaxy toolshed tror jeg det er forholdsvis enkelt å teste
+% forskjellige konfigurasjoner. Jeg mener det store problement med Galaxy, og
+% grunnen til at mange ikke bruker det inkludert oss, er at det er vanskelig å
+% skrive nye tools. Det er ett viktig poeng å få frem siden en av de gode
+% tingene her er at R er så godt støttet.
 to try out different tools with different
 configurations.\cite{spjuth2015experiences} New initiatives such as the
 \gls{cwl} provide users a standardized way of describing and sharing an analysis
@@ -87,16 +94,20 @@ analysis frameworks. In particular, we show how software container technologies
 together with well-defined interfaces, configurations, and orchestration provide
 the necessary foundation to build reproducible analysis pipelines for biological
 datasets, as well as highly interactive data exploration applications.
-% LAB: Synes du at poengene med "easy to develop" og "specialized analyzes" bør være med? Enten her, eller i listen nedenfor.
+% LAB: Synes du at poengene med "easy to develop" og "specialized analyzes" bør
+% være med? Enten her, eller i listen nedenfor.
 
 The resulting approach as several key advantages when implementing systems to
 analyze and explore biological data:
-% LAB: Alle advantages (andre setning) er skrevet for utviklere. Men hva er fordelen for sluttbrukere?
+% LAB: Alle advantages (andre setning) er skrevet for utviklere. Men hva er
+% fordelen for sluttbrukere?
 \begin{itemize} 
     \item It enables reproducible research by packaging applications
         and tools within containerized environments. This enables sharing of
         tools and simplifies 
-        % LAB: tedious er ett problem. Ett annet er at det sikrer at rett versjon av en pipeline er innstalert. Dette er særlig viktig i feks META-pipe, men også for medisinske diagnoser
+        % LAB: tedious er ett problem. Ett annet er at det sikrer at rett
+        % versjon av en pipeline er innstalert. Dette er særlig viktig i feks
+        % META-pipe, men også for medisinske diagnoser
         the tedious task of installing specific tools. 
 
     \item It simplifies the sharing of analysis pipelines and workflows across
@@ -127,7 +138,8 @@ and show its viability.
 
 From a longer-term perspective we discuss the general patterns for implementing
 modern data analysis systems for use 
-% LAB: var veldig spesifisert long-term perspektive, kanskje bedre med en such as prec. med.
+% LAB: var veldig spesifisert long-term perspektive, kanskje bedre med en such
+% as prec. med.
 in precision medicine and dicuss why our
 approach is a suitable option. As more datasets are produced every year,
 research will depend on systems being 
@@ -150,7 +162,8 @@ building analysis pipelines in bioinformatics.
 For exploring biological data there are a range of tools, such as
 Cytoscape\cite{cytoscape} and Circos\cite{circos},
 % more tools? other tools? 
-% LAB: virker som Snakemake er populært ihvertfall på NTNU, men også andre steder
+% LAB: virker som Snakemake er populært ihvertfall på NTNU, men også andre
+% steder
 that support importing an already-analyzed dataset to visualize and browse the
 data. 
 
@@ -173,11 +186,13 @@ analyze biological datasets, they current tools have several drawbacks:
         difficult to
         maintain and develop as developers add new functionality to the
         analyses. % vet ikke med denne, mangler noe her. 
-        % LAB: kan stjele argumentasjon fra ADAM paperet der de kritiserer "monolothic" bio applikasjoner. Eller fra Tanenbaum vs Linus.
+        % LAB: kan stjele argumentasjon fra ADAM paperet der de kritiserer
+        % "monolothic" bio applikasjoner. Eller fra Tanenbaum vs Linus.
     \item \textbf{Reproducibility:} While there are tools for analyzing most
         data types today, there is little or no effort to fully document the
         entire 
-        % LAB: pipeline blir feil her siden du også inkluderer interpretation. Som er ett viktig poeng.
+        % LAB: pipeline blir feil her siden du også inkluderer interpretation.
+        % Som er ett viktig poeng.
         pipeline from raw data to interpretable results. This includes
         tool versions, parameters, data, and databases. This makes analysis
         results difficult to reproduce. 
@@ -187,7 +202,9 @@ analyze biological datasets, they current tools have several drawbacks:
 % LAB: unified approach, men uten reproducible
 Because of these drawbacks, an approach for reproducible data analysis and
 exploration would have significant benefits for the 
-% LAB: Fra første paragraf i intro: "...which leads to longer analysis times and unrealized potential for scientific insights.". Forhåpentligvis vil "the approach" hjelpe på dette
+% LAB: Fra første paragraf i intro: "...which leads to longer analysis times and
+% unrealized potential for scientific insights.". Forhåpentligvis vil "the
+% approach" hjelpe på dette
 complex interpretation
 of biological datasets.
 
