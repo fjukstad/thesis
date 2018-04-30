@@ -209,12 +209,22 @@ complex interpretation
 of biological datasets.
 
 \section{The X Model/approach/etc.} 
+
+% LAB: Jeg synes dette (kopiert ovenfor) blir litt borte her:
+% ... From these systems we
+% extraplolated a set of general design principles to form a unified approach. 
+% We implement our approach thorugh a series of applications and tools built on
+% top of a stack of open source systems with software containers as the common
+% foundation. We evaluate the approach through these systems using real datasets
+% and show its viability. 
+
 % The Solution (?). Talk about the ideas behind building apps on top of
 % containers  
 % LAB: & how limiations are solved|
 From the collaboration with 
 % LAB: hva slags researchers
 researchers we have developed applications for two
+% LAB: skjønner hvordan du tenker. Men resesrch areas blir for bredt. Er use cases bedre? 
 specific research areas. The first to explore the datasets of a large
 population-based research cohort. The second to analyze sequencing datasets for
 use in a precision medicne setting. Although these areas require widly different
@@ -222,6 +232,7 @@ systems with different requirements, the systems share common design patterns.
 We discuss the different areas separately before highlighting the similarities. 
 
 \textbf{Deep analysis pipelines}. 
+
 Analysis of high-throughput sequencing datasets requires deep analysis pipelines
 with a large number of steps that transform raw data into interpretable
 results\cite{diao2015building}. There are a large number of tools available to
@@ -243,6 +254,7 @@ parameters. With \emph{walrus} we have successfully built analysis pipelines to
 detect somatic mutations in breast cancer patients, as well as an \gls{rna}-seq
 pipeline for comparison with gene expression datasets. 
 
+% LAB: Noe gjentagelser. Blant annet "interface to R" som blir sagt 3 ganger
 \textbf{Interactive exploration}. Analysis pipelines and workflows typically
 require researchers to browse and explore the final output. In addition it may
 be useful to further explore results by modifying analysis parameters to execute
@@ -286,6 +298,7 @@ or a complete system.
 In this section we detail the different systems we have built on top of walrus
 and Kvik. 
 
+% LAB: Kommer ikke frem at dette ble gjort som en del av behandling
 The first system we built on top of walrus was a pipeline to analyze a patient’s
 primary tumor and adjacent normal tissue, including subsequent metastatic
 lesions.\cite{walrus} We packaged the necessary tools for the analyses into
@@ -297,11 +310,15 @@ that are recognized to be among the top 50 mutations associated with an
 increased risk of familial breast cancer.
 
 The second analysis pipeline we implemented was to enable comparison of a
-\gls{rna}-seq dataset to gene expression values collected from the same samples.
+\gls{rna}-seq dataset to 
+% LAB: microarray
+gene expression values collected from the same samples.
 The pipeline preprocesses the \gls{rna} dataset for all samples, and generates
 transcript quantifications. As with the first pipeline we used existing tools
 together with specialized analysis scripts packaged into a container to ensure
 that we could reproduce the execution environments. 
+
+%  LAB: Hva med Pippelinen?
 
 The first interactive data exploration application we built was Kvik Pathways.
 It allows users to explore gene expression data from the \gls{nowac} cohort in
@@ -333,6 +350,7 @@ web application with a new dataset. In this application we simply replaced the R
 package with a new package that interfaced with different data. All the other
 components are reused and highlights the flexibility of the approach. 
 
+% LAB: Her synes jeg du kan si noe om at disse 5 (6) demonstrerer nytten av prinsippene i forrige del-kapittel
 Combined these systems and applications demonstrate how the X approach is useful
 for both batch processing of datasets, as well as interactive applications. 
 
@@ -347,10 +365,12 @@ for both batch processing of datasets, as well as interactive applications.
 
 \section{Summary of Results} 
 
-
+% LAB: De vitigste resultatene fra paprene
 
 \section{List of papers} 
-This section contains a list of papers along with short descriptions and my
+This section contains a list of papers along with short descriptions and 
+% -> my contributions 
+my
 personal contribution to each paper. 
 \capstartfalse
 \begin{table}[H]
