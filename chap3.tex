@@ -1,0 +1,36 @@
+In this chapter we discuss our approach to analyzing high-throughput genomic
+datasets through deep analysis pipelines, and its implementation in 
+walrus.\cite{walrus} We also evaluate the performance of walrus and show its
+usefulness in a precision medicine setting. 
+
+\section{Use Case and Motivation} 
+For cancer, high throughput sequencing is the main technology to facilitate
+personalized diagnosis and treatment since it enables collecting high quality
+genomic data from patients at a low cost. 
+Analyzing sequencing datasets require deep analysis pipelines with a large
+number of steps that transform raw data into interpretable
+results.\cite{diao2015building} These pipelines often consists of in-house or
+third party tools and scripts that each transform input files and produce some
+output. Although different tools exist, it is necessary to carefully explore
+different tools and parameters to choose the most efficient to apply for a
+dedicated question.\cite{servant2014bioinformatics} The complexity of the tools
+vary from toolkits such as the \gls{gatk} to small custom \emph{bash} or
+\emph{R} scripts.  In addition some tools interface with databases whose
+versions and content will impact the overall result.\cite{sboner2015primer}
+
+When developing analysis pipelines for use in precision medicine it is necessary
+to track pipeline tool versions, their input parameters, and data. Both to
+thoroughly document what produced the end results, but also to compare results
+from different pipeline runs.  Because of the iterative process of developing
+the analysis pipeline, thoroughly investigating emerging patterns and
+signatures, it is necessary to use analysis tools that facilitates modifying
+pipeline steps and adding new ones with little developer effort. 
+
+We have previously analyzed DNA sequence data from a breast cancer patient's
+primary tumor and adjacent normal cells to identify the molecular signature of
+the patient's tumor and germline. When the patient later relapsed we analyzed
+sequence data from the patient's metastasis to provide an extensive comparison
+against the primary and to identify the molecular drivers of the patient's
+tumor. 
+
+
