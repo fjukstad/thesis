@@ -427,6 +427,23 @@ step is the correct approach to truly reproducible data analysis pipelines.
 The reason we did not use Kubernetes and Pachyderm was that it was not available
 on the required in-house compute infrastructure.  
 
+As discussed in \cite{NIK}, recent projects propose to use containers for life
+science research. The BioContainers\cite{biocontainers} and
+Bioboxes\cite{belmann2015bioboxes} projects addresses the challenge of
+installing bioinformatics data analysis tools by maintaining a repository of
+docker containers for commonly used data analysis tools.  
+Docker containers are shown to have better than, or equal performance as
+VMs.\cite{di2015impact} Both forms of virtualization techniques introduce
+overhead in I/O-intensive workloads, especially in VMs, but introduce negligible
+CPU and memory overhead.  For genomics pipelines the overhead of Docker
+containers will be negligible since these tend to be compute intensive and they
+typically run for several hours \cite{di2015impact}
+Containers have also been proposed as a solution to improve experiment
+reproducibility, by ensuring that the data analysis tools are installed with
+the same responsibilities.\cite{boettiger2015introduction} 
+
+
+
 \section{Discussion}
 Precision medicine requires flexible analysis pipelines that allow researchers
 to explore different tools and parameters to analyze their data. While there are
