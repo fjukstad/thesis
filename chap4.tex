@@ -2,7 +2,9 @@ In this chapter we outline our approach for building interactive data
 exploration applications. We demonstrate the usefulness of the approach through
 a set of different applications for exploring transcriptional profiles from the
 \gls{nowac} cohort. While these are specialized applications, we show how the
-design patterns and ideas can be used in a wide range of disciplines. 
+design patterns and ideas can be used in a wide range of disciplines. We have
+developed the approach from implementing a set of applications, and outline how
+our experience has shaped it. 
 
 \section{Data and Tools} 
 In recent years the biological community has  generated  an unprecedented amount
@@ -48,6 +50,26 @@ between the programming languages and tools.
 
 
 \section{Motivating Examples}
+
+\subsection{Kvik Pathways} 
+The aim of the first application was a to simplify the exploration of the
+results from a previous published project (\cite{olsen2013plasma}, doi:
+10.1371/journal.pone.0067270) that compared gene expression in blood from
+healthy women with high and low plasma ratios of essential fatty acids.  Gene
+expression differences where assessed and determined that there were 184
+differentially expressed genes. When exploring this list of 184 genes,
+functional information was retrieved from GeneCards and other repositories, and
+the list was analyzed for overlap with known pathways using MSigDB (available
+online at
+\href{broadinstitute.org/gsea/msigdb}{broadinstitute.org/gsea/msigdb}). The
+researchers had to manually maintain overview of single genes, gene networks or
+pathways, and gather functional information gene by gene while assessing
+differences in gene expression levels.  With this approach, researchers are
+limited by manual capacity, and the results may be prone to researcher bias.
+
+
+
+
 \subsection{Matched Interactions Across Tissues (MIxT)}
 The aim of the Matched Interactions Across Tissues (MIxT) study was to identify
 genes and pathways in the primary breast tumor that are tightly linked to genes
@@ -68,60 +90,9 @@ make the results more easily accessible we built a web application that
 interfaces with the R package, but also online databases to retrieve relevant
 metadata. To make it possible to easily update or re-implement parts of the
 system without effecting the entire application, it was developed using a
-microservice architecture.  The software containers allowed the application to
+microservice architecture. The software containers allowed the application to
 be deployed on a wide range of hardware, from local installations to cloud
 systems.
-
-\subsection{Kvik Pathways} 
-We used Kvik Pathways to repeat the analyses in a previous published project
-(\cite{olsen2013plasma}, doi: 10.1371/journal.pone.0067270) that compared 
-gene expression in blood from healthy
-women with high and low plasma ratios of essential fatty acids. Gene
-expression differences between groups were assessed using $t$-tests
-($p$-values adjusted with the Benjamini-Hochberg method). There were 184
-differentially expressed genes significant on the 5\% level. When exploring
-this gene list originally, functional information was retrieved from
-GeneCards and other repositories, and the list was analyzed for overlap with
-known pathways using MSigDB (available online at \href{broadinstitute.org/gsea/msigdb}{broadinstitute.org/gsea/msigdb}). The
-researchers had to manually maintain overview of single genes, gene networks
-or pathways, and gather functional information gene by gene while assessing
-differences in gene expression levels.  With this approach, researchers are
-limited by manual capacity, and the results may be prone to researcher bias.
-Kvik Pathways eliminates this researcher bias and does not limit the information
-retrieval to a researcher's manual capacity. 
-
-Initially, Kvik Pathways was implemented to explore gene expression data
-from a not yet published dataset.  To use Kvik Pathways to explore the data
-from the analyses in \cite{olsen2013plasma}, we only needed to make small
-modifications to the analysis R script used by the Data Engine. (The modified R
-script is found at
-\href{github.com/fjukstad/kvik/dataengine/data-engine.r}{github.com/fjukstad/kvik/dataengine/data-engine.r}).
-Instead of loading the unpublished dataset, we could load the dataset from
-\cite{olsen2013plasma} and use the four functions that are accessible over RPC (Table 1
-shows the HTTP API which uses the underlying RPCs).
-Currently this script is less than 30 lines, consisting of four functions to
-retrieve data and a simple initialization step that reads the dataset. 
-%These
-%functions are: $get(genes)$, $genes()$, $fc(genes)$ and $pvalues(genes)$.
-%$get(genes)$ retrieves all information available for the given genes. $genes()$
-%returns a list of all of the genes in the dataset. $fc(genes)$ returns the
-%fold change for the selected genes. $pvalues(genes)$ returns the $p$-values
-%for the given genes. 
-Researchers only
-have to modify these four functions to enable exploration of new datasets. As of 
-the current implementation of Kvik Pathways researchers have to modify the analysis script 	
-outside the application.
-
-As an example of practical use of Kvik Pathways, we chose one of the
-significant pathways from the overlap analysis, the renin-angiotensin
-pathway (Supplementary table S5 in \cite{olsen2013plasma}). The pathway
-contains 17 genes, and in the pathway map we could instantly identify the
-two genes that drive this result. The color of the gene nodes in the pathway
-map indicates the fold change, and the statistical significance level is
-indicated by the color of the node's frame.  We use this image of a
-biological process to see how these two genes (and their expression levels)
-are related to other genes in that pathway, giving a biologically more
-meaningful context as compared to merely seeing the two genes on a list.
 
 \section{Experience and observations} 
 
@@ -388,6 +359,39 @@ ad hoc, when the analyses change, researchers get an updated application by
 simply refreshing the Kvik Pathways webpage. 
 
 
+Initially, Kvik Pathways was implemented to explore gene expression data
+from a not yet published dataset. To use Kvik Pathways to explore the data
+from the analyses in \cite{olsen2013plasma}, we only needed to make small
+modifications to the analysis R script used by the Data Engine. (The modified R
+script is found at
+\href{github.com/fjukstad/kvik/dataengine/data-engine.r}{github.com/fjukstad/kvik/dataengine/data-engine.r}).
+Instead of loading the unpublished dataset, we could load the dataset from
+\cite{olsen2013plasma} and use the four functions that are accessible over RPC (Table 1
+shows the HTTP API which uses the underlying RPCs).
+Currently this script is less than 30 lines, consisting of four functions to
+retrieve data and a simple initialization step that reads the dataset. 
+%These
+%functions are: $get(genes)$, $genes()$, $fc(genes)$ and $pvalues(genes)$.
+%$get(genes)$ retrieves all information available for the given genes. $genes()$
+%returns a list of all of the genes in the dataset. $fc(genes)$ returns the
+%fold change for the selected genes. $pvalues(genes)$ returns the $p$-values
+%for the given genes. 
+Researchers only
+have to modify these four functions to enable exploration of new datasets. As of 
+the current implementation of Kvik Pathways researchers have to modify the analysis script 	
+outside the application.
+
+\subsubsection{Use Case}
+As an example of practical use of Kvik Pathways, we chose one of the
+significant pathways from the overlap analysis, the renin-angiotensin
+pathway (Supplementary table S5 in \cite{olsen2013plasma}). The pathway
+contains 17 genes, and in the pathway map we could instantly identify the
+two genes that drive this result. The color of the gene nodes in the pathway
+map indicates the fold change, and the statistical significance level is
+indicated by the color of the node's frame.  We use this image of a
+biological process to see how these two genes (and their expression levels)
+are related to other genes in that pathway, giving a biologically more
+meaningful context as compared to merely seeing the two genes on a list.
 
 We used the experience building Kvik Pathways to completely re-design and
 re-implement the R interface in Kvik. From having an R server that can run a
