@@ -362,12 +362,15 @@ for both batch processing of datasets, as well as interactive applications.
 % 6. Bidrag til forskjellige andre paper (den nature methods saken, etc)
 
 \section{Summary of Results} 
-% LAB: De vitigste resultatene fra paprene
+% LAB: En figur eller to ville gjort seg her. Men av hva? Screenshot av MIxT? Noen performance grafer? Screenshot av Pippelinen? Walrus i bruke for å oppdage "zero reads" issue? Eller hva med en figur av alle: dvs nowac package -> Pippelinen i walurs -> MIxT i Kvik -> n=1 casen?
 
 We show the viability of our approach through real-world applications in systems
 epidemiology and precision medicine. We show that our approach for building
 interactive data exploration application, implemented in Kvik, provides the
-necessary interfaces as well as better performance than other related tools. We
+% LAB: necessary for hva?
+necessary interfaces as well as better performance than other related tools. 
+% LAB: Her er det andre gang "our approach" er implementert. Også likte jeg strukturen for Kvik bedre (our approach for...Kvik...provides...)
+We
 show that walrus, the implementation of our approach, is suitable for analyzing
 precision medicine datasets and we show that the additional steps to track data
 provenance does not impose .. overhead. 
@@ -378,10 +381,13 @@ discover \glspl{snp}, genomic variants and somatic mutations. Using walrus to
 analyze a dataset added 10\% to the runtime and doubled the space requirements,
 but reduced days of compute time down to seconds when restoring a previous
 pipeline configuration. 
+% LAB: mulig å si noe om RNA-seq problemene her? Dvs vi brukte approach til å finne ut av "zero reads" problemet?
 
 We have used the packages in Kvik to develop a web application, MIxT
 blood-tumor, for exploring and comparing transcriptional profiles from blood and
-tumor samples in breast cancer patients. In addition we have used it to build an
+tumor samples in breast cancer patients. 
+% LAB: mulig å nevne "den andre" MIxT?
+In addition we have used it to build an
 application to explore gene expression data in the context of biological
 pathways. We show that developing an application using a microservice approach
 allows us to reduce database query times down to 90\%, and that we can provide
@@ -391,6 +397,7 @@ alternative approaches.
 Together the results show that our approach can be used to enable reproducible
 data analysis and exploration of high-throughput biological datasets while still
 providing the required performance. 
+% LAB: jeg savner "easy/ quickly" biten
 
 \section{List of papers} 
 This section contains a list of papers along with short descriptions and my
