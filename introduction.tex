@@ -39,9 +39,7 @@ is reusing the analysis pipelines and exploration tools with new datasets,
 methods, and research questions. 
 
 As a result, there are a wealth of specialized approaches and systems 
-% to enable -> to analyze complex
-to enable
-analysis of the complex biological data. To develop deep analysis pipelines in
+to analyze complex biological data. To develop deep analysis pipelines in
 bioinformatics, Galaxy\cite{galaxy} has for a long time provided a simple
 interface to set up and execute analysis pipelines for genomic datasets.
 However, the Galaxy system is less effective for explorative and flexible
@@ -172,14 +170,10 @@ analyze biological datasets, they current tools have several drawbacks:
         reuse parts of the application for other analyses or datasets. This
         leads to duplicate development effort and abandoned projects. 
     \item \textbf{Decoupling:} Data exploration tools are often decoupled from
-        the statistical analyses. This often makes it a difficult 
-        % LAB: kutt exercise
-        exercise to
-        document and retrace the analyses behind the results. 
+        the statistical analyses. This often makes it a difficult to document
+        and retrace the analyses behind the results. 
     \item \textbf{Complexity:} 
-        Analyses that start as a simple script quickly become more 
-        % difficult -> complex
-        difficult to
+        Analyses that start as a simple script quickly become more complex to
         maintain and develop as developers add new functionality to the
         analyses. % vet ikke med denne, mangler noe her. 
         % LAB: kan stjele argumentasjon fra ADAM paperet der de kritiserer
@@ -217,19 +211,37 @@ of biological datasets.
 % The Solution (?). Talk about the ideas behind building apps on top of
 % containers  
 % LAB: & how limiations are solved|
-From the collaboration with 
-% LAB: hva slags researchers
-researchers we have developed applications for two
-% LAB: skjønner hvordan du tenker. Men resesrch areas blir for bredt. Er use
-% cases bedre? 
-specific research areas. The first to explore the datasets of a large
-population-based research cohort. The second to analyze sequencing datasets for
-use in a precision medicne setting. Although these areas require widly different
-systems with different requirements, the systems share common design patterns.
+From the collaboration with researchers in systems epidemiology and biology we
+have developed applications for two specific use cases. The first to manage and
+standardize the analysis of datasets from a large population-based cohort.  The
+second to enable interactive exploration of these datasets.  The third to
+analyze sequencing datasets for use in a precision medicne setting. Although
+these areas require widely different systems with different requirements, the
+systems share common design patterns.  Figure \ref{overview-fig} shows the
+applications we have developed and the underlying infrastructure. 
+
+\begin{figure}
+\includegraphics[width=\textwidth]{figures/overall-arch.pdf}
+    \caption{The applications and their underlying systems discussed in this
+    thesis. } 
+    \label{overview-fig}
+\end{figure} 
+
 We discuss the different areas separately before highlighting the similarities. 
 
-\textbf{Deep analysis pipelines}. 
+\textbf{Data Management and Analyzes}. 
+Modern research studies are now able to collect biological datasets due to the
+decreasing data collection costs. These often span multiple biological levels,
+i.e. different data types and collection sites. In addition, the biological data
+are often integrated with questionnaire data and public registries. 
 
+This approach was then implemented as the \gls{nowac} package in the R
+programming language, a collection of utility functions and analysis-ready
+datasets from the \gls{nowac} cohort. 
+
+and the \gls{nowac} Pippeline 
+
+\textbf{Deep analysis pipelines}. 
 Analysis of high-throughput sequencing datasets requires deep analysis pipelines
 with a large number of steps that transform raw data into interpretable
 results\cite{diao2015building}. There are a large number of tools available to

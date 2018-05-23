@@ -1,6 +1,5 @@
 From the discovery of the \gls{dna} structure by Watson and Crick in
-1953\cite{watson1953molecular} to
-the sequencing of the human genome in 2001
+1953\cite{watson1953molecular} to the sequencing of the human genome in 2001
 \cite{venter2001sequence,international2001initial} and the massively parallel
 sequencing platforms in the later years[6], the scientific advances have been
 tremendous. Today, single week-long sequencing runs can produce as much data as
@@ -17,7 +16,6 @@ data generation and to interpretation of results.
 \gls{dna} sequencing is the process of determining the order of nucleotides
 within a strand of \gls{dna}. 
 
-
 Precision medicine uses patient-specific molecular information to diagnose and
 categorize disease to tailor treatment to improve health
 outcome.\cite{national2011toward} Important research goal in precision medicine
@@ -31,16 +29,66 @@ sequencing is the main technology to facilitate personalized diagnosis and
 treatment since it enables collecting high quality genomic data from patients
 at a low cost. 
 
-\subsection{Norwegian Women and Cancer} 
-The \gls{nowac} systems epidemiology research project is a study designed to
-identify the possible relationships between lifestyle and the risk of cancer.
-It started its data collection in 1991. In 2006 the study contained
-questionnaire information from over 170 000 women. Since then the data
-collection started in 1998, the \gls{nowac} postgenome biobank has grown to over
-60 000 blood samples and 800 biopsies that have been, or will be, analyzed using
-whole-genome gene expression analysis tools. Additionally the biobank contains
-information about exposure through questionnaires answered by the participants
-of the study.
+\subsection{Sequencing} 
+TODO: What is sequencing data, how is it obtained and what does it look like. 
+\subsection{Gene expression} 
+TODO: What is gene expression, how is it obtained, and what does it look like.
+
+\section{Norwegian Women and Cancer} 
+The \gls{nowac} study is a prospective population-based cohort that tracks 34\%
+of all Norwegian women born between 1943–57.\cite{lund2007cohort} We started the
+data collection in \gls{nowac} in 1991 with questionnaires to cover, among
+others, the use of oral contraceptives and hormonal replacement therapy,
+reproductive history, smoking, physical activity, breast cancer, and breast
+cancer in the family.  We also integrate the Norwegian Cancer Registry, the
+register of the National Mammographic Screening Program, and the register of
+death certificates in Statistics Norway.  In addition to the questionnaire data,
+the \gls{nowac} biobank now contain blood samples from 50 000 women, as well as
+tumor tissue samples. From the biological samples we have generated gene
+expression, miRNA, methylation, and RNA sequencing datasets. 
+
+From the \gls{nowac} cohort we have have published a number of research papers
+that investigate the questionnaire data\cite{find-some-papers}. We have also
+used the gene expression datasets to explore ... and interactions between the
+tumor and the blood systemic response of breast cancer
+patients.\cite{dumeaux2017interactions} While we have studied interesting
+patterns and questions, there are still unexplored areas in the available
+datasets.
+
+\subsection*{Traditional Data Analysis} 
+In \gls{nowac} we have stored the questionnaire data on a in-house database
+backed up to an independent storage node. Traditionally, researchers had to
+apply to get data exported from the database by an engineer. This was typically
+done through SAS scripts that did some preprocessing, e.g. selecting
+applicable variables or samples, before the data was shared
+to researchers as SAS data files. The downstream analysis was typically done in
+SAS as well on local computers. Traditionally researchers have used e-mail to
+communicate and share data analysis scripts, and there has not been a central
+hub to share scripts or data. To store the biological data we have used a
+dedicated node on the local super computer cluster. Because of the many packages
+in Bioconductor\footnote{bioconductor.org} we have used R to analyse the
+different gene expression datasets on the projcet. However like with SAS the
+researchers have typically shared scripts through e-mail and there has not been
+a tradition to version control the analysis scripts. 
+
+To enable more researchers to benefit from the unique datasets in \gls{nowac} we
+wanted to improve the way researchers access data as well as how they share
+their analyses. 
+
+Specifically in the \gls{nowac} project we have developed i) a software package
+in the R programming language that contain all datasets and useful utility
+functions to work with the data, and ii) a graphical user interface for
+non-programmers that wish to access the available datasets, and iii) best
+practices for researchers that want to work with \gls{nowac} datasets. In the
+next sections we describe the software packages and best practices. 
+
+\subsection{Data management} 
+
+\subsection{Data processing} 
+
+\subsection{Best Practices} 
+
+
 
 \section{Preprocessing} 
 
@@ -51,4 +99,3 @@ of the study.
 % http://gopherdata.io/post/more_go_based_workflow_tools_in_bioinformatics/
 
 \section{Interactive Applications} 
-
