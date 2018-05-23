@@ -316,7 +316,6 @@ together with specialized analysis scripts packaged into a container to ensure
 that we could reproduce the execution environments. 
 
 %  LAB: Hva med Pippelinen?
-
 The first interactive data exploration application we built was Kvik Pathways.
 It allows users to explore gene expression data from the \gls{nowac} cohort in
 the context of interactive pathway maps.\cite{pathways} It is a web application
@@ -362,14 +361,18 @@ for both batch processing of datasets, as well as interactive applications.
 % 6. Bidrag til forskjellige andre paper (den nature methods saken, etc)
 
 \section{Summary of Results} 
-% LAB: En figur eller to ville gjort seg her. Men av hva? Screenshot av MIxT? Noen performance grafer? Screenshot av Pippelinen? Walrus i bruke for å oppdage "zero reads" issue? Eller hva med en figur av alle: dvs nowac package -> Pippelinen i walurs -> MIxT i Kvik -> n=1 casen?
+% LAB: En figur eller to ville gjort seg her. Men av hva? Screenshot av MIxT?
+% Noen performance grafer? Screenshot av Pippelinen? Walrus i bruke for å
+% oppdage "zero reads" issue? Eller hva med en figur av alle: dvs nowac package
+% -> Pippelinen i walurs -> MIxT i Kvik -> n=1 casen?
 
 We show the viability of our approach through real-world applications in systems
 epidemiology and precision medicine. We show that our approach for building
 interactive data exploration application, implemented in Kvik, provides the
 % LAB: necessary for hva?
 necessary interfaces as well as better performance than other related tools. 
-% LAB: Her er det andre gang "our approach" er implementert. Også likte jeg strukturen for Kvik bedre (our approach for...Kvik...provides...)
+% LAB: Her er det andre gang "our approach" er implementert. Også likte jeg
+% strukturen for Kvik bedre (our approach for...Kvik...provides...)
 We
 show that walrus, the implementation of our approach, is suitable for analyzing
 precision medicine datasets and we show that the additional steps to track data
@@ -381,7 +384,8 @@ discover \glspl{snp}, genomic variants and somatic mutations. Using walrus to
 analyze a dataset added 10\% to the runtime and doubled the space requirements,
 but reduced days of compute time down to seconds when restoring a previous
 pipeline configuration. 
-% LAB: mulig å si noe om RNA-seq problemene her? Dvs vi brukte approach til å finne ut av "zero reads" problemet?
+% LAB: mulig å si noe om RNA-seq problemene her? Dvs vi brukte approach til å
+% finne ut av "zero reads" problemet?
 
 We have used the packages in Kvik to develop a web application, MIxT
 blood-tumor, for exploring and comparing transcriptional profiles from blood and
