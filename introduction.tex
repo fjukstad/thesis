@@ -229,17 +229,32 @@ applications we have developed and the underlying infrastructure.
 
 We discuss the different areas separately before highlighting the similarities. 
 
-\textbf{Data Management and Analyzes}. 
-Modern research studies are now able to collect biological datasets due to the
-decreasing data collection costs. These often span multiple biological levels,
-i.e. different data types and collection sites. In addition, the biological data
-are often integrated with questionnaire data and public registries. 
+\textbf{Data Management and Analysis}. 
+Modern epidemiological studies now integrate biological datasets with the
+traditional questionnaire data and information from public registries.  These
+often span multiple biological levels, i.e. different data types and collection
+sites. While traditional questionnaire datasets require few specialized
+analysis tools because of the relatively simple nature of the data, biological
+datasets require specialized tools for reading, analyzing, and interpreting the
+data. Package repositories such as Bioconductor provide a wealth of packages for
+analyzing these datasets. These packages typically provide analysis tools,
+example data, and comprehensive documentation. While the analysis code can be
+shared within projects, the datasets are often stored on in-house databases or
+shared file systems with specialized permissions, and referenced to in the
+analysis scripts. We developed an approach for combining datasets from the
+\gls{nowac} cohort with documentation, analysis scripts, and integrates with
+registry datasets. This approach makes it a trivial task for new researchers to
+start analyzing the different data in our study. 
 
-This approach was then implemented as the \gls{nowac} package in the R
-programming language, a collection of utility functions and analysis-ready
-datasets from the \gls{nowac} cohort. 
-
-and the \gls{nowac} Pippeline 
+Inspired by the ecosystem of packages in the R programming
+language we developed our approach in the \gls{nowac} package. Users simply
+install the package and get access to documentation, datasets, and utility
+functions for analyzing datasets related to their area of research. 
+In addition we version control both code and the data, making it possible to
+track changes over time as the research study evolves. On top of the \gls{nowac}
+package we implemented a pre-processing pipelining tool, Pippelinen. Pippelinen
+is a web-based interface for running the standardized preprocessing steps before
+analyzing gene expression datasets in the \gls{nowac} cohort. 
 
 \textbf{Deep analysis pipelines}. 
 Analysis of high-throughput sequencing datasets requires deep analysis pipelines
@@ -276,11 +291,12 @@ within languages such as R or Python. With a lot modern visualization libraries
 created for the web there are also possibilities to develop applications that
 target users on any platform. From these observations we wrote an interface to
 the R programming language, that would allow us to interface with the wealth of
-existing software packages for biological data analyses from a point-and-click
-application. New data exploration applications could access analyses directly
-through this interface, removing the previous decoupling between the two. In
-addition, to provide reproducible execution environments we also packaged into
-software containers that could be easily deployed and shared. 
+existing software packages, e.g. the \gls{nowac} package, for biological data
+analyses from a point-and-click application. New data exploration applications
+could access analyses directly through this interface, removing the previous
+decoupling between the two. In addition, to provide reproducible execution
+environments we also packaged into software containers that could be easily
+deployed and shared. 
 
 This approach was then implemented as a part of \emph{Kvik}, a collection of
 packages to develop new data exploration applications. Kvik allows
@@ -292,16 +308,15 @@ blood and tumor samples in breast cancer patients, in addition to applications
 for exploring biological pathways. 
 
 \textbf{Parallels}. 
-Both approaches to build analysis pipelines and to write interactive data
-exploration applications build on the same principles. In both areas we break
-down the systems in to smaller composable units, e.g. a tool, and package these
-into software containers which are then orchestrated together. These containers
-are configured and communicate using open protocols that make it possible to
-interface with them using any programming language. We can keep track of the
-configuration of the containers and their orchestration using software
-versioning systems, and provide the necessary information to reproduce analyses
-or a complete system. 
-
+The above approaches to build systems to analyze and explore biological data,
+either as interactive applications or batch processing pipelines build on the
+same principles.  In all areas we break down the systems in to smaller
+composable units, e.g. a tool, and package these into software containers which
+are then orchestrated together. These containers are configured and communicate
+using open protocols that make it possible to interface with them using any
+programming language. We can keep track of the configuration of the containers
+and their orchestration using software versioning systems, and provide the
+necessary information to reproduce analyses or a complete system. 
 
 \section{Systems Implemented with the X Model/approach/etc.} 
 In this section we detail the different systems we have built on top of walrus
