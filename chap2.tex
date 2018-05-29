@@ -80,16 +80,37 @@ compute-node and made available to researchers on demand. Because of the nature
 of the biological datasets, many of these require extensive pre-processing
 before they are analysis-ready. 
 
+There are multiple drawbacks to managing the research datasets using the
+traditional approach detailed above. First, it is a difficult task to retrace
+original data when the data extraction scripts are not versioned and kept track
+of in a shared repository. Second, while datasets are backed up, there is no
+information about changes between dataset versions. For example, samples may be
+removed and there is no record of these changes. 
+
 \subsection{Data Analysis} 
 Traditionally, researchers had to send an application to get data exported from
-the database by an engineer. The downstream analysis was typically done in SAS
-as well on local computers. Traditionally researchers have used e-mail to
-communicate and share data analysis scripts, and there has not been a central
-hub to share scripts or data. Because of the many packages
-in Bioconductor\footnote{bioconductor.org} we have used R to analyse the
-different gene expression datasets in the projcet. However like with SAS the
-researchers have typically shared scripts through e-mail and there has not been
-a tradition to version control the analysis scripts. 
+the database by an engineer. The downstream analysis of questionnaire data was
+typically done in SAS on local computers.  Traditionally researchers have used
+e-mail to communicate and share data analysis scripts, and there has not been a
+central hub to share scripts or data. Because of the many packages in
+Bioconductor\footnote{bioconductor.org} we have used R to analyse the different
+gene expression datasets in the projcet. However like with SAS the researchers
+have typically shared scripts through e-mail and there has not been a tradition
+to version control the analysis scripts. Results from the analyses are often
+communicated through research papers subsequently. 
+
+There are several drawbacks to this approach. First, there are obvious drawbacks
+of not version controlling analysis scripts 
+Second, sharing analysis scripts through e-mail and not centralized repositories
+makes it difficult to share code especially in research groups with researcher
+turnover. 
+Third, using proprietary software
+such as SAS makes it difficult for anyone without the necessary licences to
+revisit the analyses. Last, separating the reporting of the results from the
+actual data analysis leaves room for human errors when generating tables or
+plots. 
+
+
 
 \subsection{Requirement Analysis} 
 To enable more researchers to benefit from the unique datasets in \gls{nowac} we
@@ -121,7 +142,7 @@ In the next sections we describe the software packages and best practices.
 
 \section{Modernizing Data Management and Analysis} 
 The first step in modernizing the data management and analysis in the
-\gls{nowac} study was to identify 
+\gls{nowac} study was to identify the neccessary 
 
 
 \subsection{Data management} 
