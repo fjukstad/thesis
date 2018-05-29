@@ -9,8 +9,11 @@ efficient, now making it possible to collect the entire genome from a patient in
 less than a days work.
 
 In this chapter we give a background in the different aspects of analyzing and
-exploring biological datasets. We highlight the necessary processing steps from
-data generation and to interpretation of results. 
+exploring biological datasets. We use the \gls{nowac} study as an example and
+highlight the necessary processing steps from data generation and to
+interpretation of results. In addition we describe the traditional data analysis
+and management, and propose a novel approach for organizing, sharing, and
+collaborating on research data and analyses. 
 
 \section{High-Throughput Datasets in Research and Medicine} 
 \gls{dna} sequencing is the process of determining the order of nucleotides
@@ -34,7 +37,7 @@ TODO: What is sequencing data, how is it obtained and what does it look like.
 \subsection{Gene expression} 
 TODO: What is gene expression, how is it obtained, and what does it look like.
 
-\section{Norwegian Women and Cancer} 
+\section{Norwegian Women and Cancer (\gls{nowac})} 
 The \gls{nowac} study is a prospective population-based cohort that tracks 34\%
 of all Norwegian women born between 1943–57.\cite{lund2007cohort} We started the
 data collection in \gls{nowac} in 1991 with questionnaires to cover, among
@@ -55,32 +58,71 @@ patients.\cite{dumeaux2017interactions} While we have studied interesting
 patterns and questions, there are still unexplored areas in the available
 datasets.
 
-\subsection*{Traditional Data Analysis} 
-In \gls{nowac} we have stored the questionnaire data on a in-house database
-backed up to an independent storage node. Traditionally, researchers had to
-apply to get data exported from the database by an engineer. This was typically
-done through SAS scripts that did some preprocessing, e.g. selecting
-applicable variables or samples, before the data was shared
-to researchers as SAS data files. The downstream analysis was typically done in
-SAS as well on local computers. Traditionally researchers have used e-mail to
+\subsection{Data Management} 
+In the \gls{nowac} study questionnaire data is stored on an in-house dedicated
+database backed up to an independent storage node. The database is maintained by
+a handful of personnel which are also responsible for extracting data for
+researchers and projects. This is typically done through SAS scripts that
+selects the applicable variables and samples, and optionally generate computed
+variables such as smoking status from the questionnaire data. There is no
+systematic version control of the datasets or processing scripts. 
+
+In addition to the questionnaire data, the \gls{nowac} study also integrates
+with registries which are updated regularly. The datasets from the different
+registries are typically delivered as \gls{csv} files which are then processed
+into a standardized format. Since the \gls{nowac} study is a prospective cohort
+women are expected to get cancer and move from the list of controls into the
+list of cases. 
+
+In the \gls{nowac} study we have used third-party sources to process and analyze
+biological samples. The resulting datasets were then stored on a local
+compute-node and made available to researchers on demand. Because of the nature
+of the biological datasets, many of these require extensive pre-processing
+before they are analysis-ready. 
+
+\subsection{Data Analysis} 
+Traditionally, researchers had to send an application to get data exported from
+the database by an engineer. The downstream analysis was typically done in SAS
+as well on local computers. Traditionally researchers have used e-mail to
 communicate and share data analysis scripts, and there has not been a central
-hub to share scripts or data. To store the biological data we have used a
-dedicated node on the local super computer cluster. Because of the many packages
+hub to share scripts or data. Because of the many packages
 in Bioconductor\footnote{bioconductor.org} we have used R to analyse the
-different gene expression datasets on the projcet. However like with SAS the
+different gene expression datasets in the projcet. However like with SAS the
 researchers have typically shared scripts through e-mail and there has not been
 a tradition to version control the analysis scripts. 
 
+\subsection{Requirement Analysis} 
 To enable more researchers to benefit from the unique datasets in \gls{nowac} we
 wanted to improve the way researchers access data as well as how they share
-their analyses. 
+their analyses. By improving access and how the researchers share analyses we
+are indirectly improving reproducibility in the project. 
 
-Specifically in the \gls{nowac} project we have developed i) a software package
-in the R programming language that contain all datasets and useful utility
-functions to work with the data, and ii) a graphical user interface for
-non-programmers that wish to access the available datasets, and iii) best
-practices for researchers that want to work with \gls{nowac} datasets. In the
-next sections we describe the software packages and best practices. 
+Before developing an approach to standardize data management and analysis in the
+\gls{nowac} study we performed a requirement analysis and determined the
+following requirements for such systems: 
+
+\begin{itemize} 
+    \item It provides a single location for storing datasets and analysis code.
+    \item it provides documentation for the datasets, how they are processed,
+    and other useful information for downstream analyses. 
+    \item It enables the standardization of pre-processing steps required to
+    analyze biological datasets. 
+\end{itemize}
+
+From these requirements we designed and implemented i) a software package in the
+R programming language that contain all datasets, their documentation, and
+useful analysis functions to work with the data, and ii) a \gls{gui} for
+to perform the necessary pre-processing steps before delivering
+datasets to researchers, and iii) 
+best practices for researchers that want to work with datasets from the
+\gls{nowac} cohort. 
+In the next sections we describe the software packages and best practices. 
+
+
+\section{Modernizing Data Management and Analysis} 
+The first step in modernizing the data management and analysis in the
+\gls{nowac} study was to identify 
+
 
 \subsection{Data management} 
 
