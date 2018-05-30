@@ -13,7 +13,9 @@ exploring biological datasets. We use the \gls{nowac} study as an example and
 highlight the necessary processing steps from data generation and to
 interpretation of results. In addition we describe the traditional data analysis
 and management, and propose a novel approach for organizing, sharing, and
-collaborating on research data and analyses. 
+collaborating on research data and analyses. In this chapter we focus on
+analysts writing their own specialized analysis scripts in programming languages
+such as R. 
 
 \section{High-Throughput Datasets in Research and Medicine} 
 \gls{dna} sequencing is the process of determining the order of nucleotides
@@ -142,8 +144,22 @@ In the next sections we describe the software packages and best practices.
 
 \section{Modernizing Data Management and Analysis} 
 The first step in modernizing the data management and analysis in the
-\gls{nowac} study was to identify the neccessary 
+\gls{nowac} study was to identify the possible environments to develop our
+approach. While the majority of the researchers that have worked on the project
+have used SAS for their analyses of the questionnaire data, all researchers
+working on biological data are using R. Because of the number of additional
+software  packages, its open-source implantation, and growing developer
+community we have opted to implement our approach for managing and processing to
+fit the R programming language. 
 
+The great strength of R comes from its many packages for analyzing, plotting,
+and interpreting data. An R package consists of a code, documentation, tests,
+and data. Bioconductor and CRAN provide online hosing for a large number of
+packages, and users can mix and match these packages to fit their need. 
+
+We designed the \gls{nowac} R package to provide a single-stop location for
+documentation, data, and analysis code for researchers within our research
+group. 
 
 \subsection{Data management} 
 
