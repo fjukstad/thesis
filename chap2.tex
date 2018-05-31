@@ -161,6 +161,10 @@ We designed the \gls{nowac} R package to provide a single-stop location for
 documentation, data, and analysis code for researchers within our research
 group. We share this package within our group both as a repository that
 researchers can contribute to, and a binary installer for basic uses. 
+We use \texttt{git} to version control the analysis code and datasets, and store
+the repository on a self-hosted git server (gitlab\footnote{\url{gitlab.com}}).
+With git we can track changes to our analysis code, documentation, and datsets
+over time. 
 
 \subsection{Data management} 
 We bundle together all datasets with the \gls{nowac} package. This includes both
@@ -187,14 +191,60 @@ When users install the \gls{nowac} package these comments are used to generate
 interactive help pages which they can browse in R, be it the CLI or through
 RStudio. 
 
+As mentioned we use git to version control our \gls{nowac} package. There are
+however drawbacks to creating one large repository for both data and code. Since
+git stores every version of a file, these types of repositories may become large
+if the datasets are changing a lot over time, and are stored in binary formats,
+e.g. gene expression datasets. We have explored different techniques to minimize
+our repository and have opted to store all datasets as git
+submodules\footnote{\url{git-scm.com/docs/git-submodule}}. Submodules allow us
+to keep the main repository size down while still versioning the data. Other
+alternatives such as git-raw\footnote{\url{github.com/atofigh/git-raw}},
+git-annex\footnote{\url{git-annex.branchable.com}} 
+git-lfs\footnote{\url{git-lfs.github.com}} exist, and these all provide
+alternative approaches to storing large binary files in the repository. We have
+not found that any of these could satisfy our needs, mainly because they all
+require a newer software stack than we have access to.
+
 \subsection{Data processing} 
+In the \gls{nowac} package we provide utility functions to get started with the
+analysis of our datasets. Because of the specialized nature of the different
+research project the \gls{nowac} package only contains helper functions to start
+analyzing \gls{nowac} data, e.g. retrieving questionnaire data. 
 
 \subsection{Best Practices} 
 
 \subsection{Discussion} 
 % large datasets, e.g. sequencing 
 
-\section{Preprocessing} 
+\section{Pippeline}
+The Pippeline is our approach to standardize the pre-processing and generation
+of analysis-ready datasets in the \gls{nowac} study. It is a point-and-click
+application that can be used by users without any prior programming experience.
+The Pippeline application builds upon the \gls{nowac} R package and its design
+choices. It is targeted towards researchers who want to analyze different
+datasets frmo the \gls{nowac} cohort. Figure \ref{fig:scr_filtering}
+shows a screenshot of the web application.
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{figures/scr_filtering.png}
+  \caption{Web-interface of UiT pippeline.}
+  \label{fig:scr_filtering}
+\end{figure}
+
+The Pippeline is implemented as an interactive web application, and users click
+through a series of steps before receiving an analysis-ready datasets. 
+Users specify details such as what type of study design, e.g. cross-sectional or
+case-control, the data normalization methods, and integration with the
+questionnaires. 
+
+The Pippeline is implemented as an interactive web application written in R
+using the \texttt{Shiny} framework.  Besides the \texttt{shiny} framework, the
+Pippeline uses several handful packages for the data analysis, such as
+\texttt{lumi}, \texttt{limma}, \texttt{sva}, \texttt{genefilter}, \texttt{nlme}
+and \texttt{Biobase}. These packages provide tools for managing our datasets,
+methods for processing and analysis. 
+
 
 \section{Analysis Pipelines}
 % Watchdog:
