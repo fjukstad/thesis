@@ -159,15 +159,40 @@ packages, and users can mix and match these packages to fit their need.
 
 We designed the \gls{nowac} R package to provide a single-stop location for
 documentation, data, and analysis code for researchers within our research
-group. 
+group. We share this package within our group both as a repository that
+researchers can contribute to, and a binary installer for basic uses. 
 
 \subsection{Data management} 
+We bundle together all datasets with the \gls{nowac} package. This includes both
+questionnaire, registry, and biological datasets. Since none of these are
+perticularly large in size (no single dataset being more than tens of
+\glspl{gb}) we are able to distribute them with the software package. Some of
+the datasets require pre-processing steps such as outlier removal before the
+analysts can explore the datasets. For these datasets we store both the
+\emph{raw} datasets as well as the analysis-ready clean datasets. We store the
+raw datasets in their original format, while clean datasets are stored as R data
+files to simplify importing them in R. In addition to the datasets themselves we
+store the R code we used to generate the datasets. For clearity we decorate the
+scripts with specially formatted comments that can be used with
+knitr\footnote{\url{yihui.name/knitr}} to generate PDF reports. These highlight
+the transformation of the data from raw to clean, with information such as
+removed samples or data normalization methods. 
+
+We document both code and each dataset with
+roxygen2\footnote{\url{cran.r-project.org/web/packages/roxygen2}}. The
+documentation is written as specially formatted comments to R source code and
+allows us to special details such as data collection date, instrument types, the
+persons involved with data collection and analysis, pre-processing methods etc.
+When users install the \gls{nowac} package these comments are used to generate
+interactive help pages which they can browse in R, be it the CLI or through
+RStudio. 
 
 \subsection{Data processing} 
 
 \subsection{Best Practices} 
 
-
+\subsection{Discussion} 
+% large datasets, e.g. sequencing 
 
 \section{Preprocessing} 
 
