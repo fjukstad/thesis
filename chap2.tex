@@ -213,22 +213,69 @@ research project the \gls{nowac} package only contains helper functions to start
 analyzing \gls{nowac} data, e.g. retrieving questionnaire data. 
 
 \subsection{Best Practices} 
+From our experiences we have developed a set of best practices for researchers
+working on data analysis in the \gls{nowac} study. We believe that we can
+generalize these to researchers working in different disciplines. 
 
-\subsection{Discussion} 
+\textbf{Document every step in the analysis}. Analysis of modern datasets is a
+complex exercise with the possibility of introducing an error in every step.
+Analysts often use different tools and systems that require a particular set of
+input parameters to produce results. Thoroughly document every step from raw
+data to the final tables that go into a manuscript.
+
+In the \gls{nowac} study we write help pages and reports for all datasets, and
+the optional pre-processing steps. 
+
+\textbf{Generate reports and papers using code}. With tools such as R
+Markdown\footnote{\url{rmarkdown.rstudio.com}}
+and kntir there are few reasons for decoupling analysis code with the
+presentation of the results through reports or scientific papers. Doing so
+ensures the correctnes reported results from the analyses, and greatly
+simplifies reproducing the results in a scientific paper. 
+
+In the \gls{nowac} study we produce reports from R code. These include
+pre-processing and data delivery of datasets to researchers. 
+
+\textbf{Version control everything}. Both code and data changes over the course
+of a research project. Version control everything to make it possible to retrace
+changes and the person responsible for them. It is often necessary to roll back
+to previous versions or a dataset or analysis code, or to identify the
+researches that worked on specific analyses. 
+
+In the \gls{nowac} study we promote the use of git to version control both
+source code and data. 
+
+\textbf{Collaborate and share code through \gls{scm} systems}. Traditional
+communication through e-mail makes it difficult to keep track of existing
+analyses and their design choices both for existing project members and new
+researchers. With \gls{scm} hosting systems such as Github developing
+analysis code becomes more transparent to other collaborators, and encourages
+collaboration. It also simplifies the process or archiving development decisions
+such as choosing a normalization method.
+
+In the \gls{nowac} study we collaborate on data analysis through a self-hosted
+Gitlab\footnote{\url{gitlab.com}} installation. We also open-source our code on
+Github. 
+
+
+%\subsection{Discussion} 
 % large datasets, e.g. sequencing 
 
 \section{Pippeline}
 The Pippeline is our approach to standardize the pre-processing and generation
 of analysis-ready datasets in the \gls{nowac} study. It is a point-and-click
 application that can be used by users without any prior programming experience.
-The Pippeline application builds upon the \gls{nowac} R package and its design
-choices. It is targeted towards researchers who want to analyze different
-datasets frmo the \gls{nowac} cohort. Figure \ref{fig:scr_filtering}
-shows a screenshot of the web application.
+The Pippeline application builds upon the \gls{nowac} R package, both
+fundamentally but also through its design choices. It is targeted towards
+researchers who want to start analyzing different datasets from the \gls{nowac}
+cohort, and provides an automated system for performing the first steps of such
+analyzes. 
+Figure \ref{fig:scr_filtering} shows a screenshot of the web application.
 
 \begin{figure}
   \includegraphics[width=\linewidth]{figures/scr_filtering.png}
-  \caption{Web-interface of UiT pippeline.}
+  \caption{The Pippeline web application. The screenshot shows the probe
+  filtering steps of preparing a gene expression dataset.}
   \label{fig:scr_filtering}
 \end{figure}
 
@@ -246,10 +293,10 @@ and \texttt{Biobase}. These packages provide tools for managing our datasets,
 methods for processing and analysis. 
 
 
-\section{Analysis Pipelines}
+% \section{Analysis Pipelines}
 % Watchdog:
 % https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-018-2107-4
 % maybe this one
 % http://gopherdata.io/post/more_go_based_workflow_tools_in_bioinformatics/
 
-\section{Interactive Applications} 
+% \section{Interactive Applications} 
