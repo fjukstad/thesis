@@ -4,92 +4,62 @@ the decreaseing cost of data collection. This brings opportunities to gain novel
 insights to the underlying biological mechanisms in the development and
 progression of diseases such as cancer, possibly leading to the development of
 novel diagnostic tests or drugs for treatment.  The wide range of different
-biological datasets has led to the development of a wealth of software packages
-and systems to explore and analyze these datasets.  However, there are few tools
-that are designed with the full analysis pipeline in mind, from raw data into
-interpretable results.  While the tools are used to provide novel insights in
-diseases, there is little emphasis on reporting and sharing information about
-tool versions, input parameters, and other information that can help others use
-the same known methods on their own datasets.  This leads to unnecessary
-difficulties to reuse known methods, and difficulties in reproducing analyses,
-which leads to longer analysis times and therefore unrealized potential for
-scientific insights.
+biological datasets has led to the development of hundreds of software packages
+and systems to explore and analyze these datasets.  However, there are few
+systems that are designed with the full analysis process in mind, from raw data
+into interpretable and reproducible results.  While existing systems are used to
+provide novel insights in diseases, there is little emphasis on reporting and
+sharing information about its tools, their versions, input parameters, and other
+information that can help others use the same known methods on their own
+datasets. This leads to unnecessary difficulties to reuse known methods, and
+difficulties in reproducing analyses, which leads to a longer analysis process
+and therefore unrealized potential for scientific insights.
 
-% challenge
-There are several 
-% LAB: computational challenges in reducing the "analysis time". MEn analysis
-% time høres ut som kjøretid.
-computational challenges 
-% LAB: er noe som er rart med språket her. Eventuelt er det bare jeg som synes
-% det
-for researchers to analyze
+% challenges
+There are four main challenges for researchers to analyze
 and explore biological datasets. These challenges are common for large datasets
 such as high-throughput sequencing data that require long-running, deep analysis
 pipelines, as well as smaller datasets, such as microarray data, that require
 complex, but short-running analysis pipelines. The first is the time and
 knowledge required to find and set up the necessary analysis tools to start
-analyzing a modern biological dataset. The second is ensuring the correct input
+analyzing a modern biological dataset. The second is recording full provenance
+in the data exploration process. This includes ensuring the correct input
 parameters, tool versions, database versions, and dataset versions when
 analyzing, and reporting analysis results to enable reproducible science. A
-third challenge is efficiently exploring the results of the analyses
+third challenge is efficiently exploring the results of an analysis
 interactively. This includes developing tools that can efficiently visualize the
-heterogeneous datsets and integrate them with known biology from databases to
-provide necessary information for interpreting the results. The final challenge
-is reusing the analysis pipelines and exploration tools with new datasets,
-methods, and research questions. 
+heterogeneous resulting datsets and integrate them with known biology from
+online databases. The final challenge is reusing the analysis pipelines and
+exploration tools on new datasets and research questions. 
 
-As a result, there are a wealth of specialized approaches and systems 
-to analyze complex biological data. To develop deep analysis pipelines in
-bioinformatics, Galaxy\cite{galaxy} has for a long time provided a simple
-interface to set up and execute analysis pipelines for genomic datasets.
-However, the Galaxy system is less effective for explorative and flexible
-analyses where it is necessary 
-% LAB: Ikke helt sikker på om jeg er enig i at dette er vanskelig. Er ett tools
-% først i Galaxy toolshed tror jeg det er forholdsvis enkelt å teste
-% forskjellige konfigurasjoner. Jeg mener det store problement med Galaxy, og
-% grunnen til at mange ikke bruker det inkludert oss, er at det er vanskelig å
-% skrive nye tools. Det er ett viktig poeng å få frem siden en av de gode
-% tingene her er at R er så godt støttet.
-to try out different tools with different
-configurations.\cite{spjuth2015experiences} New initiatives such as the
-\gls{cwl} provide users a standardized way of describing and sharing an analysis
-pipeline, and has multiple implementations such as the reference implementation
-cwl\_runner,\footnote{\url{github.com/common-workflow-language/cwltool}}
-Arvados,\cite{arvados} Rabix,\cite{rabix} Toil,\cite{toil} Galaxy,\cite{galaxy}
-and AWE.\cite{awe}
-While these systems provide a viable option for batch-processing of
-large biological datasets, researchers with smaller datasets at hand, can
-analyze and explore them through interactive languages and interpreters such as
-Python or the  R programming language. Through the package repository
-Bioconductor, there are a wide range of R packages to analyze biological
-datasets. These include tools for both analyzing and visualizing the datasets.
-For users with little or no programming experience it is possible to access and
-explore datasets thorough applications using the Shiny or OpenCPU frameworks.
-These let developers write applications in the R programming language, and users
-can access and explore the data through web applications. Standalone systems
-such as Cytoscape provide a specialized software platform to visualize and
-explore complex biological datasets.\cite{cytoscape} 
-Generalized systems for analyze a wide range of big datasets are now starting to
-get attention in bioinformatics. An example of one of these is Pachyderm, a
-system for deploying and managing multi-stage, lagnuage-agnostic data
-pipelines.\cite{pachyderm} In addition to tracking pipeline configrations,
-it also provides full provenance for the data.
-Another example is Aparche Spark, an analytics engine for large-scale data
-processing.\cite{spark}. Both of these provide useful abstractions for
-reproducible analyses of large-scale datasets, but they have yet to see
-wide-spread adpotion in Bioinformatics.  
+% existing tools and approaches
+As a result, there are a wealth of specialized approaches and systems to analyze
+modern biological data. Systems such as Galaxy\cite{galaxy} provide simple
+\glspl{gui} to set up and run analysis pipelines. However it is difficult to
+install and maintain, and less flexible for explorative analyses where it is
+necessary to try out new tools and different tool
+configurations.\cite{spjuth2015experiences} With R and its popular package
+repository Bioconductor researchers can select from a wide range of packages to
+tailor their analyses. These provide flexible environments but makes it
+necessary for the analyst to manually record information about data, tools, and
+tool versions. Systems such as Pachyderm\cite{pachyderm} or the \gls{cwl} and
+its different implementations, can help users with a standardized way of
+describing and sharing analysis pipelines.  However, many of these require
+complex compute infrastructure and are too cumbersome to set up.  Shiny and
+OpenCPU provide frameworks for application developers to build systems to
+interactively explore results from statistical analyses.  These are useful to
+build exploration applications that integrate with statistical analyses.  
 With the addition of new datasets and methods every year, it seems that analysis
 of biological data requires a wide array of different tools and systems.
 
 % our solution
-This dissertation argues that, instead, we can design a unified approach that
-integrates disperate systems and data into fully reproducible biological data
-analysis frameworks. In particular, we show how software container technologies
-together with well-defined interfaces, configurations, and orchestration provide
-the necessary foundation to build reproducible analysis pipelines for biological
-datasets, as well as highly interactive data exploration applications.
-% LAB: Synes du at poengene med "easy to develop" og "specialized analyzes" bør
-% være med? Enten her, eller i listen nedenfor.
+This dissertation argues that, instead, we can facilitate development of
+reproducible analyses and data exploration systems of high-throughput biological
+data thorugh the integration of disperate systems and data. In particular, we
+show how software container technologies together with well-defined interfaces,
+configurations, and orchestration provide the necessary foundation for these
+systems. This allows for easy development and sharing of specialized analysis
+systems. 
 
 The resulting approach as several key advantages when implementing systems to
 analyze and explore biological data:
