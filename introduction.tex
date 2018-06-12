@@ -39,18 +39,19 @@ modern biological data. Systems such as Galaxy\cite{galaxy} provide simple
 install and maintain, and less flexible for explorative analyses where it is
 necessary to try out new tools and different tool
 configurations.\cite{spjuth2015experiences} With R and its popular package
-repository Bioconductor researchers can select from a wide range of packages to
+repository Bioconductor, researchers can select from a wide range of packages to
 tailor their analyses. These provide flexible environments but makes it
 necessary for the analyst to manually record information about data, tools, and
-tool versions. Systems such as Pachyderm\cite{pachyderm} or the \gls{cwl} and
-its different implementations, can help users with a standardized way of
-describing and sharing analysis pipelines.  However, many of these require
-complex compute infrastructure and are too cumbersome to set up.  Shiny and
-OpenCPU provide frameworks for application developers to build systems to
-interactively explore results from statistical analyses.  These are useful to
-build exploration applications that integrate with statistical analyses.  
-With the addition of new datasets and methods every year, it seems that analysis
-of biological data requires a wide array of different tools and systems.
+tool versions. Systems such as Pachyderm\footnote{\url{pachyderm.io}} or the
+\gls{cwl}\cite{commonwl} and its different implementations, can help users with
+standardizing the description and sharing of analysis pipelines.  However, many
+of these require complex compute infrastructure and are too cumbersome to set
+up.  Shiny and OpenCPU provide frameworks for application developers to build
+systems to interactively explore results from statistical analyses.  These are
+useful to build exploration applications that integrate with statistical
+analyses.  With the addition of new datasets and methods every year, it seems
+that analysis of biological data requires a wide array of different tools and
+systems.
 
 % our solution
 This dissertation argues that, instead, we can facilitate development of
@@ -61,15 +62,15 @@ configurations, and orchestration provide the necessary foundation for these
 systems. This allows for easy development and sharing of specialized analysis
 systems. 
 
-The resulting approach, which we have called Small Modular Entities, has several
+The resulting approach, which we have called \gls{sme}, has several
 key advantages when implementing systems to analyze and explore biological data:
 \begin{itemize} 
-    \item It enables applications to use tools written in any programming
-        language, using open standards to communicate between tools and systems.
-
     \item It enables reproducible research by packaging applications
         and tools within containerized environments. This enables sharing of
         tools and ensures correct versions. 
+
+    \item It enables applications to use tools written in any programming
+        language, using open standards to communicate between tools and systems.
 
     \item Through software container technology it becomes a simple task to
         deploy and scale up such applications. 
@@ -83,7 +84,7 @@ In collaboration with researchers in systems epidemiology and precision
 medicine we developed a set of applications and systems necessary to organize,
 analyze, and interpret their datasets. From these systems we extraplolated a set
 of general design principles to form a unified approach. We evaluate this
-approach through these systems using real datasets and show its viability. 
+approach through these systems using real datasets to show its viability. 
 
 From a longer-term perspective we discuss the general patterns for implementing
 reproducible data analysis systems for use in biomedical research. As more
@@ -97,15 +98,16 @@ efficiently provide reproducible and easy to use environments to develop
 applications for exploring and analyzing biological datasets. 
 
 \section{Problems with Data Analysis and Exploration in Bioinformatics}
-Today there is a move towards using more sophisticated approaches to analyze
-biological datasets through workflow and pipeline mangers such as
-Snakemake\cite{koster2012snakemake}, and the different implementations of the
-\gls{cwl}\cite{cwl} such as Galaxy\cite{galaxy}. These simplify setting up and
-executing the analysis pipeline pipeline. However, these tools still have their
-limitations, such as maintenance and tool updates, and shell scripts are still
+Today shell scripts are still
 the de facto standard building analysis pipelines in bioinformatics. This comes
 from the familiarity of the shell environment and the \gls{cli} of the different
-tools.  For exploring biological data there are a range of tools, such as
+tools.  However, is a move towards using more sophisticated approaches to
+analyze biological datasets through workflow and pipeline mangers such as
+Snakemake\cite{koster2012snakemake}, and the different implementations of the
+\gls{cwl}\cite{cwl} such as Galaxy\cite{galaxy} and Toil\cite{toil}. These
+simplify setting up and executing the analysis pipeline pipeline. However, these
+tools still have their limitations, such as maintenance and tool updates.  For
+exploring biological data there are a range of tools, such as
 Cytoscape\cite{cytoscape} and Circos\cite{circos}, that support importing an
 already-analyzed dataset to visualize and browse the data. One problem with
 these is that they are decoupled from the analysis, making it difficult to
@@ -115,10 +117,11 @@ Although there are efforts to develop tools to help researchers explore and
 analyze biological datasets, they current tools have several drawbacks:
 
 \begin{enumerate}
-    \item \textbf{Reusability:} Data exploration tools are often
-        developed as a single specialized application, making it difficult to
-        reuse parts of the application for other analyses or datasets. This
-        leads to duplicate development effort and abandoned projects. 
+    \item \textbf{Standardization:} Because of the specialized nature of each
+        data analysis tool, a complete system for exploring or analyze
+        biological data will have to combine these. The tools provide different
+        interfaces and processing data using a combination of these often
+        require data wrangling. 
     \item \textbf{Decoupling:} Data exploration tools are often decoupled from
         the statistical analyses. This often makes it a difficult to document
         and retrace the analyses behind the results. 
@@ -128,27 +131,31 @@ analyze biological datasets, they current tools have several drawbacks:
         analyses.
         % LAB: kan stjele argumentasjon fra ADAM paperet der de kritiserer
         % "monolothic" bio applikasjoner. Eller fra Tanenbaum vs Linus.
+    \item \textbf{Reusability:} Data exploration tools are often
+        developed as a single specialized application, making it difficult to
+        reuse parts of the application for other analyses or datasets. This
+        leads to duplicate development effort and abandoned projects. 
     \item \textbf{Reproducibility:} While there are tools for analyzing most
-        data types today, there is little or no effort to fully document the
-        entire analysis process from raw data to interpretable results. This
-        includes tool versions, parameters, data, and databases. This makes
-        analysis results difficult to reproduce. 
+        data types today, these require the analyst to manually record versions,
+        input parameters, and reference databases. This makes analysis results
+        difficult to reproduce because of the large number of variables that may
+        impact the results. 
 \end{enumerate} 
 
 Because of these drawbacks, a unified approach for reproducible data analysis
 and exploration would have significant benefits to reduce the
 time-to-interpretation of biological datasets. 
 
-\section{Small Modular Entities} 
+\section{\acrfullpl{sme}} 
 In collaboration with researchers in systems epidemiology and biology we have
-developed applications for three specific use cases. The first to manage and
-standardize the analysis of datasets from a large population-based cohort,
-\gls{nowac}. The second to enable interactive exploration of these datasets.
-Third to develop pipelines for analyzing sequencing datasets for use in a
-precision medicine setting.  Although these use cases require widely different
-systems with different requirements, the systems share common design patterns.
-Figure \ref{overview-fig} shows the applications we have developed and the
-underlying systems. 
+developed an approach for designing applications for three specific use cases.
+The first is to manage and standardize the analysis of datasets from a large
+population-based cohort, \gls{nowac}. The second is to enable interactive
+exploration of these datasets.  The final use case is to develop pipelines for
+analyzing sequencing datasets for use in a precision medicine setting.  Although
+these use cases require widely different systems with different requirements,
+the applications share common design patterns.  Figure \ref{overview-fig} shows
+the applications we have developed and the underlying systems. 
 
 \begin{figure}
 \includegraphics[width=\textwidth]{figures/overall-arch.pdf}
@@ -158,60 +165,62 @@ underlying systems.
 \end{figure} 
 
 
-We discuss the different areas separately before highlighting the similarities. 
+We discuss how this approach suites applications in the different use cases
+separately before highlighting the similarities. 
 
-\textbf{Data management and analysis}. 
+\subsection{Data management and analysis} 
 Modern epidemiological studies integrate traditional questionnaire data with
-information from public registries biological datasets.  These often span
+information from public registries biological datasets. These often span
 multiple biological levels, i.e. different data types and collection sites.
 While traditional questionnaire datasets require few specialized analysis tools
 because of the relatively simple nature of the data, biological datasets require
 specialized tools for reading, analyzing, and interpreting the data. Package
-repositories such as Bioconductor provide a wealth of packages for analyzing
-these datasets. These packages typically provide analysis tools, example data,
-and comprehensive documentation. While the analysis code can be shared within
-projects, the datasets are often stored on in-house databases or shared file
-systems with specialized permissions, and referenced to in the analysis scripts.
-We developed an approach for combining datasets from the \gls{nowac} cohort with
-documentation, analysis scripts, and integrates with registry datasets. This
-approach simplifies the task of starting analysis of the different data in our
-study for new researchers.
+repositories such as Bioconductor\cite{bioconductor} provide a wealth of
+packages for analyzing these datasets. These packages typically provide analysis
+tools, example data, and comprehensive documentation. While the analysis code
+can be shared within projects, the datasets are often stored on in-house
+databases or shared file systems with specialized permissions. Together the
+packages and datasets form building blocks for researchers to build their
+analyses on top of. They can compose their analyses using packages that fit
+their needs. We wanted the analysis code in the \gls{nowac} study to be one such
+building block. Therefore we combined the datasets from the \gls{nowac} cohort
+with documentation, analysis scripts, and integration with registry datasets,
+into a single package. 
+This approach simplifies the researcher's first steps in the analysis of the
+different data in our study. On top of the \gls{nowac} package we then
+implemented a pre-processing pipelining tool named Pippeline. 
 
-% Si noe om access mgmt, brukere og data. 
+Inspired by the ecosystem of packages in the R programming language we
+implemented our approach as the \gls{nowac} R package. Users simply install the
+package and get access to documentation, datasets, and utility functions for
+analyzing datasets related to their area of research. We version
+control both code and the data, making it possible to track changes over time as
+the research study evolves. Pippeline is a web-based interface for running the
+standardized preprocessing steps before analyzing gene expression datasets in
+the \gls{nowac} cohort. 
 
-Inspired by the ecosystem of packages in the R programming
-language we developed our approach in the \gls{nowac} package. Users simply
-install the package and get access to documentation, datasets, and utility
-functions for analyzing datasets related to their area of research. 
-In addition we version control both code and the data, making it possible to
-track changes over time as the research study evolves. On top of the \gls{nowac}
-package we implemented a pre-processing pipelining tool, Pippelinen. Pippelinen
-is a web-based interface for running the standardized preprocessing steps before
-analyzing gene expression datasets in the \gls{nowac} cohort. 
-
-\textbf{Deep analysis pipelines}. 
+\subsection{Deep Analysis Pipelines} 
 Analysis of high-throughput sequencing datasets requires deep analysis pipelines
 with a large number of steps that transform raw data into interpretable
 results\cite{diao2015building}. There are a large number of tools available to
 perform the different processing steps, written in a wide range of programming
 languages. The tools, and their dependencies, can be difficult to install, and
 they require users to correctly manage a range of input parameters that affects
-the output results. With these observations in mind we used software containers
-to package the tools we needed for our analyses, one tool per container image.
-This made it possible to share the container image between compute systems
-without installing any dependencies or additional packages. To keep track of
-input parameters as well as the flow of data in a pipeline we designed a
-text-based specification for analysis pipelines. This specification includes
-information such as input parameters and tool versions. 
+the output results. With software container technology it is a simple task for
+users to share container images with analysis tools pre-installed. Then, by
+designing a text-based specification for the analyses, we can orchestrate the
+execution of an entire analysis pipeline and record the flow of data through the
+pipeline. As with the previous use case an analysis is built by composing
+smaller entities, or tools, into a complete pipeline. 
 
-This approach was then implemented in walrus, a tool
-that lets users create and run analysis pipelines. In addition, it tracks full
-provenance of the input, intermediate, and output data, as well as tool
-parameters. With \emph{walrus} we have successfully built analysis pipelines to
-detect somatic mutations in breast cancer patients, as well as an \gls{rna}-seq
-pipeline for comparison with gene expression datasets. 
+We implemented the approach in walrus, a tool that lets users create and run
+analysis pipelines. In addition, it tracks full provenance of the input,
+intermediate, and output data, as well as tool parameters. With \emph{walrus} we
+have successfully built analysis pipelines to detect somatic mutations in breast
+cancer patients, as well as an \gls{rna}-seq pipeline for comparison with gene
+expression datasets. 
 
-\textbf{Interactive exploration}.
+\subsection{Interactive Data Exploration}
 The final results from an analysis pipeline require researchers to investigate
 and evaluate the final output. In addition, it may be useful to explore the
 analysis parameters and re-run parts of the analyses. 
@@ -221,26 +230,42 @@ analysis results. The tools often require users to import already analyzed
 datasets but provide interactive visualizations and point-and-click interfaces
 to explore the data. Users with programming knowledge can use the wealth of
 software packages for visualization within languages such as R or Python.
-Modern visualization libraries created for the web brings the possibility to
-develop applications that target users on any platform. From
-these observations we wrote an interface to the R programming language, that
-would allow us to interface with the wealth of existing software packages, e.g.
-the \gls{nowac} package, for biological data analyses from a point-and-click
-application. New data exploration applications could access analyses directly
-through this interface, removing the previous decoupling between the two. 
+Frameworks such as BioJS\cite{gomez2013biojs} now provide developers with tools
+to develop web applications for exploring biological datasets. It is apparent
+these types of systems also consist of multiple smaller components that
+together can be orchestrated into a single application. These applications
+typically consist of three major parts:
+\begin{enumerate*}[label=(\roman*)]
+    \item data visualization;
+    \item integration with statistical analyses and datasets; and 
+    \item integration with online databases
+\end{enumerate*}. 
+While each of these are specialized for each type of data exploration
+application, they share components that can be reused across different types of
+applications. 
 
-This approach was then implemented as a part of \emph{Kvik}, a collection of
+To integrate with statistical analyses and datasets, we wrote an interface to
+the R programming language, that would allow us to interface with the wealth of
+existing software packages, e.g.  the \gls{nowac} package, for biological data
+analyses from a point-and-click application. New data exploration applications
+could access analyses directly through this interface, removing the previous
+decoupling between the two.  We followed the same approach to integrate with
+online databases. We could standardize the interface from the applications to
+the different databases, and implement an application on top of these. 
+
+We implemented all components as a part of \emph{Kvik}, a collection of
 packages to develop new data exploration applications. Kvik allows
 applications written in any modern programming language to interface with the
 wealth of bioinformatics packages in the R programming language, as well as
-information available through online databases.  To provide reproducible
+information available through online databases. To provide reproducible
 execution environments we packaged these interfaces into  software containers
 that can be easily deployed and shared.  We have used Kvik to develop the
-\gls{mixt} system for exploring and comparing transcriptional profiles from
-blood and tumor samples in breast cancer patients, in addition to applications
-for exploring biological pathways. 
+\gls{mixt} system\cite{fjukstad2017building} for exploring and comparing
+transcriptional profiles from blood and tumor samples in breast cancer patients,
+in addition to applications for exploring biological
+pathways\cite{fjukstad2015kvik}. 
 
-\textbf{Similarity}. 
+\subsection{Similarity} 
 The above approaches to build systems to analyze and explore biological data,
 either as interactive applications or batch processing pipelines share the
 same design principles. In all areas we break down the systems in to small
@@ -251,15 +276,21 @@ programming language. We can keep track of the configuration of the containers
 and their orchestration using software versioning systems, and provide the
 necessary information to reproduce analyses or a complete system. 
 
-\section{Applications Implemented using Small Modular Entities} 
+\section{Applications Implemented using \glspl{sme}}
 \begin{figure}
 \includegraphics[width=\textwidth]{figures/overview-full.pdf}
     \caption{} 
     \label{overview-full}
 \end{figure} 
 
-In this section we detail the different systems we have built on top of walrus
-and Kvik. 
+In this section we detail the different systems we have built using \glspl{sme},
+specifically implemented on top of walrus and Kvik. 
+
+\subsection{TODO:NOWAC R PACKAGE PIPELINE}
+% LAB: Hva med Pippelinen?
+% TODO: PIPELINE AND NOWAC PAKGE
+
+\subsection{Deep Analysis Pipelines}
 
 The first system we built on top of walrus was a pipeline to analyze a patient’s
 primary tumor and adjacent normal tissue, including subsequent metastatic
@@ -279,16 +310,15 @@ and generates transcript quantifications. As with the first pipeline we used
 existing tools together with specialized analysis scripts packaged into a
 container to ensure that we could reproduce the execution environments. 
 
-% LAB: Hva med Pippelinen?
-% TODO: PIPELINE AND NOWAC PAKGE
-
+\subsection{Interactive Data Exploration}
 The first interactive data exploration application we built was Kvik Pathways.
 It allows users to explore gene expression data from the \gls{nowac} cohort in
-the context of interactive pathway maps.\cite{pathways} It is a web application
-that integrates with the R programming language to provide an interface to the
-statistical analyses. We used Kvik Pathways to repeat the analyses in a previous
-published project that compared gene expression in blood from healthy women with
-high and low plasma ratios of essential fatty acids.\cite{olsen2013plasma}
+the context of interactive pathway maps.\cite{fjukstad2015kvik} It is a web
+application that integrates with the R programming language to provide an
+interface to the statistical analyses. We used Kvik Pathways to repeat the
+analyses in a previous published project that compared gene expression in blood
+from healthy women with high and low plasma ratios of essential fatty
+acids.\cite{olsen2013plasma}
 
 From the first application it became apparent that we could reuse parts of the
 application in the implementation of later systems. In particular, the interface
@@ -353,7 +383,9 @@ biological datasets while still providing the required performance.
 
 This section contains a list of papers along with short descriptions and my
 contributions to each paper. 
-\capstartfalse
+
+\subsection*{Paper 1} 
+\capstartfalse % disable table captions 
 \begin{table}[H]
     \centering
     \begin{tabular}{ | l | p{9.5cm} | }
@@ -383,6 +415,9 @@ contributions to each paper.
     \label{p1}
 
 \end{table}
+
+\subsection*{Paper 2} 
+
 % \hfill 
 \begin{table}[H]
 
@@ -417,6 +452,9 @@ contributions to each paper.
     \label{p2}
     
 \end{table}
+
+\subsection*{Paper 3} 
+
 % \hfill 
 \begin{table}[H]
     
@@ -454,27 +492,33 @@ contributions to each paper.
     
     \hfill 
 
-    \begin{tabular}{ | l | p{9.5cm} | }
-    \hline
-         Title & A Review of Scalable Bioinformatics Pipelines \\ \hline
-         
-         Authors & \textbf{Bjørn Fjukstad}, Lars Ailo Bongo. \\ \hline
-         
-         Description & This review survey several scalable bioinformatics
-         pipelines and compare their design and their use of underlying
-         frameworks and infrastructures.      \\ \hline
-         
-         Contribution & Literature review and Wrote the manuscript.  \\ \hline
-         
-         Publication date & 23 October 2017 \\ \hline  
+\subsection*{Paper 4} 
 
-         Publication venue & Data Science and Engineering 2017. \\ \hline
-         
-         Citation & \cite{fjukstad2017review} \bibentry{fjukstad2017review} \\
-         \hline 
+\begin{tabular}{ | l | p{9.5cm} | }
+    \hline
+     Title & A Review of Scalable Bioinformatics Pipelines \\ \hline
+     
+     Authors & \textbf{Bjørn Fjukstad}, Lars Ailo Bongo. \\ \hline
+     
+     Description & This review survey several scalable bioinformatics
+     pipelines and compare their design and their use of underlying
+     frameworks and infrastructures.      \\ \hline
+     
+     Contribution & Literature review and Wrote the manuscript.  \\ \hline
+     
+     Publication date & 23 October 2017 \\ \hline  
+
+     Publication venue & Data Science and Engineering 2017. \\ \hline
+     
+     Citation & \cite{fjukstad2017review} \bibentry{fjukstad2017review} \\
+     \hline 
     \end{tabular}
     \label{p4}
 \end{table}
+
+\subsection*{Paper 5} 
+
+
 \begin{table}[H]
     \centering
     \begin{tabular}{ | l | p{9.5cm} | }
@@ -501,6 +545,8 @@ contributions to each paper.
     \end{tabular}
     \label{p5}
 \end{table}
+
+\subsection*{Paper 6} 
 \begin{table}[H]
     \centering
     \begin{tabular}{ | l | p{9.5cm} | }
@@ -534,6 +580,7 @@ contributions to each paper.
 \end{table}
 
 
+\subsection*{Paper 7} 
 \begin{table}[H]
 
     \centering
