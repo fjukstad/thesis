@@ -3,6 +3,10 @@
 \usepackage{bibentry}
 \nobibliography*
 
+\usepackage[acronym]{glossaries}
+
+\makeglossaries
+
 \newacronym{cwl}{CWL}{Common Workflow Language}
 \newacronym{nowac}{NOWAC}{Norwegian Women and Cancer}
 \newacronym{mixt}{MIxT}{Matched Interactions Across Tissues}
@@ -30,9 +34,7 @@
 \newacronym[plural=GBs, firstplural=Gigabytes(GBs)]{gb}{GB}{Gigabyte} 
 \newacronym{cli}{CLI}{Command-line Interface}
 \newacronym{scm}{SCM}{source code management}
-
-\makeglossaries
-
+\newacronym[plural=SMEs, firstplural=Small Modular Entities (SMEs)]{sme}{SME}{Small Modular Entities}
 
 \begin{document} 
 
@@ -42,6 +44,8 @@ Biological Datasets}
 \thesisprogramme{A dissertation for the degree of Philosophiae Doctor}
 \thesisfaculty{Faculty of Science and Technology \\ Department of Computer Science}
 \maketitle
+
+\frontmatter
 
 % \begin{dedication}
 % Smile, it makes this easier.
@@ -59,6 +63,7 @@ Biological Datasets}
 \epigraphitem{Ta aldri problemene på forskudd, for da får du dem to ganger, men
     ta gjerne seieren på forskudd, for hvis ikke er det alt for sjelden du får
     oppleve den.}{Ivar Tollefsen}
+%\epigraphitem{These violent delights have violent ends}{}
 
 % \epigraphitem{Fuck bitches, get money}{Christopher Wallace}
 
@@ -90,12 +95,14 @@ Biological Datasets}
 % yourself.}{Brendan Leonard} 
 \end{epigraph}
 
-\frontmatter
 \input{abstract} 
 \input{acknowledgements} 
 
 \tableofcontents
-% \listofdefinitions
+
+\printglossary[type=\acronymtype]
+
+%\listofdefinition
 \mainmatter
 
 \chapter{Introduction}
