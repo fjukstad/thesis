@@ -1,6 +1,6 @@
 \begin{abstract}
     There is a rapid growth in the number of available biological datasets due
-    to the advent of high-throughput data collection instruments together with
+    to the advent of high-throughput data collection instruments combined with
     cheap compute infrastructure.  Datasets from modern instruments
     enable analysis of biological data at different levels, from small DNA
     sequences through larger cell structures, and up to the function of entire
@@ -9,22 +9,22 @@
     insights to the underlying biological mechanisms in the development and
     progression of diseases such as cancer. 
     
-    The heterogeneity of these biological datasets require the analysts to
+    The heterogeneity of these biological datasets require researchers to
     tailor the exploration and analyses using a range of different tools and
     systems.  However, despite the need to use a range of tools, few of these
     provide standard interfaces for analyses implemented using different
-    programming languages and frameworks. In addition, because of the long list
-    of tools, input parameters, and reference to databases, it is difficult to
+    programming languages and frameworks. In addition, because of the many
+    tools, input parameters, and reference to databases, it is difficult to
     correctly report the correct details of an analysis. The lack of such
     details complicates reproducing original results and reusing the analyses on
     new datasets.  This increases both analysis time and leaves unrealized
     potential for scientific insights.
 
-    This dissertation argues that, instead, we can develop unified systems for
+    This dissertation argues that we can develop unified systems for
     reproducible exploration and analysis high-throughput biological datasets.
-    We propose an approach, Small Composable Units (SCUs), that orchestrates the
+    We propose an approach, \gls{sme}, that orchestrates the
     execution of analysis pipelines and data exploration applications. We
-    realize this approach using software container technologies together with
+    realize \glspl{sme} using software container technologies together with
     well-defined interfaces, configuration, and orchestration.  It simplifies
     the development of such applications, and provides detailed
     information to reproduce the analyses.
@@ -33,8 +33,8 @@
     high-throughput \gls{dna} sequencing datasets, and exploring gene expression
     data integrated with questionnaire, registry, and online databases. Our
     evaluation shows how we effectively capture provenance in analysis pipelines
-    and exploration applications to simplify reproducibility and encourage
-    sharing of methods and tools.
+    and exploration applications. This simplifies reproducing and sharing of
+    methods and tools. 
     
 \end{abstract}
 
