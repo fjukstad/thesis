@@ -140,12 +140,16 @@ natively or within its own Docker container to simplify its installation
 process.
 
 With \texttt{walrus} we target pipeline developers that use command-line tools
-and scripting languages to build and run analysis pipelines. Users wrap their
-existing tools in Docker containers and can use their existing compute
-infrastructure.  We integrate with the current workflow using git to version
-control analysis scripts, and use git-lfs to expand to versioning of datasets as
-well. We have designed the pipeline description format resembles the command
-line syntax as much as possible. 
+and scripting languages to build and run analysis pipelines. Users can use
+existing Docker containers from sources such as
+BioContainers,\cite{biocontainers} or build containers with their own tools.  We
+integrate with the current workflow using git to version control analysis
+scripts, and use git-lfs to expand to versioning of datasets as well. We have
+designed the pipeline description format resembles the command line syntax as
+much as possible. This is one of the major strengths of walrus. It uses a
+familiar syntax and format, and does not require the users to explicitly
+declare which files in the pipeline to version control. 
+
 
 \subsection{Pipeline Configuration}
 Users configure analysis pipelines by writing pipeline description files in a
@@ -216,12 +220,12 @@ have designed \texttt{walrus} to execute an analysis pipeline on a single large
 server, but since the tools are run within containers, these can easily be
 orchestrated across a range of servers in future versions. 
 
-Users can select from containers with bioinformatics tools installed or build
+Users can select from containers pre-installed with bioinformatics tools, or build
 their own using a standard Dockerfile. Through software containers
 \texttt{walrus} can provide a reproducible execution environment for the
 pipeline, and containers provide simple execution on a wide range of software
 and hardware platforms.  With initiatives such as
-BioContainers,\cite{biocontainers} researchers can make use of already existing
+BioContainers, researchers can make use of already existing
 containers without having to re-write their own. Data in each pipeline step is
 automatically mounted and made available within each Docker container. By simply
 relying on Docker \texttt{walrus} requires little software setup to run
@@ -255,12 +259,10 @@ user, which is version controlled automatically by \texttt{walrus} when new data
 is produced by the pipeline. 
 
 In \texttt{walrus} we interface with \texttt{git} to track any output file from
-the analysis pipeline. When users start running a pipeline \texttt{walrus} will
-look for a git repository in the same directory as the pipeline description, if
-it cannot find a repository it will create one for the user. As pipeline stages
-complete, \texttt{walrus} will automatically add and commit the output files for
-each stage to the git repository, using \texttt{git-lfs} to track datasets.
-Users typically use a single repository per pipeline, but can use the same
+the analysis pipeline. When users execute a pipeline, \texttt{walrus} will 
+automatically add and commit output data t a git repository using
+\texttt{git-lfs}. 
+Users typically use a single repository per pipeline, but can share the same 
 repository to version multiple pipelines as well. With git-lfs, instead of
 writing large blobs to a repository it writes small pointer files that contains
 the hash of the original file, the size of the file, and the version of git-lfs
@@ -269,6 +271,8 @@ repository small and manageable with git. The main reason why we chose git and
 git-lfs for version control is that git is the de facto standard for versioning
 source code, and we want to include versioning of datasets without altering the
 typical development workflow. 
+
+
 
 Since we are working with potentially sensitive datasets \texttt{walrus} is
 targeted at users that use a local compute and storage servers. It is up to
@@ -303,7 +307,7 @@ clinical setting, and the low computational time and storage overhead to support
 reproducible analyses.
 
 \subsection{Clinical Application} 
-We have used \texttt{walrus} to analyze a whole-exome dataset to from a sample
+We have used \texttt{walrus} to analyze a whole-exome data from a sample
 in the McGill Genome Quebec [MGGQ] dataset (GSE58644)\cite{tofigh2014prognostic}
 to discover \glspl{snp}, genomic variants and somatic mutations. We
 interactively developed a pipeline description that follows the best-practices
@@ -448,12 +452,10 @@ multiple implementations of \gls{cwl} workflow platforms, e.g. the reference
 implementation
 cwl\_runner,\footnote{\url{github.com/common-workflow-language/cwltool}}
 Arvados,\cite{arvados} Rabix,\cite{rabix} Toil,\cite{toil}
-Galaxy,\cite{goecks2010galaxy}
-and AWE.\cite{awe} It is no requirement to run tools within containers, but
-implementations can support it. There are few of these tools that support
-versioning of the data. 
-Galaxy is an
-open web-based platform for reproducible analysis of large high-throughput
+Galaxy,\cite{goecks2010galaxy} and AWE.\cite{awe} It is no requirement to run
+tools within containers, but implementations can support it. There are few of
+these tools that support versioning of the data.  Galaxy is an open web-based
+platform for reproducible analysis of large high-throughput
 datasets.\cite{goecks2010galaxy} It is possible to run Galaxy on local compute
 clusters, in the cloud, or using the online Galaxy site\footnote{Available at
 \url{usegalaxy.org}.} In Galaxy users set up an analysis pipeline using a
@@ -463,16 +465,16 @@ existing workflow to an \gls{xml} file.\footnote{An alpha version of Galaxy with
 \url{github.com/common-workflow-language/galaxy}.}  We chose not to use Galaxy
 because of missing command-line and scripting support, along with little support
 for running workflows with different configurations.\cite{spjuth2015experiences}
-Rabix provides checksums of output data to verify it
-against the actual output from the pipeline. This is similar to the checksums
-found in the git-lfs pointer files, but they do not store the original files for
-later. Arvados stores the data in a distributed storage system, Keep, that
-provides both storage and versioning of data. We chose not to use \gls{cwl} and
-its implementations because of its relaxed restrictions on having to use
-containers, its verbose pipeline descriptions, and the complex compute
-architecture required for some of the runners. We are however experimenting
-with an extension to \texttt{walrus} that translates pipeline descriptions
-written in \texttt{walrus} to \gls{cwl} pipeline descriptions. 
+Rabix provides checksums of output data to verify it against the actual output
+from the pipeline. This is similar to the checksums found in the git-lfs pointer
+files, but they do not store the original files for later. Arvados stores the
+data in a distributed storage system, Keep, that provides both storage and
+versioning of data. We chose not to use \gls{cwl} and its implementations
+because of its relaxed restrictions on having to use containers, its verbose
+pipeline descriptions, and the complex compute architecture required for some of
+the runners. We are however experimenting with an extension to \texttt{walrus}
+that translates pipeline descriptions written in \texttt{walrus} to \gls{cwl}
+pipeline descriptions. 
 
 
 Pachyderm is a system for running  big data analysis pipelines. It provides

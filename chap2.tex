@@ -4,8 +4,8 @@ From the discovery of the \gls{dna} structure by Watson and Crick in
 sequencing platforms in the later years[6], the scientific advances have been
 tremendous. Today, single week-long sequencing runs can produce as much data as
 did entire genome centers just years ago.\cite{kahn2011future}  These
-technologies allow researchers to collect data faster, cheaper and more
-efficient, now making it possible to collect the entire genome from a patient in
+technologies allow researchers to produce data faster, cheaper and more
+efficiently, now making it possible to sequence the entire genome from a patient in
 less than a days work.
 
 In this chapter we give a background in the different aspects of analyzing and
@@ -14,12 +14,42 @@ highlight the necessary processing steps from data generation and to
 interpretation of results. In addition we describe the traditional data analysis
 and management, and propose a novel approach for organizing, sharing, and
 collaborating on research data and analyses. In this chapter we focus on
-analysts writing their own specialized analysis scripts in programming languages
-such as R. 
+analysts in the \gls{nowac} study writing their own specialized analysis scripts
+in the R programming language.
 
-\section{High-Throughput Datasets in Research and Medicine} 
+\section{High-Throughput Datasets for Research and Clinical Use} 
+Cells are the smallest units an organism can be divided into, that still
+possesses the functions performed by living organisms. Within cells we find
+proteins, the working units, found in a wide range of processes.  All cells
+within an organism contain the same genetic information, this genetic
+information is stored within nucleic acids which are responsible for storage,
+transmission and expression. There are two types of nucleic acids, \gls{dna} and
+\gls{rna}.  DNA is responsible for the storage of genetic information, while RNA
+is used in decoding the information stored within DNA. Genes are sequences of
+\gls{dna}, and the human genome consists of approximately 20 500 genes. These
+genes specify how proteins are synthesized. In short, DNA is transcribed into
+RNA which are translated to proteins. This is called the central dogma of
+molecular biology. 
+
 \gls{dna} sequencing is the process of determining the order of nucleotides
-within a strand of \gls{dna}. 
+within a strand of \gls{dna}. \gls{hts}, or \gls{ngs}, is a term used to
+described newer technology that enables massively-parallel sequencing of
+\gls{dna}. \gls{hts} instruments sequence millions of short base pairs and
+we assemble these in the data analysis process. Typical sequencing datasets are
+in the size of hundreds of \glspl{gb} per sample. 
+
+While \gls{hts} can study the sequence of bases, we use \gls{dna} microarrays to
+study the transcriptome, or the genes actively expressed. While the genome is
+mostly fixed for an organism, the transcriptome is continuously changing. These
+instruments report the expression levels of a large number of target genes, and
+by profiling these we can study which genes are active in the biological sample.
+Microarray datasets are in the size of of megabytes per sample. 
+
+Another technique to study the transcriptome is to use \gls{rna}-seq technology
+based on \gls{hts}. \gls{rna}-seq instruments also read millions of short base
+pairs in parallel, and can be used in gene expression analysis. Because of its
+higher quality output, \gls{rna}-seq is the successor to microarray technology.
+These datasets are also in the size of hundreds of \glspl{gb}.
 
 Precision medicine uses patient-specific molecular information to diagnose and
 categorize disease to tailor treatment to improve health
@@ -29,15 +59,10 @@ individual tumors, their relationship to outcome, and to improve diagnosis and
 therapy.\cite{tannock2016limits} International cancer institutions are therefore
 offering dedicated personalized medicine programs, but while the data collection
 and analysis technology is emerging, there are still unsolved problems to enable
-reproducible analyses in clinical settings. For cancer, high throughput
-sequencing is the main technology to facilitate personalized diagnosis and
+reproducible analyses in clinical settings. For cancer, \gls{hts}
+is the main technology to facilitate personalized diagnosis and
 treatment since it enables collecting high quality genomic data from patients
 at a low cost. 
-
-\subsection{Sequencing} 
-TODO: What is sequencing data, how is it obtained and what does it look like. 
-\subsection{Gene expression} 
-TODO: What is gene expression, how is it obtained, and what does it look like.
 
 \section{Norwegian Women and Cancer (\gls{nowac})} 
 The \gls{nowac} study is a prospective population-based cohort that tracks 34\%
