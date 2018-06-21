@@ -147,7 +147,6 @@ information about genes without the researcher having to leave the pathway
 visualization to retrieve relevant information.
 
 \subsection{Analysis Tasks} 
-
 To efficiently develop the application we designed 3 analysis tasks that the
 application supports. 
 
@@ -164,17 +163,6 @@ information.
 gene from a pathway map they get a list of other pathway maps that this
 gene is found in, in addition to their similarity. This allows users to dig into
 the different processes genes are a part of. 
-
-As an example of practical use of Kvik Pathways, we chose one of the
-significant pathways from the overlap analysis, the renin-angiotensin
-pathway (Supplementary table S5 in \cite{olsen2013plasma}). The pathway
-contains 17 genes, and in the pathway map we could instantly identify the
-two genes that drive this result. The color of the gene nodes in the pathway
-map indicates the fold change, and the statistical significance level is
-indicated by the color of the node's frame.  We use this image of a
-biological process to see how these two genes (and their expression levels)
-are related to other genes in that pathway, giving a biologically more
-meaningful context as compared to merely seeing the two genes on a list.
 
 \begin{figure}[htb!]
     \begin{centering}
@@ -273,10 +261,23 @@ Since Kvik Pathways is implemented as a web application and the analyses are run
 ad hoc, when the analyses change, researchers get an updated application by
 simply refreshing the Kvik Pathways webpage.
 
+\subsection{Practical Use} 
+As an example of practical use of Kvik Pathways, we chose one of the
+significant pathways from the overlap analysis, the renin-angiotensin
+pathway (Supplementary table S5 in \cite{olsen2013plasma}). The pathway
+contains 17 genes, and in the pathway map we could instantly identify the
+two genes that drive this result. The color of the gene nodes in the pathway
+map indicates the fold change, and the statistical significance level is
+indicated by the color of the node's frame.  We use this image of a
+biological process to see how these two genes (and their expression levels)
+are related to other genes in that pathway, giving a biologically more
+meaningful context as compared to merely seeing the two genes on a list.
+
+
 \section{Design Principles}\label{challengeref} 
-Through the experiences developing the Kvik Pathwyas and \gls{mixt} we
-identified a set of components and features that are central to building data
-exploration applications: 
+Through the experiences developing the Kvik Pathways we identified a set of
+components and features that are central to building data exploration
+applications: 
 
 \begin{enumerate}
     \item A low-latency language-independent approach for integrating, or
@@ -290,11 +291,20 @@ exploration applications:
 \end{enumerate} 
 
 
-In the rest of the section we describe how we designed and implemented the
-packages in Kvik, their use in Kvik Pathways, and how they later formed the
-bases of the microservice development model that the \gls{mixt} web application
-builds upon. 
+In the following sections we describe how we designed and implemented the
+packages in Kvik, and how they later formed the bases of the \gls{sme} approach
+that the \gls{mixt} web application builds upon. 
 
+\section{Kvik}
+Kvik is a collection of software packages in the Go programming language that
+allows developers to build data exploration applications. It is the basis of our
+two data exploration applications, and has been iteratively developed through
+the last years. Kvik provides an interface to the R statistical programming
+language, both as a stand-alone service, a client library, and through an
+OpenCPU server. It provides an R-based pipelining tool that allows useres to
+specify and run statistical analysis pipelines in R.  Kvik also contains a
+Javascript package for visualizing KEGG pathways using d3.  In addition it
+provides an interface with online databases such as MsigDB and KEGG. 
 
 We used the experience building Kvik Pathways to completely re-design and
 re-implement the R interface in Kvik. From having an R server that can run a
@@ -308,18 +318,6 @@ visualizing biological pathways, a database service to retrieve pathway images
 and other metadata, and a compute service for interfacing with the gene
 expression data in the NOWAC cohort. We could then re-use the database and the
 compute service in the MIxT application. 
-
-
-\section{Kvik}
-Kvik is a collection of software packages in the Go programming language that
-allows developers to build data exploration applications. It is the basis of our
-two data exploration applications, and has been iteratively developed through
-the last years. Kvik provides an interface to the R statistical programming
-language, both as a stand-alone service, a client library, and through an
-OpenCPU server. It provides an R-based pipelining tool that allows useres to
-specify and run statistical analysis pipelines in R.  Kvik also contains a
-Javascript package for visualizing KEGG pathways using d3.  In addition it
-provides an interface with online databases such as MsigDB and KEGG. 
 
 We have used these packages to develop the \gls{sme} approach through services
 that provide open interfaces to the R programming language and the online
@@ -390,7 +388,6 @@ The \gls{mixt} system is an online web application for exploring and comparing
 transcriptional profiles from blood and tumor samples. It provides users with an
 interface to explore high-throughput gene expression profiles of breast cancer
 tumor data with matched profiles from the patients blood. 
-
 
 \subsection{Analysis Tasks} 
 To efficiently develop
@@ -558,7 +555,7 @@ sources such as the Norwegian Institute for Air Research and the The Norwegian
 Meteorological Institute. 
 
 \section{Evaluation} 
-We evaluate the applications by ivestigating response times for a set of queries
+We evaluate the applications by investigating response times for a set of queries
 to each of the two supporting services. 
 
 To evaluate the database service we measure the query time for retrieving
@@ -604,6 +601,10 @@ process is forked upon every request that results in any computation executed in
 R. Other requests such as retrieving previous results do not fork new R
 processes. 
 
+In summary our results show that the interface to the R programming language
+provides faster latencies, and that implementing a service for database lookups
+have clear benefits with regards to latency. 
+
 \begin{table}[h]
     \caption[]{Time to complete the benchmark with different number of
     concurrent connections.}
@@ -620,4 +621,33 @@ processes.
 \end{table} 
 
 \section{Discussion}
+There are different arguments for reusing and sharing microservices over
+libraries in bioinformatics applications, that would justify the cost of hosting
+an maintaining a set of distributed microservices.  We argue that applications
+that require large computational or storage resources can benefit from the
+microservices approach because the applications can share the underlying compute
+infrastructure between multiple applications and users.  This makes it possible
+to deploy an application on a lightweight system that uses a common service for
+computation and storage. In addition, benefits such as using different
+programming languages for a single application, and packaging a microservice as
+a software container, help to outweigh the operational burden related to using
+microservices to build applications. 
+
+We have reused the microservices for running statistical analyses and
+fetch biological metadata, and share these between applications. This makes it
+possible for multiple applications to use one or more powerful servers for
+hosting the services. In the case of statistical analyses we simply install the
+necessary R packages for each application on the compute service and run it as
+we would for one single application. 
+
 \section{Conclusion}
+We have designed an approach for building data exploration applications in
+systems biology. Through an iterative approach we have identified a set of
+central components to these applications, and implemented them using a
+microservice architecture. Using this approach we have built a web application
+that integrates statistical analyses, interactive visualizations, and data from
+biological databases. While we have used our approach to build an application in
+systems biology, we believe that the microservice architecture can be used to
+build data exploration systems in other disciplines as well. 
+
+
