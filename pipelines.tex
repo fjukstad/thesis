@@ -6,34 +6,44 @@ context we also show its usefulness in other areas, specifically for
 \gls{rna}-seq analyses. 
 
 \section{Use Case and Motivation} 
+Precision medicine uses patient-specific molecular information to diagnose and
+categorize disease to tailor treatment to improve health
+outcome.\cite{national2011toward} Important goals in precision medicine are to
+learn about the variability of the molecular characteristics of individual
+tumors, their relationship to outcome, and to improve diagnosis and
+therapy.\cite{tannock2016limits} International cancer institutions are therefore
+offering dedicated personalized medicine programs. 
+
 For cancer, high throughput sequencing is an emerging technology to facilitate
 personalized diagnosis and treatment since it enables collecting high quality
-genomic data from patients at a low cost.  Data collection is becoming cheaper,
-but the downstream computational analysis is still both a time consuming and
-thereby a costly part of the experiment. This is because of the computationally
-intensive methods needed to discover patterns in the data, in addition to the
-human resources to develop and use these methods in the analysis.  Such analyses
-require deep analysis pipelines with a large number of steps that transform raw
-data into interpretable results.\cite{diao2015building} These pipelines often
-consists of in-house or third party tools and scripts that each transform input
-files and produce some output. Although different tools exist, it is necessary
-to carefully explore different tools and parameters to choose the most efficient
-to apply for a dedicated question.\cite{servant2014bioinformatics} The
-complexity of the tools vary from toolkits such as the \gls{gatk} to small
-custom \emph{bash} or \emph{R} scripts.  In addition some tools interface with
-databases whose versions and content will impact the overall
-result.\cite{sboner2015primer}
+genomic data from patients at a low cost. Data collection is becoming cheaper,
+but the downstream computational analysis is still time consuming and thereby a
+costly part of the experiment.  This is because of the manual efforts to set up,
+analyze, and maintain the analysis pipelines. These pipelines consist of a large
+number of steps that transform raw data into interpretable
+results.\cite{diao2015building} These pipelines often consists of in-house or
+third party tools and scripts that each transform input files and produce some
+output. Although different tools exist, it is necessary to carefully explore
+different tools and parameters to choose the most efficient to apply for a
+dedicated question.\cite{servant2014bioinformatics} The complexity of the tools
+vary from toolkits such as the \gls{gatk} to small custom \emph{bash} or
+\emph{R} scripts.  In addition some tools interface with databases whose
+versions and content will impact the overall result.\cite{sboner2015primer}
 
-When developing analysis pipelines for use in precision medicine it is necessary
-to track pipeline tool versions, their input parameters, and data. Both to
-thoroughly document what produced the end results, but also to compare results
-from different pipeline runs.  Because of the iterative process of developing
-the analysis pipeline, it is necessary to use analysis tools that facilitate
-modifying pipeline steps and adding new ones with little developer effort.
+Improperly developed analysis pipelines for precision medicine may generate
+inaccurate results, which may have negative consequences for patient
+care.\cite{roy2017standards} 
+When developing analysis pipelines for use in precision medicine it is therefore
+necessary to track pipeline tool versions, their input parameters, and data.
+Both to thoroughly document what produced the final clinical reports, but also
+for iteratively improving the quality of the pipeline during development.
+Because of the iterative process of developing the analysis pipeline, it is
+necessary to use analysis tools that facilitate modifying pipeline steps and
+adding new ones with little developer effort.
 
 We have previously analyzed DNA sequence data from a breast cancer patient's
 primary tumor and adjacent normal cells to identify the molecular signature of
-the patient's tumor and germline.  When the patient  later relapsed we analyzed
+the patient's tumor and germline. When the patient  later relapsed we analyzed
 sequence data from the patient's metastasis to provide an extensive comparison
 against the primary and to identify the molecular drivers of the patient's
 tumor. 
@@ -59,7 +69,11 @@ fastqc,\footnote{\url{bioinformatics.babraham.ac.uk/projects/fastqc}}
 trimmomatic,\footnote{\url{usadellab.org/cms/?page=trimmomatic}} and the
 \gls{gatk}.\footnote{\url{software.broadinstitute.com/gatk}} While the analysis
 tools themselves provide the necessary functionality to give insights in
-the disease, ensuring that the analyses could be fully reproduced later left
+the disease, 
+% LAB: Kan vi gi ett illustrerende eksempel på hvorfor dette var viktig i
+% "motivating use case". Ellers blir det rart hvis hovedpoenget med walrus ikke
+% var motivert.
+ensuring that the analyses could be fully reproduced later left
 areas in need of improvement.
 
 We chose a command-line script over more complex pipelining tools or workbenches
@@ -73,30 +87,35 @@ often put hard restrictions on where the data can be stored and analyzed.
 
 After we completed the first round of analyses we summarized our efforts and
 noted some lessons learned. 
-First, datasets and databases should be version
-controlled and stored along with the pipeline description. In the analysis
-script we referenced to datasets and databases by their physical location on a
-storage system, but these were later moved without updating the pipeline
-description causing extra work. A solution would be to add the data to the same
-version control repository hosting the pipeline description.
-Second, the specific pipeline tools should also be kept available for later use.
-Since installing many bioinformatics tools require a long list of dependencies,
-it is beneficial to store the pipeline tools to reduce the time to start
-analyzing new data or re-run analyses. 
-Another lesson is that it should be easy to add new
-tools to an existing pipeline and execution environment. This includes
-installing the specific tool and adding to an existing pipeline. Bundling tools
-within software containers, such as Docker, and hosting them on an online
-registry simplifies the tool installation process since the only requirement is
-the container runtime.
-Another lesson learned is that while bash scripts have their limitations, using
-a well-known format that closely resembles the normal command-line use clearly
-have its advantages. It is easy to understand what tools were used, their input
-parameters, and the data flow. However, from our experience when these analysis
-scripts grow too large they become too complex to modify and maintain. 
-Last, while there are new and promising state-of-the art pipeline managers, many
-of these also require state-of-the-art computing infrastructure to run. This
-may not be the case for the current research and hospital environments. 
+\begin{itemize}
+    \item  Datasets and databases should be version controlled and stored
+        along with the pipeline description. In the analysis script we
+        referenced to datasets and databases by their physical location on a
+        storage system, but these were later moved without updating the pipeline
+        description causing extra work. A solution would be to add the data to
+        the same version control repository hosting the pipeline description.
+    \item The specific pipeline tools should also be kept available for
+        later use.  Since installing many bioinformatics tools require a long list
+        of dependencies, it is beneficial to store the pipeline tools to reduce
+        the time to start analyzing new data or re-run analyses. 
+    \item It should be easy to add new tools to an existing
+        pipeline and execution environment. This includes installing the specific
+        tool and adding to an existing pipeline. Bundling tools within software
+        containers, such as Docker, and hosting them on an online registry
+        simplifies the tool installation process since the only requirement is
+        the container runtime.
+    \item While bash scripts have their
+        limitations, using a well-known format that closely resembles the normal
+        command-line use clearly have its advantages. It is easy to understand
+        what tools were used, their input parameters, and the data flow.
+        However, from our experience when these analysis scripts grow too large
+        they become too complex to modify and maintain. 
+    \item While there are new and promising state-of-the art pipeline
+        managers, many of these also require state-of-the-art computing
+        infrastructure to run. This may not be the case for the current research
+        and hospital environments. 
+\end{itemize} 
+
 
 The above problem areas are not just applicable to our research group, but
 common to other research and precision medicine projects as well. Especially
@@ -111,7 +130,6 @@ in pipeline runs, and retrieve previous analysis results and configurations. In
 the remainder of the paper we describe the design and implementation of
 \texttt{walrus}, its clinical use, its performance, and how it relates to other
 pipeline managers. 
-
 
 \section{\texttt{walrus}} 
 \texttt{walrus} is a tool for developing and executing data analysis pipelines.
@@ -129,7 +147,7 @@ other popular pipeline managers require the use of cluster computers or cloud
 environment, we focus on single compute nodes often found in clinical
 environments such as hospitals. 
 
-\texttt{walrus}  is implemented as a command-line tool in the Go programming
+\texttt{walrus} is implemented as a command-line tool in the Go programming
 language. We use the popular software container implementation
 Docker\footnote{\url{docker.com}} to provide reproducible execution
 environments, and interface with git together with
@@ -144,7 +162,7 @@ and scripting languages to build and run analysis pipelines. Users can use
 existing Docker containers from sources such as
 BioContainers,\cite{biocontainers} or build containers with their own tools.  We
 integrate with the current workflow using git to version control analysis
-scripts, and use git-lfs to expand to versioning of datasets as well. We have
+scripts, and use git-lfs for versioning of datasets as well. We have
 designed the pipeline description format resembles the command line syntax as
 much as possible. This is one of the major strengths of walrus. It uses a
 familiar syntax and format, and does not require the users to explicitly
@@ -173,25 +191,25 @@ tumor and normal sequences, and produces an output file with the detected
 mutations.},
 label={examplelisting}, 
 basicstyle=\ttfamily\scriptsize]
-        {
-          "Name": "mutect",
-          "Image": "fjukstad/mutect:1.1.7",
-          "Cmd": [
-            "--analysis_type","MuTect",
-            "--reference_sequence","/walrus/input/reference.fasta",
-            "--input_file:normal","/walrus/input/normal.bam",
-            "--input_file:tumor","/walrus/input/tumor.bam",
-            "-L","/walrus/input/targets.bed",
-            "--out","/walrus/mutect/mutect-stats-txt",
-            "--vcf","/walrus/mutect/mutect.vcf"
-          ],
-          "Inputs":[
-             "input" 
-          ]
-        }
+     {
+       "Name": "mutect",
+       "Image": "fjukstad/mutect:1.1.7",
+       "Cmd": [
+         "--analysis_type","MuTect",
+         "--reference_sequence","/walrus/input/reference.fasta",
+         "--input_file:normal","/walrus/input/normal.bam",
+         "--input_file:tumor","/walrus/input/tumor.bam",
+         "-L","/walrus/input/targets.bed",
+         "--out","/walrus/mutect/mutect-stats-txt",
+         "--vcf","/walrus/mutect/mutect.vcf"
+       ],
+       "Inputs":[
+          "input" 
+       ]
+     }
 \end{lstlisting}
 
-Users add data to an analysis pipeline by simply specifying the location of the
+Users add data to an analysis pipeline by specifying the location of the
 input data in the pipeline description, and \texttt{walrus} automatically mounts
 it to the container running the analysis. The location of the input files can
 either be local or remote locations such as an FTP server. When the pipeline is
@@ -248,15 +266,17 @@ provenance related information to the output data from each step. Users can
 investigate this file to get a more detailed look on the completed pipeline. In
 addition to this output file \texttt{walrus} will return a unique version ID for
 the pipeline run, which later can be used to investigate a previous pipeline
-run. 
+run.
+
 
 \subsection{Data Management}
 In \texttt{walrus} we provide an interface for users to track their analysis
-data through a version control system. This allows users to inspect data from
-previous pipeline runs without having to recompute all the data. \texttt{walrus}
-stores all intermediate and output data in an output directory specified by the
-user, which is version controlled automatically by \texttt{walrus} when new data
-is produced by the pipeline. 
+data through a version control system. 
+This allows users to inspect data from previous pipeline runs without having to
+recompute all the data. \texttt{walrus} stores all intermediate and output data
+in an output directory specified by the user, which is version controlled
+automatically by \texttt{walrus} when new data is produced by the pipeline. We
+track changes at file granularity. 
 
 In \texttt{walrus} we interface with \texttt{git} to track any output file from
 the analysis pipeline. When users execute a pipeline, \texttt{walrus} will 
@@ -272,8 +292,6 @@ git-lfs for version control is that git is the de facto standard for versioning
 source code, and we want to include versioning of datasets without altering the
 typical development workflow. 
 
-
-
 Since we are working with potentially sensitive datasets \texttt{walrus} is
 targeted at users that use a local compute and storage servers. It is up to
 users to configure a remote tracker for their repositories, but we provide
@@ -283,17 +301,18 @@ hosting source code but they must themselves provide the remote server to host
 their data.
 
 \subsection{Pipeline Reconfiguration and Re-execution}
-Reconfiguring a pipeline is common practice in precision medicine, e.g. if we
-later would like to change tool parameters or add additional steps to the
-analysis pipeline. To reconfigure an existing pipeline users make the applicable
+Reconfiguring a pipeline is common practice in precision medicine, e.g. to
+ensure that genomic variants are called with a desired sensitivity and
+specificity.  To reconfigure an existing pipeline users make the applicable
 changes to the pipeline description and re-run it using \texttt{walrus}.
 \texttt{walrus} will then recompute the necessary steps and return a version ID
 for the newly run pipeline. This ID can be used to compare pipeline runs, the
-changes made, and optionally restore the data and configuration from a previous
-run.  Reconfiguring the pipeline to use updated tools or reference genomes will
-alter the pipeline configuration and force \texttt{walrus} to recompute the
-applicable pipeline stages. 
+changes made, and optionally restore the data and configuration from a
+previous run.  Reconfiguring the pipeline to use updated tools or reference
+genomes will alter the pipeline configuration and force \texttt{walrus} to
+recompute the applicable pipeline stages. 
 
+% LAB: Hva med intermediate files?
 The command-line interface of \texttt{walrus} provides functionality to restore
 results from a previous run, as well as printing information about a completed
 pipeline.  To restore a previous pipeline run, users use the \texttt{restore}
@@ -301,7 +320,7 @@ command line flag in \texttt{walrus} together with the version ID of the
 respective pipeline run. \texttt{walrus} will interface with git to restore the
 files to their state at the necessary point in time.
 
-\section{Evaluation}
+\section{Results}
 To evaluate the usefulness of \texttt{walrus} we demonstrate its use in a
 clinical setting, and the low computational time and storage overhead to support
 reproducible analyses.
@@ -318,8 +337,7 @@ generated reports that summarized the findings to share the results. Figure
 \texttt{walrus} of the pipeline. 
 
 \begin{figure}
-    \centering 
-    \includegraphics[width=12cm]{figures/webshot.png} 
+\includegraphics[width=8.3cm]{figures/webshot.png}
     \caption{Screenshot of the web-based visualization in \texttt{walrus}. The
     user has zoomed in to inspect the pipeline step which marks duplicate reads
     in the tumor sequence data.}
@@ -352,7 +370,7 @@ detect changes in an analysis pipeline, we have implemented one of the variant
 calling pipelines from \cite{cornish2015comparison} using tools from picard and
 the \gls{gatk}. We show the storage and computational overhead of our approach,
 and the benefit of capturing the pipeline specification using a pipeline manager
-rather than a methods section in a paper.  The pipeline description and code is
+rather than a methods section in a paper. The pipeline description and code is
 available along with \texttt{walrus} at \url{github.com/uit-bdps/walrus}. Figure
 \ref{benchpipefigure} shows a simple graphical representation of the pipeline. 
 
@@ -375,24 +393,23 @@ change the \texttt{--maxReadsForRealignment} parameter in the indel realigner
 step back to its default (See the online pipeline description for more details).
 This forces \texttt{walrus} to recompute the indel realigner step and any
 subsequent steps. We then use the \texttt{restore} flag in \texttt{walrus} to
-illustrate what the parameter change had on the pipeline output.  To illustrate
+illustrate what the parameter change had on the pipeline output. To illustrate
 how \texttt{walrus} can restore old pipeline configurations and results, we
 restore the pipeline to the initial configuration and results. We show the
 computational overhead and storage usage of restoring a previous pipeline
 configuration. 
 
-Note that while the authors of \cite{cornish2015comparison} lists the actual
-commands of many of the pipeline steps, more than most publications, using the
-methods section of the paper to reproduce the analysis pipeline is still a
-difficult task.  For example, the online version of \cite{cornish2015comparison}
-the parameters prefixed with two consecutive hypens (\texttt{--}) are converted
-to single em dashes (---).  PDF versions of the paper lists the parameters
-correctly.  In addition, the input filenames in the variant calling step do not
-correspond to any output files in previous steps, but because of their
-similarity to previous output files we assume that this is just a typo. These
-issues in addition to missing commands for e.g. the filtering step highlights
-the clear benefit of writing and reporting the analysis pipeline using a tool
-such as \texttt{walrus}. 
+Reproducing results from a scientific publication can be a difficult task. For
+example, troublesome formatting of the online version of
+\cite{cornish2015comparison} led to some pipeline tools failing. The parameters
+prefixed with two consecutive hypens (\texttt{--}) are converted to single em
+dashes (---).  PDF versions of the paper lists the parameters correctly.  In
+addition, the input filenames in the variant calling step do not correspond to
+any output files in previous steps, but because of their similarity to previous
+output files we assume that this is just a typo. These issues in addition to
+missing commands for e.g. the filtering step highlights the clear benefit of
+writing and reporting the analysis pipeline using a tool such as
+\texttt{walrus}. 
 
 Table \ref{resultstable} shows the runtime and storage use of the different
 experiments. In the second experiment we can see the added overhead of adding
@@ -428,6 +445,7 @@ the correct files in the \texttt{.git} subdirectory.
     \label{resultstable}
 \end{table}
 
+
 % \subsubsection{Provenance} 
 % Listing \ref{provlist} shows the output of task 5, examining the pipeline output
 % against previous versions. It shows how the subsequent pipeline steps have been
@@ -446,9 +464,9 @@ and systems that provide versioning of data.
 \gls{cwl} is a specification for describing analysis workflows and
 tools.\cite{commonwl} A pipeline is written as a \gls{json} or \gls{yaml} file,
 or a mix of the two, and describes each step in detail, e.g. what tool to run,
-its input parameters, input data and output data. The pipeline descriptions are
-text files that can be version controlled and shared between projects. There are
-multiple implementations of \gls{cwl} workflow platforms, e.g. the reference
+its input parameters, input data and output data. The pipeline descriptions
+are text files that can be version controlled and shared between projects. There
+are multiple implementations of \gls{cwl} workflow platforms, e.g. the reference
 implementation
 cwl\_runner,\footnote{\url{github.com/common-workflow-language/cwltool}}
 Arvados,\cite{arvados} Rabix,\cite{rabix} Toil,\cite{toil}
@@ -457,25 +475,24 @@ tools within containers, but implementations can support it. There are few of
 these tools that support versioning of the data.  Galaxy is an open web-based
 platform for reproducible analysis of large high-throughput
 datasets.\cite{goecks2010galaxy} It is possible to run Galaxy on local compute
-clusters, in the cloud, or using the online Galaxy site\footnote{Available at
+clusters, in the cloud, or using the online Galaxy site.\footnote{Available at
 \url{usegalaxy.org}.} In Galaxy users set up an analysis pipeline using a
 web-based graphical interface, and it is also possible to export or import an
-existing workflow to an \gls{xml} file.\footnote{An alpha version of Galaxy with
-\gls{cwl} support is available at
+existing workflow to an \gls{xml} file.\footnote{An alpha version of Galaxy
+with \gls{cwl} support is available at
 \url{github.com/common-workflow-language/galaxy}.}  We chose not to use Galaxy
 because of missing command-line and scripting support, along with little support
-for running workflows with different configurations.\cite{spjuth2015experiences}
-Rabix provides checksums of output data to verify it against the actual output
-from the pipeline. This is similar to the checksums found in the git-lfs pointer
-files, but they do not store the original files for later. Arvados stores the
-data in a distributed storage system, Keep, that provides both storage and
-versioning of data. We chose not to use \gls{cwl} and its implementations
-because of its relaxed restrictions on having to use containers, its verbose
-pipeline descriptions, and the complex compute architecture required for some of
-the runners. We are however experimenting with an extension to \texttt{walrus}
-that translates pipeline descriptions written in \texttt{walrus} to \gls{cwl}
-pipeline descriptions. 
-
+for running workflows with different
+configurations.\cite{spjuth2015experiences} Rabix provides checksums of output
+data to verify it against the actual output from the pipeline. This is similar
+to the checksums found in the git-lfs pointer files, but they do not store the
+original files for later. Arvados stores the data in a distributed storage
+system, Keep, that provides both storage and versioning of data. We chose not to
+use \gls{cwl} and its implementations because of its relaxed restrictions on
+having to use containers, its verbose pipeline descriptions, and the complex
+compute architecture required for some of the runners. We are however
+experimenting with an extension to \texttt{walrus} that translates pipeline
+descriptions written in \texttt{walrus} to \gls{cwl} pipeline descriptions. 
 
 Pachyderm is a system for running  big data analysis pipelines. It provides
 complete version control for data and leverages the container ecosystem to
@@ -491,23 +508,22 @@ step is the correct approach to truly reproducible data analysis pipelines.
 The reason we did not use Kubernetes and Pachyderm was because our compute
 infrastructure did not support it. In addition we did not want to use a separate
 tool, \gls{pfs}, for data versioning, we wanted to integrate it with the current
-pratice of using git for versioning.  
+pratice of using git for versioning. 
 
 As discussed in \cite{NIK}, recent projects propose to use containers for life
-science research. The BioContainers\cite{biocontainers} and
-Bioboxes\cite{belmann2015bioboxes} projects addresses the challenge of
-installing bioinformatics data analysis tools by maintaining a repository of
-docker containers for commonly used data analysis tools.  
-Docker containers are shown to have better than, or equal performance as
-VMs.\cite{di2015impact} Both forms of virtualization techniques introduce
-overhead in I/O-intensive workloads, especially in VMs, but introduce negligible
-CPU and memory overhead.  For genomics pipelines the overhead of Docker
-containers will be negligible since these tend to be compute intensive and they
-typically run for several hours \cite{di2015impact}
+science research. 
+The BioContainers\cite{biocontainers} and Bioboxes\cite{belmann2015bioboxes}
+projects address the challenge of installing bioinformatics data analysis
+tools by maintaining a repository of Docker containers for commonly used data
+analysis tools. Docker containers are shown to have better than, or equal
+performance as VMs.\cite{di2015impact} Both forms of virtualization techniques
+introduce overhead in I/O-intensive workloads, especially in VMs, but introduce
+negligible CPU and memory overhead. For precision medicine pipelines the
+overhead of Docker containers will be negligible since these tend to be compute
+intensive and they typically run for several hours. \cite{di2015impact}
 Containers have also been proposed as a solution to improve experiment
-reproducibility, by ensuring that the data analysis tools are installed with
-the same responsibilities.\cite{boettiger2015introduction} 
-
+reproducibility, by ensuring that the data analysis tools are installed with the
+same responsibilities.\cite{boettiger2015introduction} 
 
 
 \section{Discussion}
@@ -530,12 +546,11 @@ version control genomic datasets in an analysis pipeline, we believe that there
 is still room for improvement. 
 
 While we provide one approach to version control datasets, there are still some
-drawbacks. git-lfs supports large files, but it still takes a significant amount
-of time to add large files to a repository.  This makes the entire analysis
-pipeline slower, but we argue that having the files version controlled outweigh
-the runtime. In addition, there are only a few public gif-lfs hosting platforms
-for datasets larger than a few gigabytes, making it necessary to host these
-in house. 
+drawbacks. git-lfs supports large files, but in our results it added an
+additional 5\% in runtime.  This makes the entire analysis pipeline slower, but
+we argue that having the files version controlled outweigh the runtime. In
+addition, there are only a few public gif-lfs hosting platforms for datasets
+larger than a few gigabytes, making it necessary to host these in house. 
 
 We aim to investigate the performance of running analysis pipelines with
 \texttt{walrus}, and the potential benefit of its built-in data parallelism.
@@ -545,7 +560,6 @@ of doing so. This includes benchmarking and analyzing the system requirements
 for doing precision medicine analyses.  We are also planning on exploring
 parallelism strategies where we can split an input dataset into chromosomes and
 run some steps in parallel for each chromosome, before merging the data again. 
- 
 
 \section{Conclusions} 
 We have designed and implemented \texttt{walrus}, a tool for developing 
@@ -557,4 +571,3 @@ provides the foundation for reproducible data analyses in the clinical setting.
 We have used \texttt{walrus} to analyze a patient's metastatic lesions and
 adjacent normal tissue to provide insights and recommendations for  cancer
 treatment. 
-
