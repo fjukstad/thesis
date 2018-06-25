@@ -213,27 +213,6 @@ time as the research study evolves. Pippeline is a web-based interface for
 running the standardized preprocessing steps before analyzing gene expression
 datasets in the \gls{nowac} cohort. 
 
-\subsection{Deep Analysis Pipelines} 
-Analysis of high-throughput sequencing datasets requires deep analysis pipelines
-with a large number of steps that transform raw data into interpretable
-results.\cite{diao2015building} There are a large number of tools available that
-perform the different processing steps, written in a wide range of programming
-languages. The tools, and their dependencies, can be difficult to install, and
-they require users to correctly manage a range of input parameters that affects
-the output results. With software container technology it is a simple task for
-users to share container images with analysis tools pre-installed. Then, by
-designing a text-based specification for the analyses, we can orchestrate the
-execution of an entire analysis pipeline and record the flow of data through the
-pipeline. As with the previous use case, we develop an analysis pipeline by
-composing smaller entities, or tools, into a complete pipeline. 
-
-We implemented the approach in \texttt{walrus}, a tool that lets users create
-and run analysis pipelines. In addition, it tracks full provenance of the input,
-intermediate, and output data, as well as tool parameters. With \texttt{walrus}
-we have successfully built analysis pipelines to detect somatic mutations in
-breast cancer patients, as well as an \gls{rna}-seq pipeline for comparison with
-gene expression datasets. 
-
 \subsection{Interactive Data Exploration Applications}
 The final results from an analysis pipeline require researchers to investigate
 and evaluate the final output. In addition, it may be useful to explore the
@@ -281,6 +260,27 @@ transcriptional profiles from blood and tumor samples in breast cancer patients,
 in addition to applications for exploring biological
 pathways\cite{fjukstad2015kvik}. 
 
+\subsection{Deep Analysis Pipelines} 
+Analysis of high-throughput sequencing datasets requires deep analysis pipelines
+with a large number of steps that transform raw data into interpretable
+results.\cite{diao2015building} There are a large number of tools available that
+perform the different processing steps, written in a wide range of programming
+languages. The tools, and their dependencies, can be difficult to install, and
+they require users to correctly manage a range of input parameters that affects
+the output results. With software container technology it is a simple task for
+users to share container images with analysis tools pre-installed. Then, by
+designing a text-based specification for the analyses, we can orchestrate the
+execution of an entire analysis pipeline and record the flow of data through the
+pipeline. As with the previous use case, we develop an analysis pipeline by
+composing smaller entities, or tools, into a complete pipeline. 
+
+We implemented the approach in \texttt{walrus}, a tool that lets users create
+and run analysis pipelines. In addition, it tracks full provenance of the input,
+intermediate, and output data, as well as tool parameters. With \texttt{walrus}
+we have successfully built analysis pipelines to detect somatic mutations in
+breast cancer patients, as well as an \gls{rna}-seq pipeline for comparison with
+gene expression datasets. 
+
 \subsection{Similarity} 
 The above approaches to building systems for analyzing and exploring biological
 data, either as interactive applications, or batch processing pipelines share
@@ -306,25 +306,6 @@ pipeline called Pippeline was developed as a web application which allows the
 data managers in our study to generate datasets for researchers.\cite{pippeline}
 The pipeline perfroms all necessary steps before researchers can perform their
 specialized analyses. 
-
-\subsection{Deep Analysis Pipelines}
-The first system that we built on top of \texttt{walrus} was a pipeline to
-analyze a patient’s primary tumor and adjacent normal tissue, including
-subsequent metastatic lesions.\cite{walrus} We packaged the necessary tools for
-the analyses into software containers and wrote a pipeline description with all
-the necessary data processing steps. Some of the steps required us to develop
-specialized scripts to generate customized plots, but these were also wrapped in
-a container. From the analyses we discovered, among other findings, inherited
-germline mutations that are recognized to be among the top 50 mutations
-associated with an increased risk of familial breast cancer. These were then
-shared with the treating oncologists to aid the treatment plan. 
-
-The second analysis pipeline we implemented was to enable comparison of a
-\gls{rna}-seq dataset to microarray gene expression values collected from the
-same samples.  The pipeline preprocesses the \gls{rna} dataset for all samples,
-and generates transcript quantifications. As with the first pipeline we used
-existing tools together with specialized analysis scripts packaged into a
-container to ensure that we could reproduce the execution environments. 
 
 \subsection{Interactive Data Exploration Applications}
 The first interactive data exploration application that we built was Kvik
@@ -358,6 +339,26 @@ A third application that we developed was a simple re-deployment of the
 simply replaced the R package with a new package that interfaced with different
 data. All the other components are reused and highlights the flexibility of the
 approach. 
+
+
+\subsection{Deep Analysis Pipelines}
+The first system that we built on top of \texttt{walrus} was a pipeline to
+analyze a patient’s primary tumor and adjacent normal tissue, including
+subsequent metastatic lesions.\cite{walrus} We packaged the necessary tools for
+the analyses into software containers and wrote a pipeline description with all
+the necessary data processing steps. Some of the steps required us to develop
+specialized scripts to generate customized plots, but these were also wrapped in
+a container. From the analyses we discovered, among other findings, inherited
+germline mutations that are recognized to be among the top 50 mutations
+associated with an increased risk of familial breast cancer. These were then
+shared with the treating oncologists to aid the treatment plan. 
+
+The second analysis pipeline we implemented was to enable comparison of a
+\gls{rna}-seq dataset to microarray gene expression values collected from the
+same samples.  The pipeline preprocesses the \gls{rna} dataset for all samples,
+and generates transcript quantifications. As with the first pipeline we used
+existing tools together with specialized analysis scripts packaged into a
+container to ensure that we could reproduce the execution environments. 
 
 Combined these systems and applications demonstrate how small modular entities
 are useful for both batch processing of datasets, as well as interactive
@@ -617,9 +618,10 @@ contributions to each paper.
          \texttt{walrus}. Wrote the manuscript. 
          \\ \hline
          
-         Publication date & TBA \\ \hline  
+         Publication date &  \\ \hline  
 
-         Publication venue & TBA \\ \hline
+         Publication venue & Submitted for publication. Preprint available online at
+         \url{biorxiv.org/content/early/2018/06/25/354811} \\ \hline
          
          Citation & \cite{walrus} \bibentry{walrus} \\
          \hline 
@@ -628,39 +630,39 @@ contributions to each paper.
 \end{table}
 
 
-\subsection*{Paper 8} 
-\begin{table}[H]
-
-    \centering
-    \begin{tabular}{ | l | p{9.5cm} | }
-    \hline
-         Title & Standardizing Data Analysis in a Complex Population-Based
-         Epidemiological Study \\
-         \hline
-         
-         Authors & \textbf{Bjørn Fjukstad}, Nikita Shvetsov, Hege Bøvelstad,
-         Till Halbach, Einar Holsbø, Eiliv Lund, Lars Ailo Bongo.
-           \\ \hline
-         
-         Description & This paper outlines our efforts to standardize the
-         data analysis and management systems in the \gls{nowac} study. It
-         describes the \gls{nowac} package and the preprocessing pipeline,
-         called Pippeline.
-         \\ \hline
-         
-         Contribution & Design and implementation of the \gls{nowac} package. 
-         Contributed to writing of the manuscript. 
-         \\ \hline
-         
-         Publication date & TBA \\ \hline  
-
-         Publication venue & TBA \\ \hline
-         
-         Citation & \cite{pippeline} \bibentry{pippeline} \\
-         \hline 
-    \end{tabular}
-    \label{p8}
-\end{table}
+% \subsection*{Paper 8} 
+% \begin{table}[H]
+% 
+%     \centering
+%     \begin{tabular}{ | l | p{9.5cm} | }
+%     \hline
+%          Title & Standardizing Data Analysis in a Complex Population-Based
+%          Epidemiological Study \\
+%          \hline
+%          
+%          Authors & \textbf{Bjørn Fjukstad}, Nikita Shvetsov, Hege Bøvelstad,
+%          Till Halbach, Einar Holsbø, Eiliv Lund, Lars Ailo Bongo.
+%            \\ \hline
+%          
+%          Description & This paper outlines our efforts to standardize the
+%          data analysis and management systems in the \gls{nowac} study. It
+%          describes the \gls{nowac} package and the preprocessing pipeline,
+%          called Pippeline.
+%          \\ \hline
+%          
+%          Contribution & Design and implementation of the \gls{nowac} package. 
+%          Contributed to writing of the manuscript. 
+%          \\ \hline
+%          
+%          Publication date & TBA \\ \hline  
+% 
+%          Publication venue & TBA \\ \hline
+%          
+%          Citation & \cite{pippeline} \bibentry{pippeline} \\
+%          \hline 
+%     \end{tabular}
+%     \label{p8}
+% \end{table}
 
 % Husk historien: Fra rå data gjennom komplekse analyse pipeliner og helt til
 % forskere kan svømme rundt i resultatene. 
