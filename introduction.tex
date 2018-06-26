@@ -3,84 +3,99 @@ There is a rapid growth in the number of available biological datasets due to
 the decreaseing costs of data collection. This brings opportunities for gaining
 novel insights into the underlying biological mechanisms in the development and
 progression of diseases such as cancer, possibly leading to the development of
-new diagnostic tests or drugs for treatment.  The wide range of different
+new diagnostic tests or drugs for treatment. The wide range of different
 biological datasets has led to the development of hundreds of software packages
-and systems to explore and analyze these datasets.  However, there are few
+and systems to explore and analyze these datasets. However, there are few
 systems that are designed with the full analysis process in mind, from raw data
 into interpretable and reproducible results.  While existing systems are used to
 provide novel insights in diseases, there is little emphasis on reporting and
-sharing information about its tools, their versions, input parameters, and other
-information that can help researchers who want to use the same known methods on
-their own datasets. This leads to unnecessary difficulties when reusing known
-methods, and reproducing the analyses, which in turn leads to a longer analysis
-process and therefore unrealized potential for scientific insights. In addition,
-inaccurate results from improperly developed analyses can lead to negative
-consequences for patient care.\cite{roy2017standards}
+sharing detailed information about the analyses. This leads to unnecessary
+difficulties when reusing known methods, and reproducing the analyses, which in
+turn leads to a longer analysis process and therefore unrealized potential for
+scientific insights. For clinicians, inaccurate results from improperly
+developed analyses can lead to negative consequences for patient
+care.\cite{roy2017standards}
 
 % challenges
-There are four main challenges for researchers when analyzing and exploring
-biological datasets. These challenges are common for large datasets such as
+We have identified four main challenges for application developers to undertake
+when building systems for analyzing and exploring biological datasets in
+research and the clinic. These challenges are common for large datasets such as
 high-throughput sequencing data that require long-running, deep analysis
 pipelines, as well as smaller datasets, such as microarray data, that require
-complex, but short-running analysis pipelines. The first is the time and
-knowledge required to find and set up the necessary analysis tools to start
-analyzing a modern biological dataset. The second is recording full provenance
-in the data exploration process. This includes ensuring the correct input
-parameters, tool versions, database versions, and dataset versions when
-analyzing, and reporting the analysis results to enable reproducible research. A
-third challenge is efficiently exploring the results of an analysis
-interactively. This includes developing tools that can efficiently visualize the
-heterogeneous resulting datsets and integrate them with known biology from
-online databases. The final challenge is reusing the analysis pipelines and
-exploration tools on new datasets and research questions. 
+complex, but short-running analysis pipelines. The first challenge is managing
+datasets and analysis code for use by data exploration applications and data
+analysis pipelines. This includes storing all information that is valuable to a
+data analyst when he or she is interpreting the data, as well as any analysis
+code that can be used to analyze the data. The second challenge is to develop
+data exploration applications that provide sufficient information to fully
+document every step that went into the analyses up to an end result. This
+includes reporting input parameters, tool versions, database versions, and
+dataset versions. The third challenge is developing applications that require
+the integration of disperate systems. These are often developed using different
+programming languages and provide different functionality, e.g., the combination
+of a web-based visualization with a \gls{gpu} accellerated statistical method,
+or the integration of a remote biological database.
+The final challenge is to develop applications and systems so that they can be
+easily shared and reused across research institutions. This will promote 
 
 % existing tools and approaches
-As a result, there is a wealth of specialized approaches and systems to analyze
-modern biological data. Systems such as Galaxy\cite{galaxy} provide simple
-\glspl{gui} for setting up and running analysis pipelines. However, it is
+As a result, there is a wealth of specialized approaches and systems to manage
+and analyze modern biological data. Systems such as Galaxy\cite{galaxy} provide
+simple \glspl{gui} for setting up and running analysis pipelines. However, it is
 difficult to install and maintain, and less flexible for explorative analyses
 where it is necessary to try out new tools and different tool
 configurations.\cite{spjuth2015experiences} With R and its popular package
-repository Bioconductor, researchers can select from a wide range of packages to
-tailor their analyses. These provide flexible environments but makes it
-necessary for the analyst to manually record information about data, tools, and
-tool versions. Systems such as Pachyderm\footnote{\url{pachyderm.io}} or the
-\gls{cwl}\cite{commonwl} and its different implementations, can help users with
-standardizing the description and sharing of analysis pipelines.  However, many
-of these require complex compute infrastructure and are too cumbersome to set
-up.  Shiny and OpenCPU provide frameworks for application developers to build
+repository Bioconductor,\cite{bioconductor} researchers can select from a wide
+range of packages to tailor their analyses. These provide specialized analysis
+environments, but makes it necessary for the analyst to manually record
+information about data, tools, and tool versions. Systems such as
+Pachyderm\cite{pachyderm} or the \gls{cwl}\cite{commonwl} and its different
+implementations, can help users with standardizing the description and sharing
+of analysis pipelines.  However, many of these require complex compute
+infrastructure and are too cumbersome to set up.  Shiny\cite{shiny} and
+OpenCPU\cite{opencpu} provide frameworks for application developers to build
 systems to interactively explore results from statistical analyses.  These are
-useful for building exploration applications that integrate with
-statistical analyses.  With the addition of new datasets and methods every year,
-it seems that analysis of biological data requires a wide array of different
-tools and systems.
+useful for building exploration applications that integrate with statistical
+analyses.  With the addition of new datasets and methods every year, it seems
+that analysis of biological data requires a wide array of different tools and
+systems.
 
 % our solution
-This dissertation argues that, instead, we can facilitate development of
-reproducible analyses and data exploration systems of high-throughput biological
-data thorugh the integration of disperate systems and data. In particular, we
-show how software container technologies together with well-defined interfaces,
-configurations, and orchestration provide the necessary foundation for these
-systems. This allows for easy development and sharing of specialized analysis
-systems. 
+This dissertation argues that, instead, we can facilitate the development of
+reproducible data analysis and exploration systems for high-throughput
+biological data, thorugh the integration of disparate systems and data sources.
+In particular, we show how software container technologies together with
+well-defined interfaces, configurations, and orchestration provide the necessary
+foundation for these systems. This allows for easy development and sharing of
+specialized analysis systems.
 
-The resulting approach, which we have called \gls{sme}, has several
-key advantages when implementing systems to analyze and explore biological data:
+\glsreset{sme}
+
+The resulting approach, which we have called \glspl{sme}, argues that
+applications for analyzing and exploring biological datasets should be modeled
+as a composition of individual systems and tools. We believe that the Unix
+philosophy to \emph{"Do one thing and do it well"}\cite{raymond2003art}
+appropriately summarizes many existing tools in bioinformatics, and we should
+aim to build applications as compositions of these tools. Our \gls{sme} approach
+resembles the traditional Unix-like pipelines, in combination with the
+service-oriented architecture\cite{erl2005service} or the microservice
+architectural style now popularized by web-scale distributed
+systems.\cite{nadareishvili2016microservice}
+
+The approach has several key advantages when implementing systems to analyze and
+explore biological data:
 \begin{itemize} 
+    \item It enables and simplifies the development of applications that
+        integrate disperate tools. 
+        
     \item It enables reproducible research by packaging applications
-        and tools within containerized environments. This enables sharing of
-        tools and ensures correct versions. 
+        and tools within containerized environments. 
 
-    \item It enables applications to use tools written in any programming
-        language, using open standards to communicate between tools and systems.
-
+    \item With well-defined interfaces it is a simple task to add new components
+        to a system, or modify existing ones. 
+        
     \item Through software container technology it becomes a simple task to
         deploy and scale up such applications. 
-        
-    \item It simplifies the sharing of analysis pipelines and workflows across
-        different research teams and systems. This reduces the
-        time-to-interpretation for biological datasets which may have important
-        clinical implications. 
 \end{itemize} 
 
 In collaboration with researchers in systems epidemiology and precision
@@ -101,15 +116,20 @@ efficiently provide reproducible and easy to use environments to develop
 applications for exploring and analyzing biological datasets. 
 
 \section{Problems with Data Analysis and Exploration in Bioinformatics}
-Today shell scripts are still
-the de facto standard building analysis pipelines in bioinformatics. This comes
-from the familiarity of the shell environment and the \gls{cli} of the different
-tools.  However, is a move towards using more sophisticated approaches for
-analyzing biological datasets using workflow and pipeline mangers such as
-Snakemake\cite{koster2012snakemake}, and the different implementations of the
-\gls{cwl}\cite{cwl} such as Galaxy\cite{galaxy} and Toil\cite{toil}. These
-simplify setting up and executing the analysis pipeline. However, these
-tools still have their limitations, such as maintenance and tool updates.  For
+Today shell scripts are often used for building analysis pipelines in
+bioinformatics. This comes from the familiarity of the shell environment and the
+\gls{cli} of the different tools. However, there is a move towards using more
+sophisticated approaches for analyzing biological datasets using workflow and
+pipeline mangers such as Snakemake\cite{koster2012snakemake}, and the different
+implementations of the \gls{cwl}\cite{cwl} such as Galaxy\cite{galaxy} and
+Toil\cite{toil}. These simplify setting up and executing the analysis pipeline.
+However, these tools still have their limitations, such as maintenance and tool
+updates. Other programming environments and scripting languages such as Python
+or R both provide a wide variety of software packages to read and process
+biological datasets. Especially the package repository
+Bioconductor\cite{bioconductor} provides a long list of well-maintained software
+packages. Both these languages require the researchers to set up their own
+analyses, but can be tailored to fit their data precisely.  For visually
 exploring biological data there are a range of tools, such as
 Cytoscape\cite{cytoscape} and Circos\cite{circos}, that support importing an
 already-analyzed dataset to visualize and browse the data. One problem with

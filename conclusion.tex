@@ -64,6 +64,7 @@ datasets, writing data exploration applications, or developing analysis
 pipelines, it is not possible to overstate the importance of the simplicity of
 the solution. Through our experiences we have tried different 
 
+
 % \textbf{Define the data storage and analysis requirements before collecting
 % data.} 
 
@@ -82,6 +83,11 @@ improvement are:
 large binary files, such as biological datasets, and it does not provide the
 required performance or scalability to version the large biological data. It is 
 
+
+% Rob Pike said this: 
+% Measure. Don't tune for speed until you've measured, and even then don't
+% unless one part of the code overwhelms the rest.
+% http://www.catb.org/~esr/writings/taoup/html/ch01s06.html
 \item \textbf{Thorough evaluation:} while we have shown that the \gls{sme}
 approach can be used to develop systems for managing research data, developing
 interactive 
