@@ -640,6 +640,35 @@ hosting the services. In the case of statistical analyses we simply install the
 necessary R packages for each application on the compute service and run it as
 we would for one single application. 
 
+\section{Future Work} 
+We intend to address few points we aim to address in future work, both in the
+MIxT web application as well as the supporting microservices.  The first issue
+is to improve the user experience in the MIxT web application.  Since it is
+executing many of the analyses on demand, the user interface may seem
+unresponsive. We are working on mechanisms that gives the user feedback when the
+computations are taking a long time, but also reducing analysis time by
+optimizing the underlying R package.  The database service provides a sufficient
+interface for the MIxT web application. While we have developed the software
+packages for interfacing with more databases, these haven't been included in the
+database service yet. In future versions we aim to make the database service an
+interface for all our applications.  We also aim to improve how we capture data
+provenance. We aim to provide database versions and meta-data about when a
+specific item was retrieved from the database.  One large concern that we
+haven't addressed in this paper is security. In particular one security concern
+that we aim to address in Kvik is the restrictions on the execution of code in
+the compute service. We aim to address this in the next version of the compute
+service, using methods such as
+AppArmor\footnote{\url{wiki.ubuntu.com/AppArmor}.} that can restrict a program's
+resource access. In addition to code security we will address data access,
+specifically put constraints on who can access data from the compute service.
+We also aim to explore different alternatives for scaling up the compute
+service.  Since we already interface with R we can use the
+Sparklyr\footnote{\url{spark.rstudio.com}.} or
+SparkR\footnote{\url{spark.apache.org/docs/latest/sparkr.html}.} packages to run
+analyses on top of Spark.\cite{zaharia2010spark} Using Spark as an execution
+engine for data analyses will enable applications to explore even larger
+datasets.
+
 \section{Conclusion}
 We have designed an approach for building data exploration applications in
 systems biology. Through an iterative approach we have identified a set of

@@ -51,10 +51,10 @@ Biological Datasets}
 
 % FINAL TODO:
 % [90%] Write chapter 2 
-% [] Write conclusion: lessons learned, broader impact, future work 
+% [v1 100%] Write conclusion: lessons learned, broader impact, future work 
 % [50%] Write acknowledgements 
 % [] Write press release 
-% [] LA comments abstract
+% [100%] LA comments abstract
 % [] LA comments introduction
 % [] LA comments chapter 3,  apps  
 % [] LA comments chapter 4,  pipelines
@@ -73,7 +73,7 @@ Biological Datasets}
 \end{epigraph}
 
 \input{abstract} 
-\input{acknowledgements} 
+%\input{acknowledgements} 
 
 \tableofcontents
 
@@ -85,27 +85,27 @@ Biological Datasets}
 \chapter{Introduction}
 \input{introduction} 
 
-\chapter{Modern Biological Data Management and Analysis}
+\chapter{Modern Biological Data Management and Analysis}\label{biodata}
 \input{chap2}
 
-\chapter{Interactive Data Exploration Applications}  
+\chapter{Interactive Data Exploration Applications}\label{interactive}
 \input{interactive}
 
-\chapter{Deep Analysis Pipelines}  
+\chapter{Deep Analysis Pipelines}\label{pipeline}  
 \input{pipelines}
 
 \chapter{Conclusion}
 \input{conclusion} 
 
-\appendix
-\begin{appendix}
-    \chapter{Publications}
-\end{appendix}
 
 \backmatter
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}
 
+\appendix
+\begin{appendix}
+    \chapter{Publications}
+\end{appendix}
 
 \end{document} 
