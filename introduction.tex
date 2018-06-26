@@ -108,12 +108,12 @@ tools.  However, is a move towards using more sophisticated approaches for
 analyzing biological datasets using workflow and pipeline mangers such as
 Snakemake\cite{koster2012snakemake}, and the different implementations of the
 \gls{cwl}\cite{cwl} such as Galaxy\cite{galaxy} and Toil\cite{toil}. These
-simplify setting up and executing the analysis pipeline pipeline. However, these
+simplify setting up and executing the analysis pipeline. However, these
 tools still have their limitations, such as maintenance and tool updates.  For
 exploring biological data there are a range of tools, such as
 Cytoscape\cite{cytoscape} and Circos\cite{circos}, that support importing an
 already-analyzed dataset to visualize and browse the data. One problem with
-these is that they are decoupled from the analysis, making it difficult to
+these are that they are decoupled from the analysis, making it difficult to
 retrace the underlying analyses. 
 
 Although there are efforts to develop tools to help researchers explore and
@@ -153,17 +153,18 @@ significantly.
 In collaboration with researchers in systems epidemiology and biology we have
 developed an approach for designing applications for three specific use cases.
 The first is to manage and standardize the analysis of datasets from a large
-population-based cohort, \gls{nowac}.\cite{nowac}. The second is to enable interactive
-exploration of these datasets.  The final use case is to develop pipelines for
-analyzing sequencing datasets for use in a precision medicine setting.  Although
-these use cases require widely different systems with different requirements,
-the applications share common design patterns.  Figure \ref{overview-fig} shows
-the applications we have developed and the underlying systems. 
+population-based cohort, \gls{nowac}.\cite{nowac}. The second is to enable
+interactive exploration of these datasets.  The final use case is to develop
+pipelines for analyzing sequencing datasets for use in a precision medicine
+setting.  Although these use cases require widely different systems with
+different requirements, the applications share common design patterns.  Figure
+\ref{overview-fig} shows the applications we have developed and the underlying
+systems. 
 
 \begin{figure}
 \includegraphics[width=\textwidth]{figures/overall-arch.pdf}
     \caption{The applications and their underlying systems discussed in this
-    thesis. } 
+    thesis.} 
     \label{overview-fig}
 \end{figure} 
 
@@ -197,7 +198,7 @@ databases or shared file systems with specialized permissions. Together the
 packages and datasets form building blocks that researchers can develop their
 analyses on top of. They can compose their analyses using packages that fit
 their specific needs. The analysis code in the \gls{nowac} study may constitute
-such a building block. Therefore we combined the datasets from the \gls{nowac}
+such a building block. Therefore, we combined the datasets from the \gls{nowac}
 cohort with documentation, analysis scripts, and integration with registry
 datasets, into a single package.  This approach simplifies the researcher's
 first steps in the analysis of the different data in our study. On top of the
@@ -262,10 +263,10 @@ pathways\cite{fjukstad2015kvik}.
 
 \subsection{Deep Analysis Pipelines} 
 Analysis of high-throughput sequencing datasets requires deep analysis pipelines
-with a large number of steps that transform raw data into interpretable
-results.\cite{diao2015building} There are a large number of tools available that
+with many steps that transform raw data into interpretable
+results.\cite{diao2015building} There are many tools available that
 perform the different processing steps, written in a wide range of programming
-languages. The tools, and their dependencies, can be difficult to install, and
+languages. The tools and their dependencies, can be difficult to install, and
 they require users to correctly manage a range of input parameters that affects
 the output results. With software container technology it is a simple task for
 users to share container images with analysis tools pre-installed. Then, by
@@ -346,7 +347,7 @@ The first system that we built on top of \texttt{walrus} was a pipeline to
 analyze a patient’s primary tumor and adjacent normal tissue, including
 subsequent metastatic lesions.\cite{walrus} We packaged the necessary tools for
 the analyses into software containers and wrote a pipeline description with all
-the necessary data processing steps. Some of the steps required us to develop
+the necessary data processing steps. Some steps required us to develop
 specialized scripts to generate customized plots, but these were also wrapped in
 a container. From the analyses we discovered, among other findings, inherited
 germline mutations that are recognized to be among the top 50 mutations
@@ -356,16 +357,16 @@ shared with the treating oncologists to aid the treatment plan.
 The second analysis pipeline we implemented was to enable comparison of a
 \gls{rna}-seq dataset to microarray gene expression values collected from the
 same samples.  The pipeline preprocesses the \gls{rna} dataset for all samples,
-and generates transcript quantifications. As with the first pipeline we used
+and generates transcript quantifications. Like the first pipeline, we used
 existing tools together with specialized analysis scripts packaged into a
 container to ensure that we could reproduce the execution environments. 
 
 Combined these systems and applications demonstrate how small modular entities
-are useful for both batch processing of datasets, as well as interactive
+are useful for both batch processing of datasets and interactive
 applications. 
 
 \section{Summary of Results} 
-% TODO: SCREENSHOTS OF SOME OF THE APPS 
+% TODO: SCREENSHOTS OF SOME APPS 
 % TODO: Pipeline/NOWAC PKG
 % TODO: Reproducibility in walrus results. 
 % TODO: LAB: jeg savner "easy/ quickly" biten
@@ -384,7 +385,7 @@ restoring a previous pipeline configuration.
 
 We have used the packages in Kvik to develop a web application, MIxT
 blood-tumor, for exploring and comparing transcriptional profiles from blood and
-tumor samples in breast cancer patients.  In addition we have used it to build
+tumor samples in breast cancer patients.  In addition, we have used it to build
 an application to explore gene expression data in the context of biological
 pathways. We show that developing an application using a microservice approach
 allows us to reduce database query times down to 90\%, and that we can provide
