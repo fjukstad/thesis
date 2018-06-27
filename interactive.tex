@@ -1,38 +1,50 @@
-Explorative analysis is essential for understanding biological functions in
-large-scale omics' datasets. Applications with interactive visualizations and
-interfaces can help researchers study the datasets to discover emerging
-patterns.  Integrating omics' data from large epidemiological studies requires
-collecting samples from thousands of people at different biological levels over
-a long period of time. It is therefore usual to reuse the data from an
-epidemidemiological cohort to answer different research questions using
-different study designs. Although an existing tool may be useful for one
-project, no tool provides the required functionality for several different
-projects. The cost of data collection has drastically decreased, but data
-analysis continue to represent a large fraction of the total cost of these
-studies.\cite{sboner2011real}
-
+\chapter{Interactive Data Exploration Applications}\label{interactive}
+% why care for explorative 
 The main goal of a data exploration application in bioinformatics is to help
 users discover interesting patterns in a biological dataset. Because of the
 complexity of biological data and analyses, we need specialized software to help
-find these patterns. Such software is usually written in statistical programming
-languages, such as R, and often do not provide interfaces outside these
-programming environments requiring application developers to implement their
-applications within these environments. We believe that it is possible to
-implement an interface to specialized statistical software that allows
-application developers to build exploration tools using the most suitable
-environment and technology. 
+find these patterns. Explorative analysis is essential for understanding
+biological functions in high-throughput biological datasets. Applications that
+provide interactive interfaces and visualizations can help researchers study the
+datasets to discover emerging patterns. 
 
-To interpret data, experts regularly exploit prior knowledge via database
-queries and the primary scientific literature. There are a wealth of online
-databases, some of which provide open APIs in addition to web user interfaces
-that application developers can make use of. While the databases can provide
-helpful information, there are some limitations associated with their
-integration into interactive data exploration applications: 
-i) the APIs are not fast enough to use in interactive applications where the
-application has to perform multiple database queries, 
-ii) some databases put restrictions on the number of database queries, and 
-iii) there is no uniform way for storing additional database metadata to
-identify database versions and query parameters. 
+Analysing high-throughput biological datasets require specialized analysis
+software.  Such software is usually written in statistical programming
+languages, e.g., Python or R, which provide a wealth of statistical packages and
+frameworks. However, these specialized programming environments often do not
+provide interactive interfaces for researchers that want to explore the results
+from the analyses without using a programmatic interface.  Frameworks such as
+Shiny\cite{shiny} and OpenCPU\cite{opencpu} allow application developers to
+build systems to interactively explore results from statistical analyses. These
+are useful for building exploration applications that integrate with statistical
+analyses written in the R programming language.To interpret data, experts
+regularly exploit prior knowledge via database queries and the primary
+scientific literature. There are a wealth of online databases, some of which
+provide open APIs in addition to web user interfaces that application developers
+can make use of. For visually exploring biological data there are a range of
+tools, such as Cytoscape\cite{cytoscape} and Circos\cite{circos}, that support
+importing an already-analyzed dataset to visualize and browse the data. One
+problem with these are that they are decoupled from the analysis, making it
+difficult to retrace the data processing prior to the end results.  
+
+The main issue for developing these types of data exploration applications is
+that they require the integration of disparate systems and tools. The datasets
+require specialized analysis software, often with large computational resources,
+and the end users require simple point-and-click interface available on their
+device. In addition it is crucial for reproducibility to keep track of the 
+underlying data processing steps that were used to generate end visualizations. 
+
+We have developed two data exploration applications, Kvik
+Pathways\cite{fjukstad2015kvik} and
+MIxT\cite{fjukstad2017building,dumeaux2017interactions} for exploring
+transcriptional profiles in the \gls{nowac} study through interactive
+visualizations integrated with biological databases. We first developed Kvik
+Pathways to explore transcriptional profiles in the context of biological
+pathway maps. It is a three-tiered web application consisting of three central
+components, that we later refactored into three separate microservices for use
+in other applications. With these microservices we implemented the MIxT web
+application, and generalized our efforts into general design principles for data
+exploration applications.
 
 Through the development of several data exploration applications, we have
 iteratively developed an approach to build such applications. These applications
@@ -46,11 +58,14 @@ range of use cases.
 
 Data exploration tools tend to specialize on a handful of analysis tasks, but
 while the applications themselves are specific they often share the same
-underlying components. Both Kvik Pathwyas and the \gls{mixt} web
+underlying components. Both Kvik Pathways and the \gls{mixt} web
 applications interface with the same online databases, and rely on statistical
 analyses to provide users with data to explore. Designing systems as collections
 of smaller components allow developers to reuse parts and shortens development
 time. 
+
+%% Chapter buildup
+In this chapter ... 
 
 \section{Motivating Examples}
 The need for interactive applications has come from two different studies
