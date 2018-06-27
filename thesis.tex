@@ -4,6 +4,7 @@
 \nobibliography*
 
 \usepackage[acronym]{glossaries}
+\usepackage{afterpage}
 
 \makeglossaries
 
@@ -12,7 +13,8 @@
 \newacronym{mixt}{MIxT}{Matched Interactions Across Tissues}
 \newacronym{sr}{SR}{Systemic Response}
 \newacronym{gatk}{GATK}{Genome Analysis Toolkit}
-\newacronym{x}{X}{X Model} 
+\newacronym{cran}{CRAN}{Comprehensive R Archive Network}
+\newacronym{ide}{IDE}{integrated development environment}
 \newacronym[plural=VMs, firstplural=Virtual Machines (VMs)]{vm}{VM}{Virtual Machine}
 \newacronym{gpu}{GPU}{graphical processing unit}
 \newacronym{dna}{DNA}{Deoxyribonucleic acid} 
@@ -40,6 +42,8 @@
 \newacronym[plural=SMEs,\glslongpluralkey={Small Modular Entities}]{sme}{SME}{Small Modular Entity}
 \newacronym[plural=GBs, firstplural=gigabytes (GBs)]{GB}{GB}{Gigabyte}
 \newacronym{kegg}{KEGG}{Kyoto Encyclopedia of Genes and Genomes}
+
+
 \begin{document} 
 
 \title{Toward Reproducible Analysis and Exploration of High-Throughput
@@ -52,17 +56,19 @@ Biological Datasets}
 \ThesisLeftFrontpageImage{"figures/frntpg"}
 
 % FINAL TODO:
-% [90%] Write chapter 2 
-% [v1 100%] Write conclusion: lessons learned, broader impact, future work 
-% [50%] Write acknowledgements 
-% [] Write press release 
+% [100%] Write conclusion: lessons learned, broader impact, future work 
 % [100%] LA comments abstract
 % [100%] LA comments introduction
 % [100%] LA comments chapter 3,  apps  
-% [] LA comments chapter 4,  pipelines
+% [100%] fix walrus and nowac pkg citations 
+% [100%] LA comments chapter 4,  pipelines
+% [50%] Write acknowledgements 
+% [90%] Write chapter 2 
+% [] LA comments on chapter effin 2 
+% [] LA comments on conclusions etc. 
 % [] Word grammar check entire thesis 
 % [] Final checkup 
-% [100%] fix walrus and nowac pkg citations 
+% [] Write press release 
 
 \maketitle
 
@@ -121,9 +127,6 @@ Biological Datasets}
 %     \bibentry{NIK}
 %     \includepdf[pages={1-6}]{papers/NIK.pdf}
 % 
-%     \textbf{Paper 6:} 
-%     \bibentry{kiselev2018transcription}
-%     \includepdf[pages={1-11}]{papers/kiselev2018transcription.pdf}
 % 
 %     \textbf{Paper 7:} 
 %     \bibentry{walrus}

@@ -37,7 +37,7 @@ programming languages and provide different functionality, e.g., the combination
 of a web-based visualization with a \gls{gpu} accelerated statistical method,
 or the integration of a remote biological database.
 The final challenge is to develop applications and systems so that they can be
-easily shared and reused across research institutions. This will promote 
+easily shared and reused across research institutions. 
 
 % existing tools and approaches
 As a result, there is a wealth of specialized approaches and systems to manage
@@ -46,7 +46,7 @@ simple \glspl{gui} for setting up and running analysis pipelines. However, it is
 difficult to install and maintain, and less flexible for explorative analyses
 where it is necessary to try out new tools and different tool
 configurations.\cite{spjuth2015experiences} With R and its popular package
-repository Bioconductor,\cite{bioconductor} researchers can select from a wide
+repository Bioconductor\cite{bioconductor}, researchers can select from a wide
 range of packages to tailor their analyses. These provide specialized analysis
 environments, but makes it necessary for the analyst to manually record
 information about data, tools, and tool versions. Systems such as
@@ -270,8 +270,8 @@ to integrate with online databases. We could standardize the interface from the
 applications to the different databases, and implement an application on top of
 these. 
 
-We implemented all components as a part of \emph{Kvik},\cite{fjukstad2015kvik} a
-collection of packages to develop new data exploration applications. Kvik allows
+We implemented all components as a part of \emph{Kvik}, a collection of packages
+to develop new data exploration applications.\cite{fjukstad2015kvik} Kvik allows
 applications written in any modern programming language to interface with the
 wealth of bioinformatics packages in the R programming language, as well as
 information available through online databases. To provide reproducible
@@ -390,14 +390,15 @@ applications.
 
 \section{Summary of Results} 
 % TODO: SCREENSHOTS OF SOME APPS 
-% TODO: Pipeline/NOWAC PKG
 % TODO: Reproducibility in walrus results. 
 % TODO: LAB: jeg savner "easy/ quickly" biten
 We show the viability of our approach through real-world applications in systems
-epidemiology and precision medicine. We demonstrate its usefulness for building
-interactive data exploration application, implemented in Kvik. We show the
-applicability of small modular entities in deep analysis pipelines, as
-implemented in \texttt{walrus}.
+epidemiology and precision medicine. Through our \texttt{nowac} package and
+Pippeline, we demonstrate its usefulness for enabling reproducible analyses of
+biological datasets in a complex epidemiological study. We demonstrate its
+usefulness for building interactive data exploration application, implemented in
+\emph{Kvik}. We show the applicability of small modular entities in deep
+analysis pipelines, as implemented in \texttt{walrus}.
 
 We have used \texttt{walrus} to analyze a whole-exome dataset to from a sample
 in the McGill Genome Quebec [MGGQ] dataset (GSE58644)\cite{tofigh2014prognostic}
@@ -427,7 +428,7 @@ contributions to each paper.
 \capstartfalse % disable table captions 
 \begin{table}[H]
     \centering
-    \begin{tabular}{ | l | p{9.5cm} | }
+    \begin{tabular}{ | l | p{8.8cm} | }
     \hline
          Title & Kvik: three-tier data exploration tools for flexible analysis
          of genomic data in epidemiological studies \\ \hline
@@ -460,7 +461,7 @@ contributions to each paper.
 % \hfill 
 \begin{table}[H]
 
-    \begin{tabular}{ | l | p{9.5cm} | }
+    \begin{tabular}{ | l | p{8.8cm} | }
     \hline
          Title & Building Applications For Interactive Data Exploration In
          Systems Biology. \\ \hline
@@ -497,7 +498,7 @@ contributions to each paper.
 \begin{table}[H]
     
     \centering
-    \begin{tabular}{ | l | p{9.5cm} | }
+    \begin{tabular}{ | l | p{8.8cm} | }
     \hline
          Title & Interactions Between the Tumor and the Blood Systemic Response
          of Breast Cancer Patients \\ \hline
@@ -530,7 +531,7 @@ contributions to each paper.
 
 \subsection*{Paper 4} 
 
-\begin{tabular}{ | l | p{9.5cm} | }
+\begin{tabular}{ | l | p{8.8cm} | }
     \hline
      Title & A Review of Scalable Bioinformatics Pipelines \\ \hline
      
@@ -540,12 +541,12 @@ contributions to each paper.
      pipelines and compare their design and their use of underlying
      frameworks and infrastructures.      \\ \hline
      
-     Contribution & I performed the literature review and Wrote the manuscript.
+     Contribution & I performed the literature review and wrote the manuscript.
      \\ \hline
      
      Publication date & 23 October 2017 \\ \hline  
 
-     Publication venue & Data Science and Engineering 2017. \\ \hline
+     Publication venue & Data Science and Engineering\\ \hline
      
      Citation & \cite{fjukstad2017review} \bibentry{fjukstad2017review} \\
      \hline 
@@ -558,7 +559,7 @@ contributions to each paper.
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{ | l | p{9.5cm} | }
+    \begin{tabular}{ | l | p{8.8cm} | }
     \hline
          Title & nsroot: Minimalist Process Isolation Tool Implemented With
          Linux Namespaces.  \\ \hline
@@ -587,7 +588,7 @@ contributions to each paper.
 \begin{table}[H]
 
     \centering
-    \begin{tabular}{ | l | p{9.5cm} | }
+    \begin{tabular}{ | l | p{8.8cm} | }
     \hline
          Title & Reproducible Data Analysis Pipelines for Precision Medicine \\
          \hline
@@ -614,9 +615,15 @@ contributions to each paper.
 
 \subsection{Additional Papers}
 \subsubsection*{Additional Paper 1} 
+
+
+% force the goddamn additional paper tables to the top of the page. 
+% Fuck you Leslie. 
+\raggedbottom
+
 \begin{table}[H]
     \centering
-    \begin{tabular}{ | l | p{9.5cm} | }
+    \begin{tabular}{ | l | p{8.8cm} | }
     \hline
          Title & Transcription factor PAX6 as a novel prognostic factor and
          putative tumour suppressor in non-small cell lung cancer \\ \hline
@@ -637,7 +644,7 @@ contributions to each paper.
          
          Publication date & 22 March 2018 \\ \hline  
 
-         Publication venue & Scientific Reports 2018. \\ \hline
+         Publication venue & Scientific Reports\\ \hline
          
          Citation & \cite{kiselev2018transcription}
          \bibentry{kiselev2018transcription} \\
@@ -649,7 +656,7 @@ contributions to each paper.
 \subsubsection*{Additional Paper 2} 
 \begin{table}[H]
     \centering
-    \begin{tabular}{ | l | p{9.5cm} | }
+    \begin{tabular}{ | l | p{8.8cm} | }
     \hline
          Title & Low-Cost Programmable Air Quality Sensor Kits in Science
          Education \\ \hline
@@ -681,6 +688,9 @@ contributions to each paper.
     \label{adp2}
 \end{table}
 
+% move table to top of page hack
+\makeatletter
+\afterpage{\global\let\@textbottom\relax \global\let\@texttop\relax}
 
 
 
