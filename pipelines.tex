@@ -12,7 +12,7 @@ categorize disease to tailor treatment to improve health
 outcome.\cite{national2011toward} Important goals in precision medicine are to
 learn about the variability of the molecular characteristics of individual
 tumors, their relationship to outcome, and to improve diagnosis and
-therapy.\cite{tannock2016limits} International cancer institutions are therefore
+therapy.\cite{tannock2016limits} Cancer institutions are therefore now
 offering dedicated personalized medicine programs. 
 
 For cancer, high throughput sequencing is an emerging technology to facilitate
@@ -27,8 +27,8 @@ third party tools and scripts that each transform input files and produce some
 output. Although different tools exist, it is necessary to carefully explore
 different tools and parameters to choose the most efficient to apply for a
 dedicated question.\cite{servant2014bioinformatics} The complexity of the tools
-vary from toolkits such as the \gls{gatk} to small custom \emph{bash} or
-\emph{R} scripts.  In addition some tools interface with databases whose
+vary from toolkits such as the \gls{gatk} to small custom \texttt{bash} or
+\texttt{R} scripts.  In addition some tools interface with databases whose
 versions and content will impact the overall result.\cite{sboner2015primer}
 
 Improperly developed analysis pipelines for precision medicine may generate
@@ -36,13 +36,13 @@ inaccurate results, which may have negative consequences for patient
 care.\cite{roy2017standards} 
 When developing analysis pipelines for use in precision medicine it is therefore
 necessary to track pipeline tool versions, their input parameters, and data.
-Both to thoroughly document what produced the final clinical reports, but also
-for iteratively improving the quality of the pipeline during development.
+Both to thoroughly document what produced the final clinical reports, and
+to iteratively improving the quality of the pipeline during development.
 Because of the iterative process of developing the analysis pipeline, it is
 necessary to use analysis tools that facilitate modifying pipeline steps and
 adding new ones with little developer effort.
 
-We have previously analyzed DNA sequence data from a breast cancer patient's
+We have analyzed DNA sequence data from a breast cancer patient's
 primary tumor and adjacent normal cells to identify the molecular signature of
 the patient's tumor and germline. When the patient  later relapsed we analyzed
 sequence data from the patient's metastasis to provide an extensive comparison
@@ -59,6 +59,8 @@ used to guide diagnosis and treatment, and give more detailed insight into both
 the primary and metastasis.  When the patient relapsed we analyzed \gls{wes}
 data using our own pipeline manager, \texttt{walrus}, to investigate the
 metastasis and compare it to the primary tumor. 
+
+\subsection{Initial Data Analysis Pipeline} 
 
 For the initial \gls{wgs} analysis we developed a pipeline to investigate
 somatic and germline mutations based on Broad Institute's best practices. We
@@ -93,9 +95,8 @@ noted some lessons learned.
         description causing extra work. A solution would be to add the data to
         the same version control repository hosting the pipeline description.
     \item The specific pipeline tools should also be kept available for
-        later use.  Since installing many bioinformatics tools require a long list
-        of dependencies, it is beneficial to store the pipeline tools to reduce
-        the time to start analyzing new data or re-run analyses. 
+        later use. Often in bioinformatics, just installing a tool is a time
+        consuming process because of their many dependencies. 
     \item It should be easy to add new tools to an existing
         pipeline and execution environment. This includes installing the specific
         tool and adding to an existing pipeline. Bundling tools within software
@@ -147,18 +148,17 @@ environments such as hospitals.
 
 \texttt{walrus} is implemented as a command-line tool in the Go programming
 language. We use the popular software container implementation
-Docker\footnote{\url{docker.com}} to provide reproducible execution
-environments, and interface with git together with
-git-lfs\footnote{\url{git-lfs.github.com}} to version control datasets and
-pipeline descriptions. By choosing Docker and git we have built a tool that
-easily integrates with current bioinformatic tools and workflows. It runs both
-natively or within its own Docker container to simplify its installation
-process.
+Docker\cite{docker} to provide reproducible execution environments, and
+interface with git together with git-lfs\cite{gitlfs} to version control
+datasets and pipeline descriptions. By choosing Docker and git we have built a
+tool that easily integrates with current bioinformatic tools and workflows. It
+runs both natively or within its own Docker container to simplify its
+installation process.
 
 With \texttt{walrus} we target pipeline developers that use command-line tools
 and scripting languages to build and run analysis pipelines. Users can use
 existing Docker containers from sources such as
-BioContainers,\cite{biocontainers} or build containers with their own tools.  We
+BioContainers\cite{biocontainers} or build containers with their own tools.  We
 integrate with the current workflow using git to version control analysis
 scripts, and use git-lfs for versioning of datasets as well. We have
 designed the pipeline description format resembles the command line syntax as
@@ -181,7 +181,7 @@ Users specify the flow of data in the pipeline within the pipeline description,
 as well as the dependencies between the steps. Since pipeline configurations can
 become complex, users can view their pipelines using an interactive web-based
 tool, or export their pipeline as a DOT file for visualization in tools such as
-Graphviz.\footnote{\url{graphviz.org}}
+Graphviz.\cite{ellson2001graphviz}
 
 \begin{lstlisting}[caption={Example pipeline stage for a tool that detects
 somatic point mutations. It reads a reference sequence file together with both
@@ -212,7 +212,7 @@ input data in the pipeline description, and \texttt{walrus} automatically mounts
 it to the container running the analysis. The location of the input files can
 either be local or remote locations such as an FTP server. When the pipeline is
 completed, \texttt{walrus} will store all the input, intermediate and output
-data to a user-specified location.  
+data to a user-specified location which is version controlled. 
 
 \subsection{Pipeline Execution}
 When users have written a pipeline description for their analyses, they can use
@@ -277,26 +277,28 @@ automatically by \texttt{walrus} when new data is produced by the pipeline. We
 track changes at file granularity. 
 
 In \texttt{walrus} we interface with \texttt{git} to track any output file from
-the analysis pipeline. When users execute a pipeline, \texttt{walrus} will 
-automatically add and commit output data t a git repository using
-\texttt{git-lfs}. 
-Users typically use a single repository per pipeline, but can share the same 
-repository to version multiple pipelines as well. With git-lfs, instead of
-writing large blobs to a repository it writes small pointer files that contains
-the hash of the original file, the size of the file, and the version of git-lfs
-used. The files themselves are stored separately which makes the size of the
-repository small and manageable with git. The main reason why we chose git and
-git-lfs for version control is that git is the de facto standard for versioning
-source code, and we want to include versioning of datasets without altering the
-typical development workflow. 
+the analysis pipeline. When users execute a pipeline, \texttt{walrus} will
+automatically add and commit output data to a git repository using
+\texttt{git-lfs}.  Users typically use a single repository per pipeline, but can
+share the same repository to version multiple pipelines as well. With
+\texttt{git-lfs}, instead of writing large blobs to a repository it writes small
+pointer files that contains the hash of the original file, the size of the file,
+and the version of\texttt{git-lfs} used. The files themselves are stored
+separately which makes the size of the repository small and manageable with git.
+Once \texttt{walrus} has started to track output datasets, users can use regular
+git commands to inspect its version history. 
+The main reason why we chose git and \texttt{git-lfs} for version control is
+that git is the de facto standard for versioning source code, and we want to
+include versioning of datasets without altering the typical development
+workflow. 
 
 Since we are working with potentially sensitive datasets \texttt{walrus} is
 targeted at users that use a local compute and storage servers. It is up to
 users to configure a remote tracker for their repositories, but we provide
-command-line functionality in \texttt{walrus} to run a git-lfs server that can
-store users' contents.  They can use their default remotes, such as Github, for
-hosting source code but they must themselves provide the remote server to host
-their data.
+command-line functionality in \texttt{walrus} to run a \texttt{git-lfs} server
+that can store users' contents.  They can use their default remotes, such as
+Github, for hosting source code but they must themselves provide the remote
+server to host their data.
 
 \subsection{Pipeline Reconfiguration and Re-execution}
 Reconfiguring a pipeline is common practice in precision medicine, e.g. to
@@ -328,20 +330,20 @@ We have used \texttt{walrus} to analyze a whole-exome data from a sample
 in the McGill Genome Quebec [MGGQ] dataset (GSE58644)\cite{tofigh2014prognostic}
 to discover \glspl{snp}, genomic variants and somatic mutations. We
 interactively developed a pipeline description that follows the best-practices
-of The Broad
-Institute\footnote{\url{software.broadinstitute.org/gatk/best-practices}} and
-generated reports that summarized the findings to share the results. Figure
-\ref{webshotfig} shows a screenshot from the web-based visualization in
-\texttt{walrus} of the pipeline. 
+of The Broad Institute\footnote{Online at
+\url{software.broadinstitute.org/gatk/best-practices}.} and generated reports
+that summarized the findings to share the results. Figure \ref{webshotfig} shows
+a screenshot from the web-based visualization in \texttt{walrus} of the
+pipeline. 
 
 \begin{figure}
+    \centering
 \includegraphics[width=8.3cm]{figures/webshot.png}
     \caption{Screenshot of the web-based visualization in \texttt{walrus}. The
     user has zoomed in to inspect the pipeline step which marks duplicate reads
     in the tumor sequence data.}
     \label{webshotfig}
 \end{figure} 
-
 
 From the analyses we discovered inherited germline mutations that are recognized
 to be among the top 50 mutations associated with an increased risk of familial
@@ -367,16 +369,18 @@ To demonstrate the performance of \texttt{walrus} and the ability to track and
 detect changes in an analysis pipeline, we have implemented one of the variant
 calling pipelines from \cite{cornish2015comparison} using tools from picard and
 the \gls{gatk}. We show the storage and computational overhead of our approach,
-and the benefit of capturing the pipeline specification using a pipeline manager
-rather than a methods section in a paper. The pipeline description and code is
-available along with \texttt{walrus} at \url{github.com/uit-bdps/walrus}. Figure
+and the benefit of capturing the pipeline specification using a pipeline
+manager.  The pipeline description and code is available along with
+\texttt{walrus} at \url{github.com/uit-bdps/walrus}. Figure
 \ref{benchpipefigure} shows a simple graphical representation of the pipeline. 
 
 \begin{figure}
+    \centering
 \includegraphics[width=7cm]{figures/graph.pdf}
     \caption{In addition to the web-based inteactive pipeline visualization,
     \texttt{walrus} can also generate DOT representations of pipelines. The
-    figure shows the example variant calling pipeline.} 
+    figure shows the example variant calling pipeline we used in the performance
+    evaluation.} 
     \label{benchpipefigure}
 \end{figure} 
 
@@ -398,16 +402,16 @@ computational overhead and storage usage of restoring a previous pipeline
 configuration. 
 
 Reproducing results from a scientific publication can be a difficult task. For
-example, troublesome formatting of the online version of
-\cite{cornish2015comparison} led to some pipeline tools failing. The parameters
-prefixed with two consecutive hypens (\texttt{--}) are converted to single em
-dashes (---).  PDF versions of the paper lists the parameters correctly.  In
-addition, the input filenames in the variant calling step do not correspond to
-any output files in previous steps, but because of their similarity to previous
-output files we assume that this is just a typo. These issues in addition to
-missing commands for e.g. the filtering step highlights the clear benefit of
-writing and reporting the analysis pipeline using a tool such as
-\texttt{walrus}. 
+example, troublesome text formatting on the online version of the reported
+variant calling pipeline in \cite{cornish2015comparison} led to some pipeline
+tools failing. The parameters prefixed with two consecutive hypens (\texttt{--})
+are converted to single em dashes (---).  PDF versions of the paper lists the
+parameters correctly.  In addition, the input filenames in the variant calling
+step do not correspond to any output files in previous steps, but because of
+their similarity to previous output files we assume that this is just a typo.
+These issues in addition to missing commands for e.g. the filtering step
+highlights the clear benefit of writing and reporting the analysis pipeline
+using a tool such as \texttt{walrus}. 
 
 Table \ref{resultstable} shows the runtime and storage use of the different
 experiments. In the second experiment we can see the added overhead of adding
@@ -425,9 +429,9 @@ the correct files in the \texttt{.git} subdirectory.
 
 \begin{table}[ht!]
     \centering
-    \caption{Runtime and storage use of a the typical workflow of developing a
-    variant-calling pipeline with \texttt{walrus}.} 
-    \begin{tabular}{ | c | p{2.5cm} | p{2cm} | p{1cm} |}
+    \caption{Runtime and storage use of the example variant-calling pipeline
+    developed with \texttt{walrus}.} 
+    \begin{tabular}{ | c | p{4cm} | p{2cm} | p{2cm} |}
     \hline
     Experiment & Task & Runtime & Storage Use \\ \hline
     1 & Run pipeline with default configuration & 21 hours 50 minutes & 235 GB
@@ -465,60 +469,57 @@ or a mix of the two, and describes each step in detail, e.g. what tool to run,
 its input parameters, input data and output data. The pipeline descriptions
 are text files that can be version controlled and shared between projects. There
 are multiple implementations of \gls{cwl} workflow platforms, e.g. the reference
-implementation
-cwl\_runner,\footnote{\url{github.com/common-workflow-language/cwltool}}
-Arvados,\cite{arvados} Rabix,\cite{rabix} Toil,\cite{toil}
-Galaxy,\cite{goecks2010galaxy} and AWE.\cite{awe} It is no requirement to run
-tools within containers, but implementations can support it. There are few of
-these tools that support versioning of the data.  Galaxy is an open web-based
-platform for reproducible analysis of large high-throughput
+implementation cwl\_runner,\cite{cwl} Arvados,\cite{arvados} Rabix,\cite{rabix}
+Toil,\cite{toil} Galaxy,\cite{goecks2010galaxy} and AWE.\cite{awe} It is no
+requirement to run tools within containers, but implementations can support it.
+There are few of these tools that support versioning of the data.  Galaxy is an
+open web-based platform for reproducible analysis of large high-throughput
 datasets.\cite{goecks2010galaxy} It is possible to run Galaxy on local compute
 clusters, in the cloud, or using the online Galaxy site.\footnote{Available at
 \url{usegalaxy.org}.} In Galaxy users set up an analysis pipeline using a
 web-based graphical interface, and it is also possible to export or import an
-existing workflow to an \gls{xml} file.\footnote{An alpha version of Galaxy
-with \gls{cwl} support is available at
+existing workflow to an \gls{xml} file.\footnote{An alpha version of Galaxy with
+\gls{cwl} support is available at
 \url{github.com/common-workflow-language/galaxy}.}  We chose not to use Galaxy
 because of missing command-line and scripting support, along with little support
-for running workflows with different
-configurations.\cite{spjuth2015experiences} Rabix provides checksums of output
-data to verify it against the actual output from the pipeline. This is similar
-to the checksums found in the git-lfs pointer files, but they do not store the
-original files for later. Arvados stores the data in a distributed storage
-system, Keep, that provides both storage and versioning of data. We chose not to
-use \gls{cwl} and its implementations because of its relaxed restrictions on
-having to use containers, its verbose pipeline descriptions, and the complex
-compute architecture required for some of the runners. We are however
-experimenting with an extension to \texttt{walrus} that translates pipeline
-descriptions written in \texttt{walrus} to \gls{cwl} pipeline descriptions. 
+for running workflows with different configurations.\cite{spjuth2015experiences}
+Rabix provides checksums of output data to verify it against the actual output
+from the pipeline. This is similar to the checksums found in the git-lfs pointer
+files, but they do not store the original files for later. Arvados stores the
+data in a distributed storage system, Keep, that provides both storage and
+versioning of data. We chose not to use \gls{cwl} and its implementations
+because of its relaxed restrictions on having to use containers, its verbose
+pipeline descriptions, and the complex compute architecture required for some of
+the runners. We are however experimenting with an extension to \texttt{walrus}
+that translates pipeline descriptions written in \texttt{walrus} to \gls{cwl}
+pipeline descriptions. 
 
 Pachyderm is a system for running  big data analysis pipelines. It provides
 complete version control for data and leverages the container ecosystem to
-provide reproducible data processing.\footnote{\url{pachyderm.io}} Pachyderm
+provide reproducible data processing.\cite{pachyderm} Pachyderm
 consists of a file system (\gls{pfs}) and a processing system (\gls{pps}).
 \gls{pfs} is a file system with git-like semantics for storing data used
 in data analysis pipelines. Pachyderm ensures complete analysis reproducibility
 by providing version control for datasets in addition to the containerized
 execution environments. Both \gls{pfs} and \gls{pps} is implemented on top
-of Kubernetes.\footnote{\url{kubernetes.io}} We believe that the approach in
+of Kubernetes.\cite{kubernetes} We believe that the approach in
 Pachyderm with version controlling datasets and containerizing each pipeline
 step is the correct approach to truly reproducible data analysis pipelines. 
 The reason we did not use Kubernetes and Pachyderm was because our compute
 infrastructure did not support it. In addition we did not want to use a separate
-tool, \gls{pfs}, for data versioning, we wanted to integrate it with the current
+tool, \gls{pfs}, for data versioning, we wanted to integrate it with our current
 pratice of using git for versioning. 
 
 As discussed in \cite{NIK}, recent projects propose to use containers for life
-science research. 
-The BioContainers\cite{biocontainers} and Bioboxes\cite{belmann2015bioboxes}
-projects address the challenge of installing bioinformatics data analysis
-tools by maintaining a repository of Docker containers for commonly used data
-analysis tools. Docker containers are shown to have better than, or equal
-performance as VMs.\cite{di2015impact} Both forms of virtualization techniques
-introduce overhead in I/O-intensive workloads, especially in VMs, but introduce
+science research. The BioContainers and Bioboxes\cite{belmann2015bioboxes}
+projects address the challenge of installing bioinformatics data analysis tools
+by maintaining a repository of Docker containers for commonly used data analysis
+tools. Docker containers are shown to have better than, or equal performance as
+\glspl{vm}.\cite{di2015impact} Both forms of virtualization techniques introduce
+overhead in I/O-intensive workloads, especially in \glspl{vm}, but introduce
 negligible CPU and memory overhead. For precision medicine pipelines the
 overhead of Docker containers will be negligible since these tend to be compute
-intensive and they typically run for several hours. \cite{di2015impact}
+intensive and they typically run for several hours.\cite{di2015impact} 
 Containers have also been proposed as a solution to improve experiment
 reproducibility, by ensuring that the data analysis tools are installed with the
 same responsibilities.\cite{boettiger2015introduction} 
@@ -548,7 +549,8 @@ drawbacks. git-lfs supports large files, but in our results it added an
 additional 5\% in runtime.  This makes the entire analysis pipeline slower, but
 we argue that having the files version controlled outweigh the runtime. In
 addition, there are only a few public gif-lfs hosting platforms for datasets
-larger than a few gigabytes, making it necessary to host these in house. 
+larger than a few gigabytes, making it necessary to host these in-house.
+In-house hosting may also be a requirement at different medical institutions.  
 
 We aim to investigate the performance of running analysis pipelines with
 \texttt{walrus}, and the potential benefit of its built-in data parallelism.
@@ -558,6 +560,15 @@ of doing so. This includes benchmarking and analyzing the system requirements
 for doing precision medicine analyses.  We are also planning on exploring
 parallelism strategies where we can split an input dataset into chromosomes and
 run some steps in parallel for each chromosome, before merging the data again. 
+
+We believe that future data analysis systems for precision medicine will follow
+the lines of our proposed approach. Software container solutions provide
+valuable information in the reporting of the analyses, and they impose little
+performance overhead. Further, the development of container orchestration
+systems such as Kubernetes is getting wide adoption nowadays, especially in
+web-scale internet companies. However, the adoption of such systems in a
+clinical setting depend on support from more tools, and also the addition
+of new compute infrastructure. 
 
 \section{Conclusions} 
 We have designed and implemented \texttt{walrus}, a tool for developing 
