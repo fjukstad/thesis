@@ -64,17 +64,14 @@ somatic and germline mutations based on Broad Institute's best practices. We
 developed the analysis pipeline on our in-house compute server using a
 \emph{bash} script version controlled with \emph{git} to track changes as we
 developed the analysis pipeline. The pipeline consisted of tools including
-picard,\footnote{\url{broadinstitute.github.io/picard}}
-fastqc,\footnote{\url{bioinformatics.babraham.ac.uk/projects/fastqc}}
-trimmomatic,\footnote{\url{usadellab.org/cms/?page=trimmomatic}} and the
-\gls{gatk}.\footnote{\url{software.broadinstitute.com/gatk}} While the analysis
-tools themselves provide the necessary functionality to give insights in
-the disease, 
+picard\cite{picard}, fastqc\cite{fastqc}, trimmomatic\cite{trimmomatic}, and the
+\gls{gatk}.\cite{gatk} While the analysis tools themselves provide the necessary
+functionality to give insights in the disease, 
 % LAB: Kan vi gi ett illustrerende eksempel på hvorfor dette var viktig i
 % "motivating use case". Ellers blir det rart hvis hovedpoenget med walrus ikke
 % var motivert.
-ensuring that the analyses could be fully reproduced later left
-areas in need of improvement.
+ensuring that the analyses could be fully reproduced later left areas in need of
+improvement.
 
 We chose a command-line script over more complex pipelining tools or workbenches
 such as Galaxy\cite{goecks2010galaxy} because of its fast setup time on our

@@ -151,7 +151,7 @@ analyze biological datasets, they current tools have several drawbacks:
     \item \textbf{Complexity:} 
         Analyses that start as a simple script quickly become more complex to
         maintain and develop as developers add new functionality to the
-        analyses.
+        analyses. 
         % LAB: kan stjele argumentasjon fra ADAM paperet der de kritiserer
         % "monolothic" bio applikasjoner. Eller fra Tanenbaum vs Linus.
     \item \textbf{Reusability:} Data exploration tools are often
@@ -165,9 +165,9 @@ analyze biological datasets, they current tools have several drawbacks:
         impact the results. 
 \end{enumerate} 
 
-Because of these drawbacks, a unified approach for reproducible data analysis
-and exploration would reduce the time-to-interpretation of biological datasets
-significantly. 
+Because of these drawbacks, a approach for unifying reproducible data analysis
+and exploration systems would reduce the time-to-interpretation of biological
+datasets significantly. 
 
 \section{\acrfullpl{sme}} 
 In collaboration with researchers in systems epidemiology and biology we have
@@ -177,12 +177,12 @@ population-based cohort, \gls{nowac}.\cite{nowac}. The second is to enable
 interactive exploration of these datasets.  The final use case is to develop
 pipelines for analyzing sequencing datasets for use in a precision medicine
 setting.  Although these use cases require widely different systems with
-different requirements, the applications share common design patterns.  Figure
+different requirements, the applications share common design patterns. Figure
 \ref{overview-fig} shows the applications we have developed and the underlying
 systems. 
 
 \begin{figure}
-\includegraphics[width=\textwidth]{figures/overall-arch.pdf}
+\includegraphics[width=\textwidth]{figures/all-systems.pdf}
     \caption{The applications and their underlying systems discussed in this
     thesis.} 
     \label{overview-fig}
@@ -192,14 +192,14 @@ systems.
 We discuss how the approach is suitable for different use cases before
 highlighting why it is suitable for all of them. Figure \ref{overview-full}
 shows the three different use cases and one such \gls{sme}. We can use it in
-both data exploration applications, analysis pipelines, and just to centralize
-and orchestrate data management. 
+both data exploration applications, analysis pipelines, and for building data
+management systems.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{figures/overview-full.pdf}
-    \caption{Shows how the \gls{sme} approach fits into data exploration
-    applications and analysis pipelines. We build and re-use applications and
-    pipelines using the same fundamental building block.} 
+    \caption{An illustration of how we envision the \gls{sme} approach in data
+    management systems, data exploration applications and analysis pipelines. In
+    this example we reuse an R package for all use cases.}
     \label{overview-full}
 \end{figure} 
 
@@ -222,8 +222,8 @@ such a building block. Therefore, we combined the datasets from the \gls{nowac}
 cohort with documentation, analysis scripts, and integration with registry
 datasets, into a single package.  This approach simplifies the researcher's
 first steps in the analysis of the different data in our study. On top of the
-\gls{nowac} package we then implemented a pre-processing pipelining tool named
-Pippeline. 
+\gls{nowac} package we then implemented a user-friendly preprocessing pipelining
+tool named Pippeline. 
 
 Inspired by the ecosystem of packages in the R programming language we
 implemented our approach as the \gls{nowac} R package. Users simply install the
@@ -289,7 +289,7 @@ perform the different processing steps, written in a wide range of programming
 languages. The tools and their dependencies, can be difficult to install, and
 they require users to correctly manage a range of input parameters that affects
 the output results. With software container technology it is a simple task for
-users to share container images with analysis tools pre-installed. Then, by
+developers to share container images with analysis tools pre-installed. Then, by
 designing a text-based specification for the analyses, we can orchestrate the
 execution of an entire analysis pipeline and record the flow of data through the
 pipeline. As with the previous use case, we develop an analysis pipeline by
@@ -303,29 +303,31 @@ breast cancer patients, as well as an \gls{rna}-seq pipeline for comparison with
 gene expression datasets. 
 
 \subsection{Similarity} 
-The above approaches to building systems for analyzing and exploring biological
-data, either as interactive applications, or batch processing pipelines share
-the same design principles. In all areas we decompose the system, e.g., a tool,
-into small modular entities, and package these into software containers which
-are then orchestrated together. These containers are configured and communicate
+The above approaches for building data analysis and exploration applications
+share the same design principles. In all areas we decompose the system, into
+small modular entities, and package these into software containers which are
+then orchestrated together. These containers are configured and communicate
 using open protocols that make it possible to interface with them using any
 programming language. We track the configuration of the containers and their
 orchestration using software versioning systems, and provide the necessary
-information to reproduce analyses or a complete system. 
+information to set up the system and reproduce their results.
+We believe that the \gls{sme} approach is applicable to every step in the long
+process from raw data collection to interpretable results, and that it makes
+this process more transparent. 
 
 \section{Systems Developed with \glspl{sme}}
-In this section we outline the different systems we have built using \glspl{sme},
-specifically implemented on top of the \gls{nowac} package, \texttt{walrus}, and
-Kvik. 
+In this section we outline the different systems we have built using
+\glspl{sme}. We detail how we implemented \gls{sme} in the \gls{nowac} package,
+\texttt{walrus}, and Kvik, and show applications that use these. 
 
 \subsection{Data Management and Analysis} 
-There was a need to standardize the preprocessing of biological datasets in the
+There is a need to standardize the preprocessing of biological datasets in the
 \gls{nowac} study. With the \gls{nowac} package we could implement a
 preprocessing pipeline on top of it that used its datasets and utility functions
 to generate analysis-ready datasets for the researchers.  This preprocessing
 pipeline called Pippeline was developed as a web application which allows the
-data managers in our study to generate datasets for researchers.\cite{pippeline}
-The pipeline perfroms all necessary steps before researchers can perform their
+data managers in our study to generate datasets for researchers.
+The pipeline performs all necessary steps before researchers can perform their
 specialized analyses. 
 
 \subsection{Interactive Data Exploration Applications}
@@ -417,9 +419,6 @@ to enable reproducible data analysis and exploration of high-throughput
 biological datasets while still providing the required performance. 
 
 \section{List of papers} 
-% TODO: wording of contributions (I ...)
-% TODO: number the papers!!!! 
-
 This section contains a list of papers along with short descriptions and my
 contributions to each paper. 
 
@@ -473,10 +472,9 @@ contributions to each paper.
          into an approach that we used to build the \gls{mixt} web application. 
          \\ \hline
          
-         Contribution & 
-         Designed, implemented, and deployed Kvik and the \gls{mixt} web
-         application.  Evaluated the system and wrote the manuscript. 
-         \\ \hline
+         Contribution & I designed, implemented, and deployed Kvik and the
+         \gls{mixt} web application.  Evaluated the system and wrote the
+         manuscript.  \\ \hline
          
          Publication date & 20 August 2017. \\ \hline  
 
@@ -514,10 +512,8 @@ contributions to each paper.
          linked to genes and pathways in the patient \gls{sr}. 
          \\ \hline
          
-         Contribution & 
-         Designed, implemented, and deployed the \gls{mixt} web application.
-         Contributed to the writing of the manuscript. 
-         \\ \hline
+         Contribution & I designed, implemented, and deployed the \gls{mixt} web
+         application.  Contributed to the writing of the manuscript.  \\ \hline
          
          Publication date & 28 September 2017. \\ \hline  
 
@@ -543,7 +539,8 @@ contributions to each paper.
      pipelines and compare their design and their use of underlying
      frameworks and infrastructures.      \\ \hline
      
-     Contribution & Literature review and Wrote the manuscript.  \\ \hline
+     Contribution & I performed the literature review and Wrote the manuscript.
+     \\ \hline
      
      Publication date & 23 October 2017 \\ \hline  
 
@@ -571,7 +568,7 @@ contributions to each paper.
          Description & Describes a tool for process isolation built using Linux
          namespaces.          \\ \hline
          
-         Contribution & Contributed to the
+         Contribution & I contributed to the writing of the 
          manuscript, specifically to the literature review and related works.
          \\ \hline
          
@@ -579,13 +576,43 @@ contributions to each paper.
 
          Publication venue & Norsk Informatikkonferanse 2017. \\ \hline
          
-         Citation & \cite{fjukstad2017review} \bibentry{fjukstad2017review} \\
+         Citation & \cite{NIK} \bibentry{NIK} \\
          \hline 
     \end{tabular}
     \label{p5}
 \end{table}
 
 \subsection*{Paper 6} 
+\begin{table}[H]
+
+    \centering
+    \begin{tabular}{ | l | p{9.5cm} | }
+    \hline
+         Title & Reproducible Data Analysis Pipelines for Precision Medicine \\
+         \hline
+         
+         Authors &  \textbf{Bjørn Fjukstad}, Vanessa Dumeaux, Michael Hallett,
+         Lars Ailo Bongo\\ \hline
+         
+         Description & This paper outlines how we used the \glspl{sme} approach
+         to build \texttt{walrus}. 
+         \\ \hline
+         
+         Contribution & I designed, implemented, and performed the evaluation of
+         \texttt{walrus}. I also wrote the manuscript. 
+         \\ \hline
+         
+         Publication & Submitted for publication. Preprint available online at
+         \url{biorxiv.org/content/early/2018/06/25/354811} \\ \hline
+         
+         Citation & \cite{walrus} \bibentry{walrus} \\
+         \hline 
+    \end{tabular}
+    \label{p7}
+\end{table}
+
+\subsection{Additional Papers}
+\subsubsection*{Additional Paper 1} 
 \begin{table}[H]
     \centering
     \begin{tabular}{ | l | p{9.5cm} | }
@@ -603,7 +630,7 @@ contributions to each paper.
          cancer. 
          \\ \hline
          
-         Contribution & Did the analyses to explore association between PAX6
+         Contribution & I did the analyses to explore association between PAX6
          gene expression and PAX6 target genes. 
          \\ \hline
          
@@ -615,40 +642,45 @@ contributions to each paper.
          \bibentry{kiselev2018transcription} \\
          \hline 
     \end{tabular}
-    \label{p6}
+    \label{adp1}
 \end{table}
 
-
-\subsection*{Paper 7} 
+\subsubsection*{Additional Paper 2} 
 \begin{table}[H]
-
     \centering
     \begin{tabular}{ | l | p{9.5cm} | }
     \hline
-         Title & Reproducible Data Analysis Pipelines in Precision Medicine \\
-         \hline
+         Title & Low-Cost Programmable Air Quality Sensor Kits in Science
+         Education \\ \hline
          
-         Authors &  \textbf{Bjørn Fjukstad}, Vanessa Dumeaux, Michael Hallett,
-         Lars Ailo Bongo\\ \hline
+         Authors & \textbf{Bjørn Fjukstad}, Nina Angelvik, Maria Wulff Hauglann,
+         Joachim Sveia Knutsen, Morten Grønnesby, Hedinn Gunhildrud, and Lars
+         Ailo Bongo.  \\ \hline
          
-         Description & This paper outlines how we used the \glspl{sme} approach
-         to build \texttt{walrus}. 
+         Description & In this paper we describe a science education project for
+         students in upper-secondary schools.  Students build and program their
+         own air quality sensor kits to collect air quality data.  We used the
+         same \gls{sme} approach to develop the \url{airbit.uit.no} web
+         application where students can upload and explore their collected data. 
          \\ \hline
          
-         Contribution & Design, implementation and evaluation of
-         \texttt{walrus}. Wrote the manuscript. 
+         Contribution & I designed the project, implemented the web application,
+         and wrote the paper. 
          \\ \hline
          
-         Publication date &  \\ \hline  
+         Publication date & 22 February 2018 \\ \hline  
 
-         Publication venue & Submitted for publication. Preprint available online at
-         \url{biorxiv.org/content/early/2018/06/25/354811} \\ \hline
+         Publication venue & The 49th ACM Technical Symposium on Computer
+         Science Education \\ \hline
          
-         Citation & \cite{walrus} \bibentry{walrus} \\
+         Citation & \cite{fjukstad2018low}
+         \bibentry{fjukstad2018low} \\
          \hline 
     \end{tabular}
-    \label{p7}
+    \label{adp2}
 \end{table}
+
+
 
 
 % \subsection*{Paper 8} 

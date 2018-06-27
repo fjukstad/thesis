@@ -572,7 +572,7 @@ addition by serving the results out of cache we reduce the number of queries to
 the online database down to one. 
 
 \begin{table}[h]
-    \caption[]{Time to retrieve a gene summary for a single gene, comparing
+    \caption{Time to retrieve a gene summary for a single gene, comparing
     different number of concurrent requests.}
     \begin{tabular}{| l | c | c | c | c | c | }
         \hline 
@@ -589,24 +589,23 @@ the online database down to one.
 We evaluate the compute service by running a benchmark consisting of two
 operations: first generate a set of 100 random numbers, then plot them and
 return the resulting visualization.\footnote{More details at
-\url{github.com/fjukstad/kvik/tree/master/r/benchmarks}.} We use two
-\emph{c4.large} instances on AWS EC2 running the Kvik compute service and
-OpenCPU base docker containers. The servers have caching disabled.  
-Table \ref{kvikopencpucomparison} shows the time to complete the benchmark for
-different number of concurrent connections. We see that the compute service in
-Kvik performs better than the OpenCPU\footnote{Built using the
-\textit{opencpu-server} Docker image.} alternative. We believe that speedup is
-because we keep a pool of R processes that handle requests. In OpenCPU a new R
-process is forked upon every request that results in any computation executed in
-R. Other requests such as retrieving previous results do not fork new R
-processes. 
+\url{github.com/fjukstad/kvik}.} We use two \emph{c4.large} instances on AWS EC2
+running the Kvik compute service and OpenCPU base docker containers. The servers
+have caching disabled.  Table \ref{kvikopencpucomparison} shows the time to
+complete the benchmark for different number of concurrent connections. We see
+that the compute service in Kvik performs better than the OpenCPU\footnote{Built
+using the \textit{opencpu-server} Docker image.} alternative. We believe that
+speedup is because we keep a pool of R processes that handle requests. In
+OpenCPU a new R process is forked upon every request that results in any
+computation executed in R. Other requests such as retrieving previous results do
+not fork new R processes. 
 
 In summary our results show that the interface to the R programming language
 provides faster latencies, and that implementing a service for database lookups
 have clear benefits with regards to latency. 
 
 \begin{table}[h]
-    \caption[]{Time to complete the benchmark with different number of
+    \caption{Time to complete the benchmark with different number of
     concurrent connections.}
     \begin{tabular}{| l | c | c | c | c | c | }
         \hline 
@@ -657,17 +656,14 @@ specific item was retrieved from the database.  One large concern that we
 haven't addressed in this paper is security. In particular one security concern
 that we aim to address in Kvik is the restrictions on the execution of code in
 the compute service. We aim to address this in the next version of the compute
-service, using methods such as
-AppArmor\footnote{\url{wiki.ubuntu.com/AppArmor}.} that can restrict a program's
-resource access. In addition to code security we will address data access,
-specifically put constraints on who can access data from the compute service.
-We also aim to explore different alternatives for scaling up the compute
-service.  Since we already interface with R we can use the
-Sparklyr\footnote{\url{spark.rstudio.com}.} or
-SparkR\footnote{\url{spark.apache.org/docs/latest/sparkr.html}.} packages to run
-analyses on top of Spark.\cite{zaharia2010spark} Using Spark as an execution
-engine for data analyses will enable applications to explore even larger
-datasets.
+service, using methods such as AppArmor\cite{apparmor} that can
+restrict a program's resource access. In addition to code security we will
+address data access, specifically put constraints on who can access data from
+the compute service.  We also aim to explore different alternatives for scaling
+up the compute service.  Since we already interface with R we can use the
+Sparklyr\cite{sparklyr} or SparkR\cite{sparkr} packages to run analyses on top
+of Spark.\cite{zaharia2010spark} Using Spark as an execution engine for data
+analyses will enable applications to explore even larger datasets.
 
 \section{Conclusion}
 We have designed an approach for building data exploration applications in
