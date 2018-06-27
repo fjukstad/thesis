@@ -42,39 +42,39 @@ visualizations integrated with biological databases. We first developed Kvik
 Pathways to explore transcriptional profiles in the context of biological
 pathway maps. It is a three-tiered web application consisting of three central
 components, that we later refactored into three separate microservices for use
-in other applications. With these microservices we implemented the MIxT web
-application, and generalized our efforts into general design principles for data
-exploration applications.
+in other applications. These three microservices make up the \glspl{sme} in our
+approach for building data exploration applications.  With these microservices
+we implemented the MIxT web application, and generalized our efforts into
+general design principles for data exploration applications. 
 
-Through the development of several data exploration applications, we have
-iteratively developed an approach to build such applications. These applications
-have in common a set of features In this chapter we discuss how we can build
-data exploration applications using the \gls{sme} approach through its
-implementation in Kvik. We demonstrate the usefulness of the approach through a
-set of different applications for exploring transcriptional profiles from the
-\gls{nowac} cohort. While these applications provide specialized user
-interfaces, we show how the design patterns and ideas can be used in a wide
-range of use cases. 
+In this chapter we discuss how we can build data exploration applications using
+the \gls{sme} approach through its implementation in Kvik. We demonstrate the
+usefulness of the approach through a set of different applications for exploring
+transcriptional profiles from the \gls{nowac} cohort. While these applications
+provide specialized user interfaces, we show how the design patterns and ideas
+can be used in a wide range of use cases. We also provide an evaluation that
+shows that our approach is suitable for this type of interactive applications. 
 
-Data exploration tools tend to specialize on a handful of analysis tasks, but
-while the applications themselves are specific they often share the same
-underlying components. Both Kvik Pathways and the \gls{mixt} web
-applications interface with the same online databases, and rely on statistical
-analyses to provide users with data to explore. Designing systems as collections
-of smaller components allow developers to reuse parts and shortens development
-time. 
+The rest of the chapter is organized as follows: First we present the two
+motivating use cases for our applications. We then detail the requirements for
+these types of interactive applications. Following the requirements we detail
+the Kvik Pathways application, including its archtecture and implementation. We
+then show how we use this first application to generalize its design principle
+and show we can use them to build applications that follow the \gls{sme}
+approach. Following is a description of the implementation of the \glspl{sme}
+approach in the microservices in Kvik. We present how we used these to develop
+the MIxT web application. Finally we discuss our approach in context of related
+work, and provide a conclusion. 
 
-%% Chapter buildup
-In this chapter ... 
 
 \section{Motivating Examples}
 The need for interactive applications has come from two different studies
-within the \gls{nowac} project. Both of these rely on advanced statistical
+in the \gls{nowac} project. Both of these rely on advanced statistical
 analyses and produce comprehensive results that are interpreted by researchers
-through integration with online databases and interactive visualizations. The
-end results are typically large tables that require manual inspection. Below we
-describe the two applications before we go into the requirements, design and
-implementation of the applications. 
+through integration with information from online databases and interactive
+visualizations. The end results are typically large tables that require manual
+inspection. Below we describe the two applications before we detail the
+requirements, design and implementation of the applications. 
 
 \subsection{High and Low Plasma Ratios of Essential Fatty Acids} 
 The aim of the first application was a to explore the
@@ -94,12 +94,12 @@ limited by their own capacity to retrieve information manually from databases
 and keep it up to date. An application could automate the retrieval and ensure
 that the data is correct and up to date. 
 
-\subsection{Matched Interactions Across Tissues (MIxT)}
+\subsection{Tumor-Blood Interactions in Breast Cancer Patients}
 The aim of the Matched Interactions Across Tissues (MIxT) study was to identify
 genes and pathways in the primary breast tumor that are tightly linked to genes
 and pathways in the patient blood cells.\cite{dumeaux2017interactions} We
 generated and analyzed expression profiles from blood and matched tumor cells in
-173 breast cancer patients included in the Norwegian Women and Cancer (NOWAC)
+173 breast cancer patients included in the \gls{nowac} 
 study.  The MIxT analysis starts by identifying sets of genes tightly
 co-expressed across all patients in each tissue. Each group of genes or modules
 were annotated based on a priori biological knowledge about gene functionality.
@@ -108,7 +108,6 @@ specific biologies in one tissue are linked with (possibly distinct) biologies
 in the second tissue, and this within different subgroup of patients (i.e.
 subtypes of breast cancer).
 
-
 \section{Requirements} 
 From these two studies we identified a set of requirements that the data
 exploration applications should satisfy: 
@@ -116,17 +115,12 @@ exploration applications should satisfy:
 \begin{description} 
 \item[Interactive] The applications should provide interactive exploration
     of datasets through visualizations and integration with relevant
-    information. 
-    To understand the large quantities of heterogeneous data in
-    epidemiological studies, researchers need interactive visualizations
-    that provide different views and presentations of the data. Also, to
-    understand the results it is important to have instant access to
-    existing knowledge from online databases. 
+    information.
     
-\item[Familiar] They should use familiar visual representations to present
-    information to researchers. For more efficient data exploration it is 
-    effective to use representations that researchers are familiar with both from
-    the literature and from other applications. 
+\item[Familiar] The applications should use familiar visual representations to
+    present information to researchers. For more efficient data exploration it
+        is effective to use representations that researchers are familiar with
+        both from the literature and from other applications. 
     
 \item[Simple to use] Researchers should not need to install software to
     explore their data through the applications. The applications should 
@@ -177,15 +171,15 @@ information.
 \textbf{A3:} Explore relationships between pathway maps. When users select a
 gene from a pathway map they get a list of other pathway maps that this
 gene is found in, in addition to their similarity. This allows users to dig into
-the different processes genes are a part of. 
+the different biological processes the genes are a part of. 
 
 \begin{figure}[htb!]
     \begin{centering}
     \includegraphics[width=\textwidth]{figures/kvikpwfig.png}
-    \caption{Screenshot of the renin-angiotensin pathway (KEGG pathway id
-    hsa04614) in Kvik Pathways. The user has selected the gene CPA3, which brings 
-    up the panel on the right. From here researchers can browse pathways that the
-    gene is a member of, and read relevant information about the gene from KEGG} 
+        \caption{Screenshot of the renin-angiotensin pathway (KEGG pathway id
+        hsa04614) in Kvik Pathways. Researchers can visually explore the
+        pathways and read relevant information about genes in the right-hand
+        panel.}
     \label{kvikpwfig}
     \end{centering} 
 \end{figure}
@@ -197,12 +191,13 @@ Kvik Pathways has a three-tiered architecture of independent layers (Figure
 exploring gene expression data and biological pathways. A front-end layer
 provides static content such as HTML pages and stylesheets, as well as an
 interface to the data sources with dynamic content such as gene expression
-data or pathway maps to the web application. The back-end layer contains
+data or pathway maps to the web application. The backend layer contains
 information about pathways and genes, as well as computational and storage
-resources to process genomic data such as the NOWAC data repository. The
-Kvik framework provides the components in the back-end layer. 
+resources to process genomic data such as the \gls{nowac}  data repository. We
+have used the packages in Kvik to develop the backend layer. These are discissed
+in detail in Section \ref{kviksec}. 
 
-The Data Engine in the back-end layer provides an interface to the NOWAC data
+The Data Engine in the backend layer provides an interface to the \gls{nowac} data
 repository stored on a secure server on our local supercomputer. In Kvik
 Pathways all gene expression data is stored on the computer that runs the Data
 Engine. The Data Engine runs an R session accessible over remote procedure calls
@@ -213,7 +208,7 @@ data and run analyses the Data Interface exposes a HTTP API to the browser layer
 
 \begin{figure}[htb]
     \begin{centering}
-    \includegraphics[width=\textwidth]{figures/archv2.pdf}
+    \includegraphics[width=\textwidth]{figures/archv2-name-fix.pdf}
     \caption{The three-tiered architecture of Kvik Pathways.} 
     \label{fig:arch}
     \end{centering} 
@@ -243,31 +238,31 @@ retrieve all available genes in our dataset.
 \end{table}
 
 \subsection{Implementation} 
-To create pathway visualizations the Kvik back-end retrieves and parses the KEGG
+To create pathway visualizations the Kvik backend retrieves and parses the KEGG
 Markup Language (KGML) representation and pathway image from KEGG databases
-through its REST API (\href{rest.kegg.jp}{rest.kegg.jp}).  This KGML
-representation of a pathway is an XML file that contains a list of nodes (genes,
-proteins or compounds) and edges (reactions or relations). Kvik parses this file
-and generates a JSON representation that Kvik Pathway uses to create pathway
-visualizations.  Kvik Pathways Cytoscape.js to create a pathway visualization
-from the list of nodes and edges and overlay the nodes on the pathway image. To
-reduce latency when using
-the KEGG REST API, we cache every response on our servers. 
-We use the average fold change between the groups (women with high or low plasma
-ratios of essential fatty acids) in the dataset to color the genes within the
-pathway maps.  To highlight $p$-values, the pathway visualization shows an
-additional colored frame around genes. We visualize fold change values for
-individual samples as a bar chart in a side panel.  This bar chart gives
-researchers a global view of the fold change in the entire dataset. 
+through its REST API.\cite{kgml}
+This KGML representation of a pathway is an XML file that contains a list of
+nodes (genes, proteins or compounds) and edges (reactions or relations). Kvik
+parses this file and generates a JSON representation that Kvik Pathway uses to
+create pathway visualizations.  Kvik Pathways uses
+Cytoscape.js\cite{cytoscapejs} to create a pathway
+visualization from the list of nodes and edges and overlay the nodes on the
+pathway image. To reduce latency when using the KEGG REST API, we cache every
+response on our servers.  We use the average fold change between the groups
+(women with high or low plasma ratios of essential fatty acids) in the dataset
+to color the genes within the pathway maps.  To highlight $p$-values, the
+pathway visualization shows an additional colored frame around genes. We
+visualize fold change values for individual samples as a bar chart in a side
+panel.  This bar chart gives researchers a global view of the fold change in the
+entire dataset. 
 
-Kvik provides a flexible statistics back-end where researchers can specify the
+Kvik provides a flexible statistics backend where researchers can specify the
 analyses they want to run to generate data for later visualization. For example,
 in Kvik Pathways we retrieve fold change for single genes every time a pathway
-is viewed in the application.  These analyses are run ad hoc on the back-end
+is viewed in the application.  These analyses are run ad hoc on the backend
 servers and generates output that is displayed in the pathways in the client's
 web browser. The data analyses are implemented in an R script and can make use
-of all available libraries in R, such as Bioconductor
-(\href{bioconductor.org}{bioconductor.org}). 
+of all available libraries in R, such as Bioconductor. 
 
 Researchers modify this R script to, for example, select a normalization method,
 or to tune the false discovery rate (FDR) used to adjust the $p$-values that
@@ -276,7 +271,7 @@ Since Kvik Pathways is implemented as a web application and the analyses are run
 ad hoc, when the analyses change, researchers get an updated application by
 simply refreshing the Kvik Pathways webpage.
 
-\subsection{Practical Use} 
+\subsection{Use Case: Analysis of Renin-Antiotensin Pathway}
 As an example of practical use of Kvik Pathways, we chose one of the
 significant pathways from the overlap analysis, the renin-angiotensin
 pathway (Supplementary table S5 in \cite{olsen2013plasma}). The pathway
@@ -288,7 +283,6 @@ biological process to see how these two genes (and their expression levels)
 are related to other genes in that pathway, giving a biologically more
 meaningful context as compared to merely seeing the two genes on a list.
 
-
 \section{Design Principles}\label{challengeref} 
 Through the experiences developing the Kvik Pathways we identified a set of
 components and features that are central to building data exploration
@@ -296,7 +290,7 @@ applications:
 
 \begin{enumerate}
     \item A low-latency language-independent approach for integrating, or
-        embedding, statistical software, such as R, directly from a data
+        embedding, statistical software, such as R, directly in a data
         exploration application. 
     \item A low-latency language-independent interface to online reference
         databases in biology that users can query to explore results in context
@@ -310,7 +304,7 @@ In the following sections we describe how we designed and implemented the
 packages in Kvik, and how they later formed the bases of the \gls{sme} approach
 that the \gls{mixt} web application builds upon. 
 
-\section{Kvik}
+\section{Kvik}\label{kviksec}
 Kvik is a collection of software packages in the Go programming language that
 allows developers to build data exploration applications. It is the basis of our
 two data exploration applications, and has been iteratively developed through
@@ -318,8 +312,9 @@ the last years. Kvik provides an interface to the R statistical programming
 language, both as a stand-alone service, a client library, and through an
 OpenCPU server. It provides an R-based pipelining tool that allows useres to
 specify and run statistical analysis pipelines in R.  Kvik also contains a
-Javascript package for visualizing KEGG pathways using d3.  In addition it
-provides an interface with online databases such as MsigDB and KEGG. 
+Javascript package for visualizing KEGG pathways using d3.\cite{d3}  In addition
+it provides an interface with online databases such as MsigDB\cite{msigdb} and
+\gls{kegg}\cite{kegg}. 
 
 We used the experience building Kvik Pathways to completely re-design and
 re-implement the R interface in Kvik. From having an R server that can run a
@@ -331,7 +326,7 @@ to improve latency. This transformed the application from being a single
 monolithic application into a system that consists of a web application for
 visualizing biological pathways, a database service to retrieve pathway images
 and other metadata, and a compute service for interfacing with the gene
-expression data in the NOWAC cohort. We could then re-use the database and the
+expression data in the \gls{nowac} cohort. We could then re-use the database and the
 compute service in the MIxT application. 
 
 We have used these packages to develop the \gls{sme} approach through services
@@ -387,8 +382,8 @@ provides low latency, minimizes the number of queries to remote databases, and
 stores additional metadata to capture query parameters and database information.
 The database service provides an open HTTP interface to biological databases for
 retrieving meta-data on genes and processes.  We currently have packages for
-interfacing with E-utilities,\footnote{\url{eutils.ncbi.nlm.nih.gov}.} MSigDB,
-HGNC, and KEGG.
+interfacing with E-utilities\cite{sayers2009entrez}, MSigDB,
+HGNC\cite{gray2014genenames}, and KEGG.
 
 Both the compute and the databases service in Kvik build on the standard
 \emph{net/http} package in the Go programming
@@ -451,7 +446,7 @@ combines both static visualizations from R together with interactive tables for
 gene overlap analyses. Figure \ref{fig_first_case} shows the web page presented
 to users when they access the co-expression gene set 'darkturquoise' from blood.
 To explore the co-expression relationship between genes (\textbf{A2}) we use an
-interactive graph visualization build with Sigmajs\footnote{\url{sigmajs.org}.}.
+interactive graph visualization build with Sigma.\cite{sigmajs}
 We have built visualization for both tissues, with graph sizes of 2705 nodes and
 90 348 edges for the blood network, and 2066 nodes and 50 563 edges for the
 biopsy network. 
@@ -512,6 +507,80 @@ responsible for dynamically generating the different views based on data from
 the statistical analyses and biological databases, and serve these to users. It
 also serves the different JavaScript visualization libraries and style sheets. 
 
+\subsection{Evaluation} 
+We evaluate the MIxT application by investigating response times for a set of
+queries to each of its two supporting services. 
+
+To evaluate the database service we measure the query time for retrieving
+information about a specific gene with and without caching.\footnote{More
+details online at \url{github.com/fjukstad/kvik/tree/master/db/benchmark}.} This
+illustrates how we can improve performance in an application by using a database
+service rather than accessing the database directly. 
+We use a AWS EC2 \emph{t2.micro}\footnote{See
+\url{aws.amazon.com/ec2/instance-types} for more information about AWS EC2
+instance types.} instance to host and evaluate the database service.  The
+results in Table \ref{db} confirm a significant improvement in response time
+when the database service caches the results from the database lookups. In
+addition by serving the results out of cache we reduce the number of queries to
+the online database down to one. 
+
+\begin{table}[h]
+\centering
+    \caption{Time to retrieve a gene summary for a single gene, comparing
+    different number of concurrent requests.}
+    \begin{tabular}{| l | c | c | c | c | c | }
+        \hline 
+        & 1 & 2 & 5 & 10 & 15 \\ 
+      \hline			
+      No cache & 956ms & 1123ms & 1499ms & 2147ms & 2958ms\\
+      \hline
+      Cache & 64ms & 64ms & 130ms & 137ms & 154ms\\
+      \hline  
+    \end{tabular}
+\label{db}
+\end{table} 
+
+We evaluate the compute service by running a benchmark consisting of two
+operations: first generate a set of 100 random numbers, then plot them and
+return the resulting visualization.\footnote{More details at
+\url{github.com/fjukstad/kvik}.} We use two \emph{c4.large} instances on AWS EC2
+running the Kvik compute service and OpenCPU base docker containers. The servers
+have caching disabled.  Table \ref{kvikopencpucomparison} shows the time to
+complete the benchmark for different number of concurrent connections. We see
+that the compute service in Kvik performs better than the OpenCPU\footnote{Built
+using the \textit{opencpu-server} Docker image.} alternative. We believe that
+speedup is because we keep a pool of R processes that handle requests. In
+OpenCPU a new R process is forked upon every request that results in any
+computation executed in R. Other requests such as retrieving previous results do
+not fork new R processes. 
+
+In summary our results show that the interface to the R programming language
+provides faster latencies, and that implementing a service for database lookups
+have clear benefits with regards to latency. 
+
+\begin{table}[h]
+\centering
+    \caption{Time to complete the benchmark with different number of
+    concurrent connections.}
+    \begin{tabular}{| l | c | c | c | c | c | }
+        \hline 
+       & 1 & 2 & 5 & 10 & 15 \\ 
+      \hline			
+      Kvik & 274ms & 278ms & 352ms & 374ms & 390ms\\
+      \hline
+      OpenCPU & 500ms & 635ms & 984ms & 1876ms & 2700ms\\
+      \hline  
+    \end{tabular}
+\label{kvikopencpucomparison}
+\end{table} 
+
+\subsection{Tumor epithelium-stroma interactions in breast cancer}
+In addition to the MIxT web application for exploring the link between breast
+tumor and primary blood, we have also deployed a web application that
+investigates the link in another dataset\cite{boersma2008stromal} We have
+deployed the application online at \url{mixt-tumor-stroma.bci.mcgill.ca}. The
+web application is identical except that the R package accesses another dataset. 
+    
 \section{Related Work} 
 OpenCPU is a system for embedded scientific computing and reproducible
 research.\cite{opencpu} Similar to the compute service in Kvik, it offers an
@@ -556,7 +625,7 @@ scratch using sigma.js and d3 to have full control over the appearance and
 functionality of the visualizations. 
 
 % Bare for å få inn en cite her heheheh :) 
-\subsection{Other Disciplines}
+\subsection{air:bit}
 We have also used the microservice architecture in an application where users
 can upload and explore air pollution data from Northern
 Norway.\cite{fjukstad2018low} In the project, air:bit, students from upper
@@ -569,72 +638,12 @@ to build interactive visualizations. It also integrates the data with other
 sources such as the Norwegian Institute for Air Research and the The Norwegian
 Meteorological Institute. 
 
-\section{Evaluation} 
-We evaluate the applications by investigating response times for a set of queries
-to each of the two supporting services. 
-
-To evaluate the database service we measure the query time for retrieving
-information about a specific gene with and without caching.\footnote{More
-details online at \url{github.com/fjukstad/kvik/tree/master/db/benchmark}.} This
-illustrates how we can improve performance in an application by using a database
-service rather than accessing the database directly. 
-We use a AWS EC2 \emph{t2.micro}\footnote{See
-\url{aws.amazon.com/ec2/instance-types} for more information about AWS EC2
-instance types.} instance to host and evaluate the database service.  The
-results in Table \ref{db} confirm a significant improvement in response time
-when the database service caches the results from the database lookups. In
-addition by serving the results out of cache we reduce the number of queries to
-the online database down to one. 
-
-\begin{table}[h]
-    \caption{Time to retrieve a gene summary for a single gene, comparing
-    different number of concurrent requests.}
-    \begin{tabular}{| l | c | c | c | c | c | }
-        \hline 
-        & 1 & 2 & 5 & 10 & 15 \\ 
-      \hline			
-      No cache & 956ms & 1123ms & 1499ms & 2147ms & 2958ms\\
-      \hline
-      Cache & 64ms & 64ms & 130ms & 137ms & 154ms\\
-      \hline  
-    \end{tabular}
-\label{db}
-\end{table} 
-
-We evaluate the compute service by running a benchmark consisting of two
-operations: first generate a set of 100 random numbers, then plot them and
-return the resulting visualization.\footnote{More details at
-\url{github.com/fjukstad/kvik}.} We use two \emph{c4.large} instances on AWS EC2
-running the Kvik compute service and OpenCPU base docker containers. The servers
-have caching disabled.  Table \ref{kvikopencpucomparison} shows the time to
-complete the benchmark for different number of concurrent connections. We see
-that the compute service in Kvik performs better than the OpenCPU\footnote{Built
-using the \textit{opencpu-server} Docker image.} alternative. We believe that
-speedup is because we keep a pool of R processes that handle requests. In
-OpenCPU a new R process is forked upon every request that results in any
-computation executed in R. Other requests such as retrieving previous results do
-not fork new R processes. 
-
-In summary our results show that the interface to the R programming language
-provides faster latencies, and that implementing a service for database lookups
-have clear benefits with regards to latency. 
-
-\begin{table}[h]
-    \caption{Time to complete the benchmark with different number of
-    concurrent connections.}
-    \begin{tabular}{| l | c | c | c | c | c | }
-        \hline 
-       & 1 & 2 & 5 & 10 & 15 \\ 
-      \hline			
-      Kvik & 274ms & 278ms & 352ms & 374ms & 390ms\\
-      \hline
-      OpenCPU & 500ms & 635ms & 984ms & 1876ms & 2700ms\\
-      \hline  
-    \end{tabular}
-\label{kvikopencpucomparison}
-\end{table} 
-
 \section{Discussion}
+In this chapter we have given a description of how we successfully built two
+data exploration applications for high-throughput biological datasets. We have
+iteratively developed these and ended up with an approach that allows us to
+develop applications from disparate systems. 
+
 There are different arguments for reusing and sharing microservices over
 libraries in bioinformatics applications, that would justify the cost of hosting
 an maintaining a set of distributed microservices.  We argue that applications
@@ -655,7 +664,16 @@ necessary R packages for each application on the compute service and run it as
 we would for one single application. 
 
 \section{Future Work} 
-We intend to address few points we aim to address in future work, both in the
+We hope to continue development on applications for interactively exploring
+biological datasets. Through our approach, and especially the interface to R, 
+we are now able to develop applications that can use any function or retrieve
+datasets from any R package. This includes the \texttt{nowac} package in
+Chapter \ref{biodata}. We believe that there is a large potential in the
+available datasets, and that researchers would benefit from being able to
+interactively explore these. 
+
+\subsection{MIxT} 
+We intend to address few points in future work, both in the
 MIxT web application as well as the supporting microservices.  The first issue
 is to improve the user experience in the MIxT web application.  Since it is
 executing many of the analyses on demand, the user interface may seem
@@ -682,12 +700,15 @@ analyses will enable applications to explore even larger datasets.
 
 \section{Conclusion}
 We have designed an approach for building data exploration applications in
-systems biology. Through an iterative approach we have identified a set of
-central components to these applications, and implemented them using a
-microservice architecture. Using this approach we have built a web application
-that integrates statistical analyses, interactive visualizations, and data from
-biological databases. While we have used our approach to build an application in
-systems biology, we believe that the microservice architecture can be used to
-build data exploration systems in other disciplines as well. 
+systems biology. We first implemented Kvik Pathways, a web application for
+exploring a gene expression dataset in the context of pathway maps. We used our
+experiences to generalize our efforts into a set of central components that
+these types of applications require. Further we realized these in our \gls{sme}
+approach implemented as a set of microservices.  Using these services we have
+built a web application, MIxT, that integrates statistical analyses, interactive
+visualizations, and data from biological databases. While we have used our
+approach to build an application in systems biology, we believe that the
+microservice architecture can be used to build data exploration systems in other
+disciplines as well. 
 
 
