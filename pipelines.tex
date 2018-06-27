@@ -485,7 +485,11 @@ because of missing command-line and scripting support, along with little support
 for running workflows with different configurations.\cite{spjuth2015experiences}
 Rabix provides checksums of output data to verify it against the actual output
 from the pipeline. This is similar to the checksums found in the git-lfs pointer
-files, but they do not store the original files for later. Arvados stores the
+files, but they do not store the original files for later. An interesting
+project that uses CWL in production is The Cancer Genomics
+Cloud\cite{lau2017cancer}. They currently support CWL version 1.0 and are
+planning on integrating Rabix as its CWL executor. 
+Arvados stores the
 data in a distributed storage system, Keep, that provides both storage and
 versioning of data. We chose not to use \gls{cwl} and its implementations
 because of its relaxed restrictions on having to use containers, its verbose
