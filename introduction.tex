@@ -25,7 +25,7 @@ high-throughput sequencing data that require long-running, deep analysis
 pipelines, as well as smaller datasets, such as microarray data, that require
 complex, but short-running analysis pipelines. The first challenge is managing
 datasets and analysis code for use by data exploration applications and data
-analysis pipelines. This includes storing all information that is valuable to a
+analysis pipelines. This includes storing all information that is necessary to a
 data analyst when he or she is interpreting the data, as well as any analysis
 code that can be used to analyze the data. The second challenge is to develop
 data exploration applications that provide sufficient information to fully
@@ -34,10 +34,10 @@ includes reporting input parameters, tool versions, database versions, and
 dataset versions. The third challenge is developing applications that require
 the integration of disparate systems. These are often developed using different
 programming languages and provide different functionality, e.g., the combination
-of a web-based visualization with a \gls{gpu} accelerated statistical method,
-or the integration of a remote biological database.
-The final challenge is to develop applications and systems so that they can be
-easily shared and reused across research institutions. 
+of a web-based visualization with a \gls{gpu} accelerated statistical method, or
+the integration of a remote biological database.  The final challenge is to
+develop applications and systems so that they can be easily shared and reused
+across research institutions. 
 
 % existing tools and approaches
 As a result, there is a wealth of specialized approaches and systems to manage
@@ -53,13 +53,13 @@ information about data, tools, and tool versions. Systems such as
 Pachyderm\cite{pachyderm} or the \gls{cwl}\cite{commonwl} and its different
 implementations, can help users with standardizing the description and sharing
 of analysis pipelines.  However, many of these require complex compute
-infrastructure and are too cumbersome to set up.  Shiny\cite{shiny} and
-OpenCPU\cite{opencpu} provide frameworks for application developers to build
-systems to interactively explore results from statistical analyses.  These are
-useful for building exploration applications that integrate with statistical
-analyses.  With the addition of new datasets and methods every year, it seems
-that analysis of biological data requires a wide array of different tools and
-systems.
+infrastructure and are too cumbersome to set up for institutions without
+dedicated technical staff. Shiny\cite{shiny} and OpenCPU\cite{opencpu} provide
+frameworks for application developers to build systems to interactively explore
+results from statistical analyses.  These are useful for building exploration
+applications that integrate with statistical analyses.  With the addition of new
+datasets and methods every year, it seems that analysis of biological data
+requires a wide array of different tools and systems.
 
 % our solution
 This dissertation argues that, instead, we can facilitate the development of
@@ -142,13 +142,13 @@ analyze biological datasets, they current tools have several drawbacks:
 
 \begin{enumerate}
     \item \textbf{Standardization:} Because of the specialized nature of each
-        data analysis tool, a complete system for exploring or analyze
-        biological data will have to combine these. The tools provide different
-        interfaces and processing data using a combination of these often
-        require data wrangling. 
+        data analysis tool, a full workflow for exploring or analyze biological
+        data will have to combine multiple tools. The tools provide different
+        interfaces and processing data often require data wrangling between the
+        tools. 
     \item \textbf{Decoupling:} Data exploration tools are often decoupled from
         the statistical analyses. This often makes it a difficult to document
-        and retrace the analyses behind the results. 
+        and retrace the analyses through the full workflow. 
     \item \textbf{Complexity:} 
         Analyses that start as a simple script quickly become more complex to
         maintain and develop as developers add new functionality to the
@@ -170,12 +170,12 @@ Because of these drawbacks, a approach for unifying reproducible data analysis
 and exploration systems would reduce the time-to-interpretation of biological
 datasets significantly. 
 
-\section{\acrfullpl{sme}} 
+\section{\Glsentryfirstplural{sme}} 
 In collaboration with researchers in systems epidemiology and biology we have
 developed an approach for designing applications for three specific use cases.
 The first is to manage and standardize the analysis of datasets from a large
 population-based cohort, \gls{nowac}.\cite{nowac}. The second is to enable
-interactive exploration of these datasets.  The final use case is to develop
+interactive exploration of these datasets. The final use case is to develop
 pipelines for analyzing sequencing datasets for use in a precision medicine
 setting.  Although these use cases require widely different systems with
 different requirements, the applications share common design patterns. Figure
@@ -193,7 +193,7 @@ systems.
 We discuss how the approach is suitable for different use cases before
 highlighting why it is suitable for all of them. Figure \ref{overview-full}
 shows the three different use cases and one such \gls{sme}. We can use it in
-both data exploration applications, analysis pipelines, and for building data
+data exploration applications, analysis pipelines, and for building data
 management systems.
 
 \begin{figure}
@@ -204,7 +204,7 @@ management systems.
     \label{overview-full}
 \end{figure} 
 
-\subsection{Data management and analysis} 
+\subsection{Data Management and Analysis} 
 Modern epidemiological studies integrate traditional questionnaire data with
 information from public registries and biological datasets. These often span
 multiple biological levels, i.e., different data types and collection sites.
@@ -316,13 +316,13 @@ We believe that the \gls{sme} approach is applicable to every step in the long
 process from raw data collection to interpretable results, and that it makes
 this process more transparent. 
 
-\section{Systems Developed with \glspl{sme}}
+\section{Applications Developed with \glspl{sme}}
 In this section we outline the different systems we have built using
 \glspl{sme}. We detail how we implemented \gls{sme} in the \gls{nowac} package,
 \texttt{walrus}, and Kvik, and show applications that use these. 
 
 \subsection{Data Management and Analysis} 
-There is a need to standardize the preprocessing of biological datasets in the
+To standardize the preprocessing of biological datasets in the
 \gls{nowac} study. With the \gls{nowac} package we could implement a
 preprocessing pipeline on top of it that used its datasets and utility functions
 to generate analysis-ready datasets for the researchers.  This preprocessing
@@ -361,8 +361,8 @@ information from biological databases through a simple user interface.
 A third application that we developed was a simple re-deployment of the
 \gls{mixt} web application with a new dataset. In this application that we
 simply replaced the R package with a new package that interfaced with different
-data. All the other components are reused and highlights the flexibility of the
-approach. 
+data. All the other components are reused. It demonstrates the flexibility of
+the approach. 
 
 
 \subsection{Deep Analysis Pipelines}
@@ -421,7 +421,7 @@ to enable reproducible data analysis and exploration of high-throughput
 biological datasets while still providing the required performance. 
 
 \section{List of papers} 
-This section contains a list of papers along with short descriptions and my
+This section contains the list of papers along with short descriptions and my
 contributions to each paper. 
 
 \subsection*{Paper 1} 
@@ -613,120 +613,16 @@ contributions to each paper.
     \label{p7}
 \end{table}
 
-\subsection{Additional Papers}
-\subsubsection*{Additional Paper 1} 
+In addition to the above papers I have also contributed to the following papers
+during the project: 
 
+\begin{itemize}
+    \item \bibentry{kiselev2018transcription} 
+    \item \bibentry{fjukstad2018low}
+\end{itemize} 
 
-% force the goddamn additional paper tables to the top of the page. 
-% Fuck you Leslie. 
-\raggedbottom
-
-\begin{table}[H]
-    \centering
-    \begin{tabular}{ | l | p{8.8cm} | }
-    \hline
-         Title & Transcription factor PAX6 as a novel prognostic factor and
-         putative tumour suppressor in non-small cell lung cancer \\ \hline
-         
-         Authors & Yury Kiselev, Sigve Andersen, Charles Johannessen, 
-         \textbf{Bjørn Fjukstad}, Karina Standahl Olsen, Helge Stenvold, Samer
-         Al-Saad, Tom Dønnem, Elin Richardsen, Roy M Bremnes, and Lill-Tove
-         Rasmussen Busund.\\ \hline
-         
-         Description & This paper explores the possibility of using the PAX6
-         transcription factor as a prognostic marker in non-small cell lung
-         cancer. 
-         \\ \hline
-         
-         Contribution & I did the analyses to explore association between PAX6
-         gene expression and PAX6 target genes. 
-         \\ \hline
-         
-         Publication date & 22 March 2018 \\ \hline  
-
-         Publication venue & Scientific Reports\\ \hline
-         
-         Citation & \cite{kiselev2018transcription}
-         \bibentry{kiselev2018transcription} \\
-         \hline 
-    \end{tabular}
-    \label{adp1}
-\end{table}
-
-\subsubsection*{Additional Paper 2} 
-\begin{table}[H]
-    \centering
-    \begin{tabular}{ | l | p{8.8cm} | }
-    \hline
-         Title & Low-Cost Programmable Air Quality Sensor Kits in Science
-         Education \\ \hline
-         
-         Authors & \textbf{Bjørn Fjukstad}, Nina Angelvik, Maria Wulff Hauglann,
-         Joachim Sveia Knutsen, Morten Grønnesby, Hedinn Gunhildrud, and Lars
-         Ailo Bongo.  \\ \hline
-         
-         Description & In this paper we describe a science education project for
-         students in upper-secondary schools.  Students build and program their
-         own air quality sensor kits to collect air quality data.  We used the
-         same \gls{sme} approach to develop the \url{airbit.uit.no} web
-         application where students can upload and explore their collected data. 
-         \\ \hline
-         
-         Contribution & I designed the project, implemented the web application,
-         and wrote the paper. 
-         \\ \hline
-         
-         Publication date & 22 February 2018 \\ \hline  
-
-         Publication venue & The 49th ACM Technical Symposium on Computer
-         Science Education \\ \hline
-         
-         Citation & \cite{fjukstad2018low}
-         \bibentry{fjukstad2018low} \\
-         \hline 
-    \end{tabular}
-    \label{adp2}
-\end{table}
-
-% move table to top of page hack
-\makeatletter
-\afterpage{\global\let\@textbottom\relax \global\let\@texttop\relax}
-
-
-
-% \subsection*{Paper 8} 
-% \begin{table}[H]
-% 
-%     \centering
-%     \begin{tabular}{ | l | p{9.5cm} | }
-%     \hline
-%          Title & Standardizing Data Analysis in a Complex Population-Based
-%          Epidemiological Study \\
-%          \hline
-%          
-%          Authors & \textbf{Bjørn Fjukstad}, Nikita Shvetsov, Hege Bøvelstad,
-%          Till Halbach, Einar Holsbø, Eiliv Lund, Lars Ailo Bongo.
-%            \\ \hline
-%          
-%          Description & This paper outlines our efforts to standardize the
-%          data analysis and management systems in the \gls{nowac} study. It
-%          describes the \gls{nowac} package and the preprocessing pipeline,
-%          called Pippeline.
-%          \\ \hline
-%          
-%          Contribution & Design and implementation of the \gls{nowac} package. 
-%          Contributed to writing of the manuscript. 
-%          \\ \hline
-%          
-%          Publication date & TBA \\ \hline  
-% 
-%          Publication venue & TBA \\ \hline
-%          
-%          Citation & \cite{pippeline} \bibentry{pippeline} \\
-%          \hline 
-%     \end{tabular}
-%     \label{p8}
-% \end{table}
+These are not included in the thesis but they demonstrate other usage examples
+of our approach. 
 
 % Husk historien: Fra rå data gjennom komplekse analyse pipeliner og helt til
 % forskere kan svømme rundt i resultatene. 
