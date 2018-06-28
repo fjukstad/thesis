@@ -32,21 +32,25 @@ successfully used to explore transcriptional profiles in the \gls{nowac} study,
 especially to investigate the interactions between genes and pathways in the
 patient tumor and blood cells. 
 We believe that the research community in general will benefit greatly if more
-projects start to develop their applications using our approach. It promotes
-the sharing of resources, both computational and storage, and we believe that it
-is the future for collaborative research. 
-In chapter \ref{pipeline} use the same approach, to compose systems of disperate
+projects start to develop their applications using our approach. It simplifies
+sharing of computational resources, and we believe that the future of research
+will depend on collaborative efforts. 
+In chapter \ref{pipeline} use the same approach, to compose systems of disparate
 tools, for developing biological data
-analysis pipelines, implemented in \texttt{walrus}.
+analysis pipelines, implemented in \texttt{walrus}. 
 To ensure reproducible results, we supplement the processing
 with data versioning to track provenance of the data through the pipeline and
-across pipeline versions. 
+across pipeline versions. We have used \texttt{walrus} in the clinical setting
+to develop a \gls{wes} pipeline for discovering \glspl{snp}, genomic
+variants, and somatic mutations, in a breast cancer patient's metastatic
+lesion. 
 
 Combined, these systems demonstrate the applicability of our approach across a
 range of different use cases. 
 
 In the rest of this chapter we summarize end-to-end lessons learned during this
-work. We then discuss the work in the context of research and in the clinic,
+work. We then discuss the work in the context of research and in the clinical
+setting,
 before we propose areas for future work. 
 
 
@@ -59,7 +63,7 @@ we have solved challenges and learned some key lessons.
 In the field of bioinformatics there have been tremendous efforts to develop
 analysis tools for improving the analysis of new biological datasets.  This has
 led to systems being written in a plethora of different languages, and deployed
-on top of different systems. This the main motivation behind our \gls{sme}
+on top of different systems. This is the main motivation behind our \gls{sme}
 approach together with software containers.
 
 \textbf{Take advantage of existing tools.} The ability to develop applications
@@ -70,7 +74,7 @@ to develop new applications without reimplementing key features.
 \textbf{Simplicity is key.} When proposing a new approach for either managing
 datasets, writing data exploration applications, or developing analysis
 pipelines, it is not possible to overstate the importance of the simplicity of
-the solution. Through our experiences we have tried different 
+the solution. 
 
 \textbf{Researchers are not software engineers.} 
 When designing a new approach to store and analyze high-throughout biological
@@ -79,7 +83,7 @@ engineering backgrounds. Especially when the implementation is based on complex
 systems such as \texttt{git}, the learning curve for the system is steep and
 require training of its users. In our project we have organized workshops in
 both R and git to get the researchers in the \gls{nowac} study comfortable with
-these systems. 
+these systems to follow our best practices. 
 
 % \textbf{Define the data storage and analysis requirements before collecting
 % data.} 
@@ -106,7 +110,7 @@ required performance or scalability to version the large biological data.
 \item \textbf{Additional evaluation:} while we have shown that the \gls{sme}
 approach can be used to develop systems for managing research data, developing
 interactive applications and data analysis pipelines, we would like to
-additionally understand its performance and scalability. 
+better understand its performance and scalability. 
 
 \item \textbf{Refactoring and test coverage:} while we provide fully implemented
 solutions for data storage, interactive applications, and data analysis
@@ -124,21 +128,18 @@ already provide functionality for distributed execution of software containers.
 
 \item \textbf{Wide adoption of a pipeline description format:} we are not the
 first to propose a new computing standard.\footnote{\url{xkcd.com/927}} We found
-that the current standards were either too verbose, or did not require the use
-of software containers, which we believe are instrumental to make the pipeline
-reproducible. However, we recognize the need for a single open standard, and
-hope to contribute to its development. 
+that the current standards were either too verbose, e.g., \gls{cwl}, or did not
+enforce the use of software containers. This led us to our own description
+format, but we recognize the need for a single open standard, and hope to
+contribute to its development. 
 
 \end{itemize} 
 
-We aim to refine and continue development on our \gls{sme} approach to address
+We aim to refine and continue development on our \glspl{sme} approach to address
 these challenges, and that we can inspire a more unified development community
 in bioinformatics. We believe that the future of cancer research relies on the
-successful integration of the diverse data analysis and storage systems from the
-many research institutions, to take advantage of the abundance of available
-resources. It will require open interfaces between the systems, and that the
-systems can correctly document all local data processing steps to ensure
-reproducible results. This will definitely continue to be an interesting area of
-research.
+successful integration of diverse data analysis and storage systems from
+different research institutions.  This will definitely continue to be an
+interesting area of research.
 
 
