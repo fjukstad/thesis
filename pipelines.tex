@@ -37,7 +37,7 @@ care.\cite{roy2017standards}
 When developing analysis pipelines for use in precision medicine it is therefore
 necessary to track pipeline tool versions, their input parameters, and data.
 Both to thoroughly document what produced the final clinical reports, and
-to iteratively improving the quality of the pipeline during development.
+to iteratively improve the quality of the pipeline during development.
 Because of the iterative process of developing the analysis pipeline, it is
 necessary to use analysis tools that facilitate modifying pipeline steps and
 adding new ones with little developer effort.
@@ -111,8 +111,8 @@ noted some lessons learned.
         they become too complex to modify and maintain. 
     \item While there are new and promising state-of-the art pipeline
         managers, many of these also require state-of-the-art computing
-        infrastructure to run. This may not be the case for the current research
-        and hospital environments. 
+        infrastructure to run. This may not be the case at cancer research
+        and clinical institutions. 
 \end{itemize} 
 
 
@@ -338,7 +338,7 @@ pipeline.
 
 \begin{figure}
     \centering
-\includegraphics[width=8.3cm]{figures/webshot.png}
+\includegraphics[width=10cm]{figures/webshot.png}
     \caption[Screenshot of the web-based visualization in
     \texttt{walrus}]{Screenshot of the web-based visualization in
     \texttt{walrus}. The user has zoomed in to inspect the pipeline step which
@@ -377,7 +377,7 @@ manager.  The pipeline description and code is available along with
 
 \begin{figure}
     \centering
-\includegraphics[width=7cm]{figures/graph.pdf}
+\includegraphics[width=\linewidth]{figures/graph.pdf}
     \caption[DOT representations of a pipeline in \texttt{walrus}]{In addition
     to the web-based inteactive pipeline visualization, \texttt{walrus} can also
     generate DOT representations of pipelines. The figure shows the example
@@ -395,24 +395,22 @@ steps which results in new intermediate and output datasets. Specifically we
 change the \texttt{--maxReadsForRealignment} parameter in the indel realigner
 step back to its default (See the online pipeline description for more details).
 This forces \texttt{walrus} to recompute the indel realigner step and any
-subsequent steps. We then use the \texttt{restore} flag in \texttt{walrus} to
-illustrate what the parameter change had on the pipeline output. To illustrate
-how \texttt{walrus} can restore old pipeline configurations and results, we
-restore the pipeline to the initial configuration and results. We show the
-computational overhead and storage usage of restoring a previous pipeline
-configuration. 
+subsequent steps.  To illustrate how \texttt{walrus} can restore old pipeline
+configurations and results, we restore the pipeline to the initial configuration
+and results. We show the computational overhead and storage usage of restoring a
+previous pipeline configuration. 
 
 Reproducing results from a scientific publication can be a difficult task. For
-example, troublesome text formatting on the online version of the reported
-variant calling pipeline in \cite{cornish2015comparison} led to some pipeline
-tools failing. The parameters prefixed with two consecutive hypens (\texttt{--})
-are converted to single em dashes (---).  PDF versions of the paper lists the
-parameters correctly.  In addition, the input filenames in the variant calling
-step do not correspond to any output files in previous steps, but because of
-their similarity to previous output files we assume that this is just a typo.
-These issues in addition to missing commands for e.g. the filtering step
-highlights the clear benefit of writing and reporting the analysis pipeline
-using a tool such as \texttt{walrus}. 
+example, because the rendering of the online version of the pipeline in
+\cite{cornish2015comparison} converts two consecutive hypens (\texttt{--})
+into single em dashes (---), the pipeline will not run using the specified input
+parameters. However, PDF versions of the paper lists the parameters correctly.
+In addition, the input filenames in the variant calling step do not correspond
+to any output files in previous steps, but because of their similarity to
+previous output files we assume that this is just a typo.  These issues in
+addition to missing commands for e.g. the filtering step highlights the clear
+benefit of writing and reporting the analysis pipeline using a tool such as
+\texttt{walrus}. 
 
 Table \ref{resultstable} shows the runtime and storage use of the different
 experiments. In the second experiment we can see the added overhead of adding
