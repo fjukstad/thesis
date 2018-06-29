@@ -35,7 +35,7 @@
 \newacronym{wdl}{WDL}{Workflow Definition Language}
 \newacronym{dsl}{DSL}{Domain Specific Language}
 \newacronym{api}{API}{Application Programming Interface} 
-\newacronym{csv}{CSV}{Comma-separated values}
+\newacronym{csv}{CSV}{comma-separated values}
 \newacronym[plural=GBs, firstplural=Gigabytes (GBs)]{gb}{GB}{Gigabyte} 
 \newacronym{cli}{CLI}{Command-line Interface}
 \newacronym{scm}{SCM}{source code management}
@@ -49,27 +49,12 @@
 \title{Toward Reproducible Analysis and Exploration of High-Throughput
 Biological Datasets}
 \author{Bjørn Fjukstad}
-\thesisprogramme{A dissertation for the degree of Philosophiae Doctor. 2018}
+\thesisprogramme{A dissertation for the degree of Philosophiae Doctor -- 2018}
 \thesisfaculty{Faculty of Science and Technology \\ Department of Computer
 Science}
 
 \ThesisRightFrontpageImage{"figures/frntpg"}
 \ThesisLeftFrontpageImage{"figures/frntpg"}
-
-% FINAL TODO:
-% [100%] Write conclusion: lessons learned, broader impact, future work 
-% [100%] LA comments abstract
-% [100%] LA comments introduction
-% [100%] LA comments chapter 3,  apps  
-% [100%] fix walrus and nowac pkg citations 
-% [100%] LA comments chapter 4,  pipelines
-% [100%] Write chapter 2 
-% [100%] LA comments on chapter effin 2 
-% [100%] LA comments on conclusions etc. 
-% [50%] Write acknowledgements 
-% [] Word grammar check entire thesis 
-% [] Final checkup 
-% [] Write press release 
 
 \maketitle
 
@@ -82,7 +67,7 @@ Science}
 \end{epigraph}
 
 \input{abstract} 
-% \input{acknowledgements} 
+\input{acknowledgements} 
 
 \tableofcontents
 
@@ -102,37 +87,35 @@ Science}
 \bibliographystyle{IEEEtran}
 \bibliography{references}
 
-% \appendix
-% \begin{appendix}
-%     \chapter{Papers}
-%     \newpage
-%     
-%     \textbf{Paper 1:} 
-%     \bibentry{fjukstad2015kvik} 
-%     \includepdf[pages={1-5}]{papers/fjukstad2015kvik.pdf}
-%     \newpage
-%     
-%     \textbf{Paper 2:} 
-%     \bibentry{fjukstad2017building}
-%     \includepdf[pages={1-6}]{papers/fjukstad2017building.pdf}
-% 
-%     \textbf{Paper 3:} 
-%     \bibentry{dumeaux2017interactions}
-%     \includepdf[pages={1-27}]{papers/dumeaux2017interactions.pdf}
-% 
-%     \textbf{Paper 4:} 
-%     \bibentry{fjukstad2017review}
-%     \includepdf[pages={1-7}]{papers/fjukstad2017review.pdf}
-% 
-%     \textbf{Paper 5:} 
-%     \bibentry{NIK}
-%     \includepdf[pages={1-6}]{papers/NIK.pdf}
-% 
-% 
-%     \textbf{Paper 7:} 
-%     \bibentry{walrus}
-%     \includepdf[pages={1-16}]{papers/walrus.pdf}
-% 
-% \end{appendix}
+\appendix
+\begin{appendix}
+    \chapter{Paper 1} 
+    \bibentry{fjukstad2015kvik} \\~\\
+    \emph{ The following includes 5 of the 15 total pages. The first 5 pages is
+    the paper, while remaining 10 pages are open reviews, responses, and
+    additions to the final version of the paper. These are available online at
+    \url{f1000research.com/articles/4-81/v2}}
+    \includepdf[pages={1-5}]{papers/fjukstad2015kvik.pdf}
+    \newpage
+    
+    \chapter{Paper 2} 
+    \bibentry{fjukstad2017building}
+    \includepdf[pages={1-6}]{papers/fjukstad2017building.pdf}
 
+    \chapter{Paper 3} 
+    \bibentry{dumeaux2017interactions}
+    \includepdf[pages={1-27}]{papers/dumeaux2017interactions.pdf}
+
+    \chapter{Paper 4} 
+    \bibentry{fjukstad2017review}
+    \includepdf[pages={1-7}]{papers/fjukstad2017review.pdf}
+
+    \chapter{Paper 5} 
+    \bibentry{NIK}
+    \includepdf[pages={1-6}]{papers/NIK.pdf}
+
+    \chapter{Paper 6} 
+    \bibentry{walrus}
+    \includepdf[pages={1-16}]{papers/walrus.pdf}
+\end{appendix}
 \end{document} 
