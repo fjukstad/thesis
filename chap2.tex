@@ -1,9 +1,9 @@
 \chapter{Modern Biological Data Management and Analysis}\label{biodata}
 From the discovery of the \gls{dna} structure by Watson and Crick in
-1953\cite{watson1953molecular} to the sequencing of the human genome in 2001
-\cite{venter2001sequence,international2001initial} and the massively parallel
-sequencing platforms in the later years\cite{metzker2010sequencing}, the
-scientific advances have been tremendous. Today, single week-long sequencing
+1953\cite{watson1953molecular} to the sequencing of the human genome in
+2001,\cite{venter2001sequence,international2001initial} and the massively
+parallel sequencing platforms in the later years\cite{metzker2010sequencing},
+the scientific advances have been tremendous. Today, single week-long sequencing
 runs can produce as much data as did entire genome centers just years
 ago.\cite{kahn2011future}  These technologies allow researchers to produce data
 faster, cheaper and more efficiently, now making it possible to sequence the
@@ -16,26 +16,26 @@ to replicate results from the most influential papers in cancer
 research\cite{reprod}, it is apparent that it is important to thoroughly
 document the entire workflow from data collection to interpretable results.
 This requires implementing best practices for data storage and processing. Such
-best practices are also necessary for large and complex projects where data
-collection, analysis, and interpretation may span decades, and therefore be done
-in several iterations. 
+best practices are also necessary for large and complex research studies where
+data collection, analysis, and interpretation may span decades, and therefore be
+done in several iterations. 
 
 In this chapter we describe our efforts to establish an approach for
 reproducible analysis of biological data in a complex epidemiological study. We
 first give a short introduction to high-throughput datasets, before describing
-the \gls{nowac} study we use as a motivating example. We describe the previous
-practice for data management and analysis, and propose a new approach to
-achieve reproducible analyses. Continuing, we show that our approach to manage
-research data and code can be used to develop a standardized data analysis
-pipeline. Further we provide best practices for data analysis and management. 
-
+the \gls{nowac} study we have used as a motivating example. We describe the
+previous practice for data management and analysis, and propose a new approach
+to achieve reproducible analyses. Continuing, we show that our approach to
+manage research data and code can be used to develop a standardized data
+analysis pipeline. Further we provide best practices for data analysis and
+management. 
 
 \section{High-Throughput Datasets for Research and Clinical Use} 
 It is important to have an understanding of the different high-throughput
 technologies that are now widely used to study complex diseases such as cancer. 
 \gls{dna} sequencing is the process of determining the order of nucleotides
 within a strand of \gls{dna}. \gls{hts}, or \gls{ngs}, is a term used to
-described newer technology that enables massively-parallel sequencing of
+describe newer technology that enables massively-parallel sequencing of
 \gls{dna}. \gls{hts} instruments sequence millions of short base pairs, and
 we assemble these in the data analysis process. Typical sequencing datasets are
 in the size of hundreds of \glspl{gb} per sample. 
@@ -63,7 +63,7 @@ offering dedicated personalized medicine programs, but while the data collection
 and analysis technology is emerging, there are still unsolved problems to enable
 reproducible analyses in clinical settings. For cancer, \gls{hts}
 is the main technology to facilitate personalized diagnosis and
-treatment since it enables collecting high quality genomic data from patients
+treatment, since it enables collecting high quality genomic data from patients
 at a low cost. 
 
 \section{Norwegian Women and Cancer (\gls{nowac})}
@@ -77,12 +77,12 @@ family. The datasets are also integrated with data from The Norwegian Cancer
 Registry, and The Cause of Death Registry in Statistics Norway. In addition
 to the questionnaire data, the study includes blood samples from 50.000 women,
 as well as more than 300 biopsies. From the biological samples the first gene
-expression dataset was generated in 2009, and the study now also feature miRNA,
+expression dataset was generated in 2009, and the study now also features miRNA,
 methylation, metabolomics, and \gls{rna}-seq datasets. 
 
 The data in the \gls{nowac} cohort allows for a number of different study
 designs. While it is a prospective cohort study, we can also draw a case-control
-study from the cohort, or a cross-section of the cohort. From the
+study from the cohort, or a cross-section study from the cohort. From the
 \gls{nowac} cohort there has been published a number of research papers that
 investigate the questionnaire data together with the gene expression
 datasets.\cite{olsen2013plasma,dumeaux2010deciphering}  We have also used the
@@ -121,14 +121,14 @@ In addition to the questionnaire data, the \gls{nowac} study also integrates
 with registries which are updated regularly. The datasets from the different
 registries are typically delivered as \gls{csv} files to our scientific staff,
 which are then processed into a standardized format. Since the \gls{nowac} study
-is a prospective cohort, a percentage of the women are expected to get cancer
+is a prospective cohort, a percentage of the women are expected to get a cancer
 and move from the list of controls into the list of cases. 
 
-In the \gls{nowac} study we have used processed and analyzed outside our
-research institution.  The received raw datasets were then stored on a
+In the \gls{nowac} study we have processed our biological samples outside our
+research institution. The received raw datasets were then stored on a
 local server and made available to researchers on demand. Because of the
 complexity of the biological datasets, many of these require extensive
-pre-processing before they are analysis-ready. 
+pre-processing before they are analysis ready. 
 
 
 \section{Enabling Reproducible Research} 
@@ -136,14 +136,13 @@ To enable reproducible research in the \gls{nowac} study we have developed a
 system for managing and documenting the available datasets, a standardized data
 preprocessing and preparation system, and a set of best practices for data
 analysis and management. We designed our management and analysis system as a
-\gls{sme} that we could later use in the Pippeline system. Through experiences
-from trascriptomics data analysis we first identified issues with our previous
-practice: 
+\gls{sme} that we could later use in the Pippeline system. 
 
+In this work we first identified issues with our previous practice: 
 \begin{enumerate} 
     \item It was difficult to keep track of the available datasets, and to
         determine how these had been processed. We had no standard data storage
-        platform or structure, and there are limited reports for exported
+        platform or structure, and there were limited reports for exported
         datasets used in different research projects.
         
     \item There was no standard approach to preprocess and initiate data
@@ -152,9 +151,9 @@ practice:
         reusable code between projects. 
 
     \item It became difficult to reproduce the results reported in our published
-        research manuscripts. This was because we did not have any standardized
-        preprocessing, shared the same analysis tools, or thoroughly documented
-        the full analysis process. 
+        research manuscripts. This was because the lack of standardized
+        preprocessing, sharing of analysis tools, and full documentation of the
+        analysis process. 
         
 \end{enumerate} 
 
@@ -208,14 +207,15 @@ expression datasets. Because none of these are particularly large (no single
 dataset being more than tens of \glspl{gb}) we are able to distribute them with
 our R package. Some datasets require pre-processing steps such as outlier
 removal before the analysts can explore the datasets. For these datasets we
-store both the \emph{raw} datasets and the analysis-ready clean datasets. We
-store the raw datasets in their original format, while clean datasets are stored
-as R data files to simplify importing them in R. In addition to the datasets
-themselves we store the R code we used to generate the datasets. For clarity, we
-decorate the scripts with specially formatted comments that can be used with
-knitr\cite{xie2016dynamic} to generate reproducible data analysis reports. These
-highlight the transformation of the data from raw to clean, with information
-such as removed samples or data normalization methods. 
+store the \emph{raw} datasets, processed data, and the analysis-ready clean
+datasets. We store the raw datasets in their original format, while clean and
+processed datasets are stored as R data files to simplify importing them in R.
+In addition to the datasets themselves we store the R code we used to generate
+the datasets.  For clarity, we decorate the scripts with specially formatted
+comments that can be used with knitr\cite{xie2016dynamic} to generate
+reproducible data analysis reports. These highlight the transformation of the
+data from raw to clean, with information such as removed samples or data
+normalization methods. 
 
 We have documented every dataset in R package. The documentation includes
 information such as data collection date, instrument types, the persons involved
@@ -236,19 +236,18 @@ We use a single repository for the R package, but have opted to use \texttt{git
 submodules} for datasets in the R package.  This allows us to separate the
 access to the datasets, and the documentation and analysis code. Everyone with
 access to the repository can view the documentation and analysis code, but only
-superusers have access to the data.  There are however drawbacks to creating one
-large repository for both data and code. Since git stores every version of a
-file, these types of repositories may become large if the datasets are changing
-a lot over time, and are stored in binary formats, e.g. gene expression
-datasets. We have explored different techniques to minimize our repository and
-have opted to store all datasets as git submodules\cite{submodule}. Submodules
-allow us to keep the main repository size down while still versioning the data.
-Other alternatives such as git-raw\cite{gitraw}, git-annex\cite{gitannex}
-git-lfs\cite{gitlfs} exist, and these all provide alternative approaches to
-storing large binary files in the repository. We have not found that any of
-these could satisfy our needs, or suit our preferred usage.  Everyone with
-access to the repository can view the documentation and analysis code, but only
-technical staff have access to the data.
+scientific staff have access to the data.  There are however drawbacks to
+creating one large repository for both data and code. Since git stores every
+version of a file, these types of repositories may become large if the datasets
+are changing a lot over time, and are stored in binary formats, e.g. gene
+expression datasets. We have explored different techniques to minimize our
+repository and have opted to store all datasets as git
+submodules\cite{submodule}. Submodules allow us to keep the main repository size
+down while still versioning the data.  Other alternatives such as
+git-raw\cite{gitraw}, git-annex\cite{gitannex} git-lfs\cite{gitlfs} exist, and
+these all provide alternative approaches to storing large binary files in the
+repository. We have not found that any of these could satisfy our needs, or suit
+our preferred usage.  
 
 \begin{figure}
   \includegraphics[width=\linewidth]{figures/rpkg.png}
@@ -355,11 +354,19 @@ such as choosing a normalization method.
 
 In the \gls{nowac} study we collaborate on data analysis through a self-hosted
 Gitlab\cite{gitlab} installation. We also open-source code on Github. 
+% We have made our \texttt{nowac} R package and Pippeline online at
+% \url{github.com/uit-bdps/nowac} and \url{github.com/uit-bdps/pippeline}. These
+% public repositories do not contain any data, but analysis code and
+% documentation. 
+% While we aim to make all our code, documentation, and datasets public, we are
+% unfortunately not there yet. We are working on a public version of our R package
+% and Pippeline, but we must guarantee that the respective repositories do not
+% contain any sensitive information. This is ongoing work. 
 
 \section{Discussion}
 While the majority of the researchers that have worked on the project have used
 SAS for their analyses of the questionnaire data, all researchers working on
-biological data are using R.  The great strength of R comes from its many
+molecular data are using R.  The great strength of R comes from its many
 packages for analyzing, plotting, and interpreting data. An R package consists
 of a code, documentation, tests, and data.  Bioconductor\cite{bioconductor} and
 the \gls{cran}\cite{cran} provide online hosing for many packages, and users can
@@ -374,13 +381,13 @@ One major drawback with the implementation of our approach in the \texttt{nowac}
 R package is its size. While microarray datasets are relatively small compared
 to sequencing data, when these datasets grow in number the total size grows as
 well. This will impact the compile time for the R package, and also its size
-when it is shared with other researchers. This is something we hope to address
+when it is shared with other researchers. This is something we will address
 in future work. 
 
-
 \section{Conclusion}
-In summary, we believe that th<D-`>ere are four general rules toward reproducible
+In summary, we believe that there are four general rules toward reproducible
 analyses. We believe that they apply to both our research study and other
+similar epidemiological 
 studies:
 \begin{itemize} 
     \item Document and version control datasets and analysis code within the
