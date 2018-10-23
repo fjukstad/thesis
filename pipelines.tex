@@ -538,9 +538,16 @@ reproducible workflows, Snakemake integrates with Bioconda to provide the
 correct versions of the different tools used in the workflows. It integrates
 with Docker and Singularity containers\cite{singularity} to provide isolated
 execution, and in later versions Snakemake allows pipeline execution on a
-Kubernetes cluster. Because Snakemake did not provide integration with software
-containers at the time we developing our analysis pipeline, we did not find it
-to be a viable alternative. 
+Kubernetes cluster. Because Snakemake did not provide necessary integration with
+software containers at the time we developing our analysis pipeline, we did not
+find it to be a viable alternative. For example, support for pipelines
+consisting of Docker containers pre-installed with bioinformatics tools came a
+year later than walrus. 
+
+Another alternative to develop analysis pipelines is
+Nextflow.\cite{di2017nextflow} Nextflow uses its own language to describe
+analysis pipelines and supports execution within Docker and Singularity
+containers. 
 
 As discussed in \cite{NIK, fjukstad2017review}, recent projects propose to use
 containers for life science research. The BioContainers and
