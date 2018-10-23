@@ -18,10 +18,10 @@ offering dedicated personalized medicine programs.
 For cancer, high throughput sequencing is an emerging technology to facilitate
 personalized diagnosis and treatment since it enables collecting high quality
 genomic data from patients at a low cost. Data collection is becoming cheaper,
-but the downstream computational analysis is still time-consuming and thereby a
-costly part of the experiment.  This is because of the manual efforts to set up,
-analyze, and maintain the analysis pipelines. These pipelines consist of man 
-steps that transform raw data into interpretable
+but the downstream computational analysis is still time-consuming and thereby
+a costly part of the experiment.  This is because of the manual efforts to set
+up, analyze, and maintain the analysis pipelines. These pipelines consist of
+many steps that transform raw data into interpretable
 results.\cite{diao2015building} These pipelines often consists of in-house or
 third party tools and scripts that each transform input files and produce some
 output. Although different tools exist, it is necessary to carefully explore
@@ -33,15 +33,23 @@ versions and content will impact the overall result.\cite{sboner2015primer}
 
 Improperly developed analysis pipelines for precision medicine may generate
 inaccurate results, which may have negative consequences for patient
-care.\cite{roy2017standards} 
-When developing analysis pipelines for use in precision medicine it is therefore
-necessary to track pipeline tool versions, their input parameters, and data.
-Both to thoroughly document what produced the final clinical reports, and
-to iteratively improve the quality of the pipeline during development.
-Because of the iterative process of developing the analysis pipeline, it is
-necessary to use analysis tools that facilitate modifying pipeline steps and
-adding new ones with little developer effort.
+care.\cite{roy2017standards} Users and clinicians therefore need systems that
+can track pipeline tool versions, their input parameters, and data. Both to
+thoroughly document what produced the final clinical reports, and to iteratively
+improve the quality of the pipeline during development. Because of the
+iterative process of developing the analysis pipeline, it is necessary to use
+analysis tools that facilitate modifying pipeline steps and adding new ones with
+little developer effort.
 
+Developing a system that enables researchers to write and share reproducible
+analysis pipelines will enable the scientific community to analyze
+high-throughput genomic datasets faster and more unified. By combining
+versioning of datasets and pipeline configurations, a pipeline management system
+will provide interpretable and reproducible results long after the initial data
+analysis will have completed. These features will together promote reproducible
+science and improve the overall quality of the analyses. 
+
+\subsection{Initial Data Analysis Pipeline} 
 We have analyzed DNA sequence data from a breast cancer patient's
 primary tumor and adjacent normal cells to identify the molecular signature of
 the patient's tumor and germline. When the patient  later relapsed we analyzed
@@ -59,8 +67,6 @@ used to guide diagnosis and treatment, and give more detailed insight into both
 the primary and metastasis.  When the patient relapsed we analyzed \gls{wes}
 data using our own pipeline manager, \texttt{walrus}, to investigate the
 metastasis and compare it to the primary tumor. 
-
-\subsection{Initial Data Analysis Pipeline} 
 
 For the initial \gls{wgs} analysis we developed a pipeline to investigate
 somatic and germline mutations based on Broad Institute's best practices. We
@@ -86,7 +92,7 @@ off-site solutions for executing scientific workflows, analyzing sensitive data
 often put hard restrictions on where the data can be stored and analyzed.
 
 After we completed the first round of analyses we summarized our efforts and
-noted some lessons learned. 
+noted features that pipeline management systems should satisfy: 
 \begin{itemize}
     \item  Datasets and databases should be under version control and stored
         along with the pipeline description. In the analysis script we
@@ -114,7 +120,6 @@ noted some lessons learned.
         infrastructure to run. This may not be the case at cancer research
         and clinical institutions. 
 \end{itemize} 
-
 
 The above problem areas are not just applicable to our research group, but
 common to other research and precision medicine projects as well. Especially
@@ -249,13 +254,15 @@ different bioinformatics tools.
 
 While \texttt{walrus} executes a single pipeline on one physical server, it
 supports both data and tool parallelism, as well as any parallelization
-strategies within each tool, e.g. multi-threading. If users want to run the same
-analyses for a set of samples, or for example per chromosome, they can simply
-list the samples in the pipeline description and \texttt{walrus} will
-automatically run each sample through the pipeline in parallel. While we can
-parallelize the independent pipeline steps, the performance of an analysis
-pipeline relies on each of the independent tools and available compute power.
-This also applies to the scalability of the analysis pipeline. 
+strategies within each tool, e.g. multi-threading. To enable data and tool
+parallelism, e.g. run the same analyses to analyse a set of samples, users list
+the samples in the pipeline description and \texttt{walrus} will automatically
+run each sample through the pipeline in parallel. While we can parallelize the
+independent pipeline steps, the performance of an analysis pipeline relies on
+each of the independent tools and available compute power. Techniques such as
+multithreading can improve the performance of a tool, and \texttt{walrus} users
+can make use of these techniques if their are available through the command line
+interfaces of the tools.
 
 Upon successful completion of a pipeline run, \texttt{walrus} will write a
 verbose pipeline description file to the output directory. This file contains
@@ -456,11 +463,21 @@ the correct files in the \texttt{.git} subdirectory.
 \section{Related Work} 
 There are a wealth of pipeline specification formats and workflow managers
 available. Some are targeted at users with programming experience while others
-provide simple \glspl{gui}.  Here we describe the most popular systems for
-building data analysis pipelines. While most provide viable options for genomic
-analyses, we have found most to complex to install and maintain in clinical
-settings. We discuss tools that use the common \gls{cwl} pipeline specification
-and systems that provide versioning of data. 
+provide simple \glspl{gui}. 
+
+We have previously conducted a survey of different
+specialized bioinformatics pipelines.\cite{fjukstad2017review} 
+The pipelines were selected to show how analysis pipelines for different
+applications use different technologies for configuring, executing and storing
+intermediate and output data. In the review, we targeted specialized analysis
+pipelines that support scaling out the pipelines to run on \gls{hpc} or cloud
+computing platforms. 
+
+Here we describe general systems for developing data analysis
+pipelines, not just specialized bioinformatics pipelines. While most provide
+viable options for genomic analyses, we have found most to complex to install
+and maintain in clinical settings. We discuss tools that use the common
+\gls{cwl} pipeline specification and systems that provide versioning of data. 
 
 \gls{cwl} is a specification for describing analysis workflows and
 tools.\cite{cwl} A pipeline is written as a \gls{json} or \gls{yaml} file,
@@ -513,20 +530,32 @@ infrastructure did not support it. In addition, we did not want to use a separat
 tool, \gls{pfs}, for data versioning, we wanted to integrate it with our current
 pratice of using git for versioning. 
 
-As discussed in \cite{NIK}, recent projects propose to use containers for life
-science research. The BioContainers and Bioboxes\cite{belmann2015bioboxes}
-projects address the challenge of installing bioinformatics data analysis tools
-by maintaining a repository of Docker containers for commonly used data analysis
-tools. Docker containers are shown to have better than, or equal performance as
-\glspl{vm}.\cite{di2015impact} Both forms of virtualization techniques introduce
-overhead in I/O-intensive workloads, especially in \glspl{vm}, but introduce
-negligible CPU and memory overhead. For precision medicine pipelines the
-overhead of Docker containers will be negligible since these tend to be
-compute-intensive and they typically run for several hours.\cite{di2015impact}
-Containers have also been proposed as a solution to improve experiment
-reproducibility, by ensuring that the data analysis tools are installed with the
-same responsibilities.\cite{boettiger2015introduction} 
+Snakemake is a long-running project for analyzing bioinformatic
+datasets.\cite{koster2012snakemake} It uses a Python-based language to describe
+pipelines, similar to the familiar Makefile syntax, and can execute these
+pipelines on local machines, compute clusters or in the cloud. To ensure
+reproducible workflows, Snakemake integrates with Bioconda to provide the
+correct versions of the different tools used in the workflows. It integrates
+with Docker and Singularity containers\cite{singularity} to provide isolated
+execution, and in later versions Snakemake allows pipeline execution on a
+Kubernetes cluster. Because Snakemake did not provide integration with software
+containers at the time we developing our analysis pipeline, we did not find it
+to be a viable alternative. 
 
+As discussed in \cite{NIK, fjukstad2017review}, recent projects propose to use
+containers for life science research. The BioContainers and
+Bioboxes\cite{belmann2015bioboxes} projects address the challenge of installing
+bioinformatics data analysis tools by maintaining a repository of Docker
+containers for commonly used data analysis tools. Docker containers are shown to
+have better than, or equal performance as \glspl{vm}.\cite{di2015impact} Both
+forms of virtualization techniques introduce overhead in I/O-intensive
+workloads, especially in \glspl{vm}, but introduce negligible CPU and memory
+overhead. For precision medicine pipelines the overhead of Docker containers
+will be negligible since these tend to be compute-intensive and they typically
+run for several hours.\cite{di2015impact} Containers have also been proposed as
+a solution to improve experiment reproducibility, by ensuring that the data
+analysis tools are installed with the same
+responsibilities.\cite{boettiger2015introduction} 
 
 \section{Discussion}
 Precision medicine requires flexible analysis pipelines that allow researchers

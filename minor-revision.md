@@ -31,17 +31,49 @@ Suggested for further discussion and analysis in the revison could include:
 # TODOs  
 ## All chapters (2 -> 5) 
 [ ] Introduction/Motivation
+
 1. Describe the demands of the users.
-2. Highlight what impact such systems will have on the scientific community. 
+2. Highlight what impact such systems will have on the scientific community.
+   i.e. broader impact on other groups etc. 
 
 
 [ ] Discussion
+
 1.	Significance in bioinformatics/computer science.
 2.	Significance in a clinical setting/biology/life sciences
 3.  Benefit and limitations of the system in comparison to the systems from
     the related work
 
+## Chapter 2
+
+Introduction
+
+- [ ] Describe the demands of the users.
+- [ ] Highlight what impact such systems will have on the scientific community.
+   i.e. broader impact on other groups etc. 
+
+Discussion
+
+- [ ] Significance in bioinformatics/computer science.
+- [ ] Significance in a clinical setting/biology/life sciences
+- [ ]  Benefit and limitations of the system in comparison to the systems from
+    the related work
+
+
 ## Chapter 3 (Paper 1) 
+Introduction
+
+- [ ] Describe the demands of the users.
+- [ ] Highlight what impact such systems will have on the scientific community.
+   i.e. broader impact on other groups etc. 
+
+Discussion
+
+- [ ] Significance in bioinformatics/computer science.
+- [ ] Significance in a clinical setting/biology/life sciences
+- [ ]  Benefit and limitations of the system in comparison to the systems from
+    the related work
+
 - [ ] Vague in who and what the Kvik Framework is intended for. **Solution**:
   Expand section 3.5 with a paragraph that describes that Kvik is formerly known
   as Kvik Pathways. 
@@ -52,15 +84,26 @@ Suggested for further discussion and analysis in the revison could include:
 - [ ] References found in online version, but not part of the committees printed
   version. **Solution**: add them. 
 
-## Chapter 3 (Paper 2)
 - [ ] The paper present design and implementation of the MIxT application
   clearly, altough a broader context would be beneficial. **Solution**: 
 - [ ] Have a look at the footnote on page 43, runaway "benchmark." 
 
 ## Chapter 4: Paper 4
 
+Introduction
 
-- [ ] Not clear why the pipelines were chosen. **Solution**: Add a reference to
+- [x] Describe the demands of the users.
+- [x] Highlight what impact such systems will have on the scientific community.
+   i.e. broader impact on other groups etc. 
+
+Discussion
+
+- [ ] Significance in bioinformatics/computer science.
+- [ ] Significance in a clinical setting/biology/life sciences
+- [ ]  Benefit and limitations of the system in comparison to the systems from
+    the related work
+
+- [x] Not clear why the pipelines were chosen. **Solution**: Add a reference to
   paper 4 (reference no 25) in chapter 4 and describe the reason why we chose
   the pipelines. 
 
@@ -69,11 +112,13 @@ Suggested for further discussion and analysis in the revison could include:
   of this work that fundamentally aid repeatability? For example, is it easier
   to distribute, version, ect. pipeline descriptions, toosl, and data? 
   **Solution**: Expand discussion 4.4 that looks at other tools 
+
 - [ ] Compared to the related work on running bioinformatics tools in software
   containers (biocontainers, bioblocks, etc.) does this work, does this work
   claim to use containers in a fundamentally different manner? Does this work
   allow reusability in ways that have not been possible before? 
   **Solution**: Expand section 4.4 with a description of these differences etc.
+
 - [ ] If usability is to be considered a first-class contribution of this work,
   is it possible to present a more quantitative evaluation of this aspct of the
   work? Right now, this is justified in qualitative terms such as "familiar",
@@ -96,6 +141,7 @@ Suggested for further discussion and analysis in the revison could include:
 - [ ] Other container technologies such as Shifter or singularity?
 
 - [ ] Have a look at https://f1000research.com/posters/7-916
+
 
 ## Structure
 - The structure of the dissertation could be improved. The lesson learned and
