@@ -505,30 +505,37 @@ files, but they do not store the original files for later. An interesting
 project that uses CWL in production is The Cancer Genomics
 Cloud\cite{lau2017cancer}. They currently support CWL version 1.0 and are
 planning on integrating Rabix as its CWL executor. 
-Arvados stores the
-data in a distributed storage system, Keep, that provides both storage and
-versioning of data. We chose not to use \gls{cwl} and its implementations
-because of its relaxed restrictions on having to use containers, its verbose
-pipeline descriptions, and the complex compute architecture required for some
-implementations. We are however experimenting with an extension to
+Arvados stores the data in a distributed storage system, Keep, that provides
+both storage and versioning of data. We chose not to use \gls{cwl} and its
+implementations because of its relaxed restrictions on having to use containers,
+its verbose pipeline descriptions, and the complex compute architecture required
+for some implementations. We are however experimenting with an extension to
 \texttt{walrus} that translates pipeline descriptions written in \texttt{walrus}
 to \gls{cwl} pipeline descriptions. 
 
 Pachyderm is a system for running  big data analysis pipelines. It provides
 complete version control for data and leverages the container ecosystem to
-provide reproducible data processing.\cite{pachyderm} Pachyderm
-consists of a file system (\gls{pfs}) and a processing system (\gls{pps}).
-\gls{pfs} is a file system with git-like semantics for storing data used
-in data analysis pipelines. Pachyderm ensures complete analysis reproducibility
-by providing version control for datasets in addition to the containerized
-execution environments. Both \gls{pfs} and \gls{pps} is implemented on top
-of Kubernetes.\cite{kubernetes} We believe that the approach in
-Pachyderm with version controlling datasets and containerizing each pipeline
-step is the correct approach to truly reproducible data analysis pipelines. 
+provide reproducible data processing.\cite{pachyderm} Pachyderm consists of a
+file system (\gls{pfs}) and a processing system (\gls{pps}).  \gls{pfs} is a
+file system with git-like semantics for storing data used in data analysis
+pipelines. Pachyderm ensures complete analysis reproducibility by providing
+version control for datasets in addition to the containerized execution
+environments. Both \gls{pfs} and \gls{pps} is implemented on top of
+Kubernetes.\cite{kubernetes} There are now recent efforts to develop
+bioinformatics workflows with Pachyderm that show great
+promise. In \cite{doi:10.1093/bioinformatics/bty699}, the authors show the
+potential performance improvements of single workflow steps, not the full
+pipeline, when executing a pipeline in Pachyderm. They unfortunately do not show
+the time to import data into \gls{pfs}, run the full pipeline, and optionally
+investigate different versions of the intermediate, or output datasets. 
+
+We believe that the approach in Pachyderm with
+version controlling datasets and containerizing each pipeline step is, along
+with walrus, the correct approach to truly reproducible data analysis pipelines.
 The reason we did not use Kubernetes and Pachyderm was because our compute
-infrastructure did not support it. In addition, we did not want to use a separate
-tool, \gls{pfs}, for data versioning, we wanted to integrate it with our current
-pratice of using git for versioning. 
+infrastructure did not support it. In addition, we did not want to use a
+separate tool, \gls{pfs}, for data versioning, we wanted to integrate it with
+our current practice of using git for versioning.  
 
 Snakemake is a long-running project for analyzing bioinformatic
 datasets.\cite{koster2012snakemake} It uses a Python-based language to describe
@@ -582,6 +589,28 @@ pipeline specification, simplifies the task of comparing the results from
 pipeline tools and input parameters. While we have developed one approach to
 version control genomic datasets in an analysis pipeline, we believe that there
 is still room for improvement. 
+
+% Significance in bioinformatics
+% - general tool for any application
+% - usable ideas for other tools that use kube etc.
+% - only tool that integrates with git....... 
+
+% clinical setting 
+% - walrus will ensure repeatability of the computational analyses
+% - enable analysis for researchers with simple compute infrastructure 
+% - easy to set up
+
+Unlike other proposed solutions for executing data analysis pipelines, walrus is
+the only system we have discovered that explicitly uses git, and git-lfs, to
+store output datasets. Other systems either use a specialized storage system, or
+ignore data versioning at all. We believe that using a system that
+bioinformaticians already use for source control management is simplest way to
+allow users version their data along-side their analysis code. 
+
+walrus is a very simple tool to set up. Since we only target users with single
+large compute nodes, walrus can run within a Docker container making docker its
+only dependency. Systems such as Nextflow, Galaxy or Pachyderm all require users
+to set up complex compute infrastructures. 
 
 While we provide one approach to version control datasets, there are still some
 drawbacks. \texttt{git-lfs} supports large files, but in our results it added
