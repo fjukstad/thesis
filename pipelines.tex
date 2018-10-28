@@ -572,45 +572,49 @@ analysis tools are installed with the same
 responsibilities.\cite{boettiger2015introduction} 
 
 \section{Discussion}
+\texttt{walrus} is a general tool for analyzing any type of dataset from
+different scientific disciplines, not just genomic datasets in bioinformatics.
+Users specify a workflow using either a \gls{yaml} or \gls{json} format, and
+each step in the workflow is run within a Docker container. \texttt{walrus}
+tracks input, intermediate, and output datasets with git to ensure transparency
+and reproducibility of the analyses. Through these features \texttt{walrus}
+helps to ensure repeatability of the computation analyses of a research project. 
+
 Precision medicine requires flexible analysis pipelines that allow researchers
 to explore different tools and parameters to analyze their data.  While there
 are best practices to develop analysis pipelines for genomic datasets, e.g. to
 discover genomic variants, there is still no de-facto standard for sharing the
-detailed descriptions to simplify re-using and reproducing existing work.
+detailed descriptions to simplify re-using and reproducing existing work. With
+\texttt{walrus} we provide one alternative to develop and share pipeline
+descriptions.  
+
 Pipelines typically need to be tailored to fit each project and patient, and
 different patients will typically elicit different molecular patterns that
-require individual investigation. While we could follow the best practices to
-develop our pipeline we explored different tools and parameters before we
-arrived at the final analysis pipeline.  For example, in our \gls{wes} pipeline
-we ran several rounds of preprocessing (trimming reads and quality control)
-before we were sure that the data was ready for analysis. Having a pipeline
-system that could keep track of different intermediate datasets, along with the
-pipeline specification, simplifies the task of comparing the results from
-pipeline tools and input parameters. While we have developed one approach to
-version control genomic datasets in an analysis pipeline, we believe that there
-is still room for improvement. 
+require individual investigation.  In our \gls{wes} analysis pipeline we
+followed the best practices, and explored different combinations of tools and
+parameters before we arrived at the final analysis pipeline. For example, we ran
+several rounds of preprocessing (trimming reads and quality control) before we
+were sure that the data was ready for analysis. \texttt{walrus} allowed us to
+keep track of different intermediate datasets, along with the pipeline
+specification, simplifies the task of comparing the results from pipeline tools
+and input parameters. 
 
-% Significance in bioinformatics
-% - general tool for any application
-% - usable ideas for other tools that use kube etc.
-% - only tool that integrates with git....... 
+\texttt{walrus} is a very simple tool to set up and start using. Since we only
+target users with single large compute nodes, \texttt{walrus} can run within a
+Docker container making Docker its only dependency. Systems such as Nextflow,
+Galaxy or Pachyderm all require users to set up and manage complex compute
+infrastructures. The simplicity of \texttt{walrus} enables repeatable
+computational analyses without any of these obstacles. 
 
-% clinical setting 
-% - walrus will ensure repeatability of the computational analyses
-% - enable analysis for researchers with simple compute infrastructure 
-% - easy to set up
-
-Unlike other proposed solutions for executing data analysis pipelines, walrus is
-the only system we have discovered that explicitly uses git, and git-lfs, to
-store output datasets. Other systems either use a specialized storage system, or
-ignore data versioning at all. We believe that using a system that
-bioinformaticians already use for source control management is simplest way to
-allow users version their data along-side their analysis code. 
-
-walrus is a very simple tool to set up. Since we only target users with single
-large compute nodes, walrus can run within a Docker container making docker its
-only dependency. Systems such as Nextflow, Galaxy or Pachyderm all require users
-to set up complex compute infrastructures. 
+Unlike other proposed solutions for executing data analysis pipelines,
+\texttt{walrus} is the only system we have discovered that explicitly uses git,
+and git-lfs, to store output datasets. Other systems either use a specialized
+storage system, or ignore data versioning at all. We believe that using a system
+that bioinformaticians already use for source control management is the simplest
+way to allow users version their data along-side their analysis code. The
+alternative of using a new data storage platform that provides data versioning
+requires extra time and effort for researchers both to learn and integrate in
+their current workflow. 
 
 While we provide one approach to version control datasets, there are still some
 drawbacks. \texttt{git-lfs} supports large files, but in our results it added
