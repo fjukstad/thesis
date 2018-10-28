@@ -107,7 +107,7 @@ Discussion
   paper 4 (reference no 25) in chapter 4 and describe the reason why we chose
   the pipelines. 
 
-- [ ] Given the emphasis on repeatability in the title: compared to the related
+- [x] Given the emphasis on repeatability in the title: compared to the related
   work on pipelines for data anslysis (galaxy, pegasus etc.) are there aspects
   of this work that fundamentally aid repeatability? For example, is it easier
   to distribute, version, ect. pipeline descriptions, toosl, and data? 
@@ -136,7 +136,7 @@ Discussion
   understanding of docker technology, data transfer consisteration, latency,
   less flexibility than cli (wtf, reviewer), scalability
 
-- [ ] Related: Add nakemake and nextflow to the related works section. 
+- [x] Related: Add nakemake and nextflow to the related works section. 
 
 - [ ] Other container technologies such as Shifter or singularity?
 

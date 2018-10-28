@@ -571,6 +571,12 @@ a solution to improve experiment reproducibility, by ensuring that the data
 analysis tools are installed with the same
 responsibilities.\cite{boettiger2015introduction} 
 
+
+% 4 later: 
+% reinventing the wheel: 
+% - learning, want to learn
+% - the "wheel" is improved. it did not start out w/ rubber etc. 
+
 \section{Discussion}
 \texttt{walrus} is a general tool for analyzing any type of dataset from
 different scientific disciplines, not just genomic datasets in bioinformatics.
@@ -604,7 +610,8 @@ target users with single large compute nodes, \texttt{walrus} can run within a
 Docker container making Docker its only dependency. Systems such as Nextflow,
 Galaxy or Pachyderm all require users to set up and manage complex compute
 infrastructures. The simplicity of \texttt{walrus} enables repeatable
-computational analyses without any of these obstacles. 
+computational analyses without any of these obstacles, and is one of the
+strengths of our tool. 
 
 Unlike other proposed solutions for executing data analysis pipelines,
 \texttt{walrus} is the only system we have discovered that explicitly uses git,
@@ -615,6 +622,24 @@ way to allow users version their data along-side their analysis code. The
 alternative of using a new data storage platform that provides data versioning
 requires extra time and effort for researchers both to learn and integrate in
 their current workflow. 
+
+We have seen that there are other systems to develop, share, and run
+analysis pipelines in both bioinformatics and other disciplines. Like
+\texttt{walrus}, many of these use textual representations in JSON or other
+languages to describe the analysis pipeline, and Docker to provide reproducible
+and isolated execution environments. In \texttt{warlus} we provide pipeline
+descriptions that allows users to reuse the familiar command-line syntax. The
+only new additional information they have to add is the dependencies between
+tasks. Systems such as \gls{cwl} requires that users also describe the input and
+output data verbosely. We believe that the tool, \texttt{walrus}, can detect
+these, and will handle this for the user. This will in turn make the pipeline
+descriptions of \texttt{walrus} shorter in terms of lines of code.  
+
+While systems such as Galaxy provide a graphical user interface, \texttt{walrus}
+requires that its users know how to navigate the commandline and use systems
+such as git and Docker, to analyze a dataset. For some users this may an
+obstacle, but we believe that it provides a more hands-on and transparent view
+of the whole data analysis process. 
 
 While we provide one approach to version control datasets, there are still some
 drawbacks. \texttt{git-lfs} supports large files, but in our results it added
