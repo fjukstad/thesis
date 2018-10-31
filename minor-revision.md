@@ -48,7 +48,7 @@ Suggested for further discussion and analysis in the revison could include:
 
 Introduction
 
-- [ ] Describe the demands of the users.
+- [x] Describe the demands of the users.
 - [ ] Highlight what impact such systems will have on the scientific community.
    i.e. broader impact on other groups etc. 
 

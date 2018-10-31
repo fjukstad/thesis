@@ -7,7 +7,7 @@ the scientific advances have been tremendous. Today, single week-long sequencing
 runs can produce as much data as did entire genome centers just years
 ago.\cite{kahn2011future}  These technologies allow researchers to produce data
 faster, cheaper and more efficiently, now making it possible to sequence the
-entire genome from a patient in less than a days work. In addition to faster
+entire genome from a patient in less than a day. In addition to faster
 data generation, the new datasets are also of higher quality.
 
 Ensuring reproducibility through sharing of analysis code and datasets is
@@ -31,14 +31,13 @@ analysis pipeline. Further we provide best practices for data analysis and
 management. 
 
 \section{High-Throughput Datasets for Research and Clinical Use} 
-It is important to have an understanding of the different high-throughput
-technologies that are now widely used to study complex diseases such as cancer. 
-\gls{dna} sequencing is the process of determining the order of nucleotides
-within a strand of \gls{dna}. \gls{hts}, or \gls{ngs}, is a term used to
-describe newer technology that enables massively-parallel sequencing of
-\gls{dna}. \gls{hts} instruments sequence millions of short base pairs, and
-we assemble these in the data analysis process. Typical sequencing datasets are
-in the size of hundreds of \glspl{gb} per sample. 
+High-throughput technologies that are now widely used to study complex diseases
+such as cancer. \gls{dna} sequencing is the process of determining the order of
+nucleotides within a strand of \gls{dna}. \gls{hts}, or \gls{ngs}, is a term
+used to describe newer technology that enables massively-parallel sequencing of
+\gls{dna}. \gls{hts} instruments sequence millions of short base pairs, and we
+assemble these in the data analysis process. Typical sequencing datasets are in
+the size of hundreds of \glspl{gb} per sample. 
 
 While \gls{hts} can study the sequence of bases, microarrays have been used to
 study the transcriptome, or the genes actively expressed. While the genome is
@@ -128,17 +127,20 @@ In the \gls{nowac} study we have processed our biological samples outside our
 research institution. The received raw datasets were then stored on a
 local server and made available to researchers on demand. Because of the
 complexity of the biological datasets, many of these require extensive
-pre-processing before they are analysis ready. 
+pre-processing before they are analysis-ready. 
 
+% \section{Reproducible Research} 
 
 \section{Enabling Reproducible Research} 
 To enable reproducible research in the \gls{nowac} study we have developed a
 system for managing and documenting the available datasets, a standardized data
 preprocessing and preparation system, and a set of best practices for data
 analysis and management. We designed our management and analysis system as a
-\gls{sme} that we could later use in the Pippeline system. 
+\gls{sme} that we could later use in the Pippeline system. To determine the
+demands of the users, we collaboratively identified issues with our previous
+practice and a set of requirements for a system to solve these issues.
 
-In this work we first identified issues with our previous practice: 
+We first identified issues with our previous practice: 
 \begin{enumerate} 
     \item It was difficult to keep track of the available datasets, and to
         determine how these had been processed. We had no standard data storage
@@ -243,11 +245,14 @@ are changing a lot over time, and are stored in binary formats, e.g. gene
 expression datasets. We have explored different techniques to minimize our
 repository and have opted to store all datasets as git
 submodules\cite{submodule}. Submodules allow us to keep the main repository size
-down while still versioning the data.  Other alternatives such as
-git-raw\cite{gitraw}, git-annex\cite{gitannex} git-lfs\cite{gitlfs} exist, and
-these all provide alternative approaches to storing large binary files in the
-repository. We have not found that any of these could satisfy our needs, or suit
-our preferred usage.  
+down while still versioning the data.  There are extensions to git for
+versioning large datasets. git-raw\cite{gitraw}, git-annex\cite{gitannex}
+git-lfs\cite{gitlfs} all provide extensions that essentially replace 
+large files in a git repository with pointers or other metadata, and store the
+actual files in an external storage server. Since our datasets are relatively
+small and static, we did not opt for any of these. Future versions may
+investigating these extensions, but the key point is to version all datasets
+using a familiar tool, namely git. 
 
 \begin{figure}
   \includegraphics[width=\linewidth]{figures/rpkg.png}
@@ -269,7 +274,7 @@ package along with reports that describe why an observation is marked as an
 outlier.  Third, the data manager generates an analysis-ready dataset for a
 research project using the interactive Pippeline tool. This dataset is
 preprocessed, and integrated with questionnaire and registry datasets. Fourth,
-researchers analyze the dataset with their tools of choice, but following using
+researchers analyze the dataset with their tools of choice, but following
 our best practices for data analysis.
 
 \begin{figure}
@@ -384,6 +389,25 @@ to sequencing data, when these datasets grow in number the total size grows as
 well. This will impact the compile time for the R package, and also its size
 when it is shared with other researchers. This is something we will address
 in future work. 
+
+% bioinformatics/cs
+% - r-package, approach for others in same situation? 
+% - nothing new, just application o
+% 
+% significance in clinical
+% - easier to get started for users
+% - reproducible science,
+% - no more "where did my script go?" bs 
+% - 
+% 
+% limitations to related
+% - related? Scripts that do similar things, no system that I know of that
+%   provide an R package? Maybe check paper. 
+% - git setup not that good, but hey we're at least versioning stuff
+% - R is probably a limitation? Or a 
+
+% Pippeline (preprocessing etc.) now works for RNA-seq, Methylation, microRNA
+% GDPR & NOWAC, anything w/ a LPNR is sensitive 
 
 \section{Conclusion}
 In summary, we believe that there are four general rules toward reproducible
