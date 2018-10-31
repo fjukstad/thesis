@@ -131,7 +131,7 @@ analysis pipelines. It automatically orchestrates the execution of different
 tools, and tracks tool versions and parameters, as well as datasets through the
 analysis pipeline. It provides users a simple interface to inspect differences
 in pipeline runs, and retrieve previous analysis results and configurations. In
-the remainder of the paper we describe the design and implementation of
+the remainder of the chapter we describe the design and implementation of
 \texttt{walrus}, its clinical use, its performance, and how it relates to other
 pipeline managers. 
 
@@ -148,8 +148,8 @@ high-throughput datasets in precision medicine, it is a general tool that can
 analyze any type of data, e.g. image datasets for machine learning. It has few
 dependencies and runs on any platform that supports Docker containers. While
 other popular pipeline managers require the use of cluster computers or cloud
-environment, we focus on single compute nodes often found in clinical
-environments such as hospitals. 
+environment, we focus on single compute node systems often found in smaller
+clinical research environments. 
 
 \texttt{walrus} is implemented as a command-line tool in the Go programming
 language. We use the popular software container implementation
@@ -329,8 +329,8 @@ files to their state at the necessary point in time.
 
 \section{Results}
 To evaluate the usefulness of \texttt{walrus} we demonstrate its use in a
-clinical setting, and the low computational time and storage overhead to support
-reproducible analyses.
+clinical research setting, and the low computational time and storage overhead
+to support reproducible analyses.
 
 \subsection{Clinical Application} 
 We have used \texttt{walrus} to analyze a whole-exome data from a sample
@@ -475,9 +475,10 @@ computing platforms.
 
 Here we describe general systems for developing data analysis
 pipelines, not just specialized bioinformatics pipelines. While most provide
-viable options for genomic analyses, we have found most to complex to install
-and maintain in clinical settings. We discuss tools that use the common
-\gls{cwl} pipeline specification and systems that provide versioning of data. 
+viable options for genomic analyses, we have found many of these pipeline
+systems require complex compute infrastructure beyond the smaller clinical
+research institutions.  We discuss tools that use the common \gls{cwl} pipeline
+specification and systems that provide versioning of data. 
 
 \gls{cwl} is a specification for describing analysis workflows and
 tools.\cite{cwl} A pipeline is written as a \gls{json} or \gls{yaml} file,
