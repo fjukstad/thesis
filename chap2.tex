@@ -372,25 +372,36 @@ datasets. This is ongoing work.
 \section{Discussion}
 In this chapter we have proposed an approach to enable reproducible analyses in
 a complex epidemiological study. While we applied our approach to specific
-research study, we believe that we can generalize our approach for use in other
-research projects as well. 
+research study, we believe that it is generalizable to other scientific
+disciplines. 
 
 We developed an R package for researchers in our study to simplify their
-computational analyses. With the R package new researchers could investigate the
+computational analyses. With the R package researchers could investigate the
 available datasets and analyze them in the same environment. Providing a single
 software package shortens the time to analysis, and improves researcher
-productivity. In addition, it standardizes the analyses and makes the data
-analysis process more transparent. Other research groups can use our approach to
-create their own analysis software packages for both internal and external use. 
+productivity since they do not have to start from scratch when analyzing a new
+dataset. In addition, it standardizes the analyses and makes the data analysis
+process more transparent. We believe that our solution can be applied to
+other datasets and projects within different scientific disciplines, enabling
+more researchers to take advantage of the many collected, but not yet
+analysis-ready datasets. 
 
-A potential drawback of using an R package version controlled in git to manage,
-document, and analyze research datasets is the prerequisite programming
-skills for researchers. This may be an obstacle for many researchers, but
-once they master the skills needed to analyze their data programmatically, not
-just through a point-and-click interface, we believe that it provides deeper
-knowledge into the analyses. While programming skills may be absent in the
-training of many researchers, we believe that it is just a matter of time before
-programming skills are common in the scientific community. 
+Making science reproducible is of growing interest. In this chapter we outlined
+the main best practices from our experiences in systems epidemiology research,
+and believe that these are generalizable to other fields as well. The best
+practices we arrived at follow the lines of other have described before
+us,\cite{sandve2013ten} and we believe that these are necessary for both our
+research group, but also to the scientific community, to follow. 
+
+While taking advantage of powerful computational tools is beneficial, they often
+require trained users.  A potential drawback of using an R package version
+controlled in \texttt{git} to manage, document, and analyze research datasets is
+the prerequisite programming skills for researchers. This may be an obstacle for
+many researchers, but once they master the skills needed to analyze their data
+programmatically, not just through a point-and-click interface, we believe that
+it provides deeper knowledge into the analyses. While programming skills may be
+absent in the training of many researchers, we believe that it is just a matter
+of time before programming skills are common in the scientific community. 
 
 While the majority of the researchers that have worked on the project have used
 SAS for their analyses of the questionnaire data, all researchers working on
@@ -413,25 +424,12 @@ when it is shared with other researchers. With larger datasets we might
 experiment with extensions to git, e.g. \texttt{git-lfs} as we have done in
 Chapter \ref{pipeline}.
 
-% bioinformatics/cs
-% - r-package, approach for others in same situation? 
-% - nothing new, just application o
-% 
-% significance in clinical
-% - easier to get started for users
-% - reproducible science,
-% - no more "where did my script go?" bs 
-% - 
-% 
-% limitations to related
-% - related? Scripts that do similar things, no system that I know of that
-%   provide an R package? Maybe check paper. 
-% - git setup not that good, but hey we're at least versioning stuff
-% - R is probably a limitation? Or a 
-% - researchers need to learn git & R, but fucking hell it's 2018 everyone
-%   should know how to code. 
+Since we developed the Pippeline to preprocess our gene expression datasets, it
+has been expanded to now work with RNA-seq, Methylation and microRNA datasets as
+well. By using the Pippeline with new datasets researchers now have access to
+the full preprocessing history behind each dataset available in the research
+study. 
 
-% Pippeline (preprocessing etc.) now works for RNA-seq, Methylation, microRNA
 % GDPR & NOWAC, anything w/ a LPNR is sensitive 
 
 \section{Conclusion}
@@ -442,7 +440,8 @@ studies:
 \begin{itemize} 
     \item Document and version control datasets and analysis code within the
         study. 
-    \item Share datasets and analysis code through statistical packages. 
+    \item Share datasets and analysis code through statistical software
+        packages. 
     \item Share and report findings through reproducible data analysis reports. 
     \item Standardize and document common data preprocessing and wrangling
         steps.
