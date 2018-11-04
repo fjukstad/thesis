@@ -376,23 +376,25 @@ research study, we believe that we can generalize our approach for use in other
 research projects as well. 
 
 We developed an R package for researchers in our study to simplify their
-analyses. With the R package new researchers could take advantage of the
-existing datasets and utility functions to start analyze the data. This shortens
-the time to analysis, and improves researcher productivity. In addition it
-standardizes the analyses and makes the data analysis process more transparent. 
+computational analyses. With the R package new researchers could investigate the
+available datasets and analyze them in the same environment. Providing a single
+software package shortens the time to analysis, and improves researcher
+productivity. In addition, it standardizes the analyses and makes the data
+analysis process more transparent. Other research groups can use our approach to
+create their own analysis software packages for both internal and external use. 
 
 A potential drawback of using an R package version controlled in git to manage,
 document, and analyze research datasets is the prerequisite programming
 skills for researchers. This may be an obstacle for many researchers, but
-once they master the skills needed to analyze their data programatically, not
+once they master the skills needed to analyze their data programmatically, not
 just through a point-and-click interface, we believe that it provides deeper
 knowledge into the analyses. While programming skills may be absent in the
 training of many researchers, we believe that it is just a matter of time before
-programming skills are ubiquitous in the scientific community. 
+programming skills are common in the scientific community. 
 
 While the majority of the researchers that have worked on the project have used
 SAS for their analyses of the questionnaire data, all researchers working on
-molecular data are using R.  The great strength of R comes from its many
+molecular data are using R. The great strength of R comes from its many
 packages for analyzing, plotting, and interpreting data. An R package consists
 of a code, documentation, tests, and data.  Bioconductor\cite{bioconductor} and
 the \gls{cran}\cite{cran} provide online hosing for many packages, and users can
@@ -407,8 +409,9 @@ One major drawback with the implementation of our approach in the \texttt{nowac}
 R package is its size. While microarray datasets are relatively small compared
 to sequencing data, when these datasets grow in number the total size grows as
 well. This will impact the compile time for the R package, and also its size
-when it is shared with other researchers. This is something we will address
-in future work. 
+when it is shared with other researchers. With larger datasets we might
+experiment with extensions to git, e.g. \texttt{git-lfs} as we have done in
+Chapter \ref{pipeline}.
 
 % bioinformatics/cs
 % - r-package, approach for others in same situation? 
