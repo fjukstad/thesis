@@ -370,6 +370,26 @@ respective repositories do not contain any sensitive information from the
 datasets. This is ongoing work. 
 
 \section{Discussion}
+In this chapter we have proposed an approach to enable reproducible analyses in
+a complex epidemiological study. While we applied our approach to specific
+research study, we believe that we can generalize our approach for use in other
+research projects as well. 
+
+We developed an R package for researchers in our study to simplify their
+analyses. With the R package new researchers could take advantage of the
+existing datasets and utility functions to start analyze the data. This shortens
+the time to analysis, and improves researcher productivity. In addition it
+standardizes the analyses and makes the data analysis process more transparent. 
+
+A potential drawback of using an R package version controlled in git to manage,
+document, and analyze research datasets is the prerequisite programming
+skills for researchers. This may be an obstacle for many researchers, but
+once they master the skills needed to analyze their data programatically, not
+just through a point-and-click interface, we believe that it provides deeper
+knowledge into the analyses. While programming skills may be absent in the
+training of many researchers, we believe that it is just a matter of time before
+programming skills are ubiquitous in the scientific community. 
+
 While the majority of the researchers that have worked on the project have used
 SAS for their analyses of the questionnaire data, all researchers working on
 molecular data are using R.  The great strength of R comes from its many
@@ -405,6 +425,8 @@ in future work.
 %   provide an R package? Maybe check paper. 
 % - git setup not that good, but hey we're at least versioning stuff
 % - R is probably a limitation? Or a 
+% - researchers need to learn git & R, but fucking hell it's 2018 everyone
+%   should know how to code. 
 
 % Pippeline (preprocessing etc.) now works for RNA-seq, Methylation, microRNA
 % GDPR & NOWAC, anything w/ a LPNR is sensitive 
