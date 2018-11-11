@@ -375,6 +375,13 @@ a complex epidemiological study. While we applied our approach to specific
 research study, we believe that it is generalizable to other scientific
 disciplines. 
 
+Making science reproducible is of growing interest. In this chapter we outlined
+the main best practices from our experiences in systems epidemiology research,
+and believe that these are generalizable to other fields as well. The best
+practices we arrived at follow the lines of other have described before
+us,\cite{sandve2013ten} and we believe that these are necessary for both our
+research group, but also to the scientific community, to follow. 
+
 We developed an R package for researchers in our study to simplify their
 computational analyses. With the R package researchers could investigate the
 available datasets and analyze them in the same environment. Providing a single
@@ -386,12 +393,18 @@ other datasets and projects within different scientific disciplines, enabling
 more researchers to take advantage of the many collected, but not yet
 analysis-ready datasets. 
 
-Making science reproducible is of growing interest. In this chapter we outlined
-the main best practices from our experiences in systems epidemiology research,
-and believe that these are generalizable to other fields as well. The best
-practices we arrived at follow the lines of other have described before
-us,\cite{sandve2013ten} and we believe that these are necessary for both our
-research group, but also to the scientific community, to follow. 
+Bundling and sharing the analysis code together with the datasets behind a
+research paper is not a new idea. Sharing these collections, or compendia, of
+data, text, and code have been described more than a decade
+ago.\cite{gentleman2007statistical}
+There are many examples of studies that put in significant efforts to develop
+tools in R for transparent data science, to produce better science in less
+time.\cite{lowndes2017our,mcmurdie2013phyloseq,finak2018datapackager} In common
+is the explicit documentation of the final results using reproducible data
+analysis reports, and functions from shared R packages to generate these. They
+also structure the datasets and document these in a standardized manner to
+simplify the analysis. Many of these packages are open-sourced for everyone to
+use, and we hope to do the same. 
 
 While taking advantage of powerful computational tools is beneficial, they often
 require trained users.  A potential drawback of using an R package version
@@ -420,12 +433,14 @@ One major drawback with the implementation of our approach in the \texttt{nowac}
 R package is its size. While microarray datasets are relatively small compared
 to sequencing data, when these datasets grow in number the total size grows as
 well. This will impact the compile time for the R package, and also its size
-when it is shared with other researchers. With larger datasets we might
-experiment with extensions to git, e.g. \texttt{git-lfs} as we have done in
+when it is shared with other researchers. Others have also reported that package
+size is an issue, but are also investigating
+alternatives.\cite{finak2018datapackager} With larger datasets we might
+experiment with extensions to git, e.g. \texttt{git-lfs}, as we have done in
 Chapter \ref{pipeline}.
 
 Since we developed the Pippeline to preprocess our gene expression datasets, it
-has been expanded to now work with RNA-seq, Methylation and microRNA datasets as
+has been expanded to work with RNA-seq, Methylation and microRNA datasets as
 well. By using the Pippeline with new datasets researchers now have access to
 the full preprocessing history behind each dataset available in the research
 study. 
