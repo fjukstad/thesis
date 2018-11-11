@@ -54,9 +54,9 @@ Introduction
 
 Discussion
 
-- [ ] Significance in bioinformatics/computer science.
-- [ ] Significance in a clinical setting/biology/life sciences
-- [ ]  Benefit and limitations of the system in comparison to the systems from
+- [x] Significance in bioinformatics/computer science.
+- [x] Significance in a clinical setting/biology/life sciences
+- [x]  Benefit and limitations of the system in comparison to the systems from
     the related work
 
 
@@ -74,7 +74,7 @@ Discussion
 - [ ]  Benefit and limitations of the system in comparison to the systems from
     the related work
 
-- [ ] Vague in who and what the Kvik Framework is intended for. **Solution**:
+- [x] Vague in who and what the Kvik Framework is intended for. **Solution**:
   Expand section 3.5 with a paragraph that describes that Kvik is formerly known
   as Kvik Pathways. 
 - [x] Not reachable at kvik.cs.uit.no. **Solution**: do not fix. 

@@ -310,16 +310,18 @@ Kvik, and how they later formed the bases of the \gls{sme} approach
 that the \gls{mixt} web application builds upon. 
 
 \section{Kvik}\label{kviksec}
-Kvik is a collection of software packages in the Go programming language that
-allows developers to build data exploration applications. It is the basis of our
-two data exploration applications, and has been iteratively developed through
-the last years. Kvik provides an interface to the R statistical programming
+Kvik is a collection of software packages in the Go programming language. It is
+designed for developers that want to develop interactive data exploration
+applications. It is the foundation in our two data exploration applications, and
+has been iteratively developed through the last years. We have previously
+refered to Kvik as Kvik Framework\cite{fjukstad2015kvik}, but we now refer to it
+only as Kvik.  Kvik provides an interface to the R statistical programming
 language, both as a stand-alone service, a client library, and through an
 OpenCPU server. It provides an R-based pipelining tool that allows useres to
 specify and run statistical analysis pipelines in R.  Kvik also contains a
 Javascript package for visualizing KEGG pathways using d3.\cite{d3}  In addition
 it provides an interface with online databases such as MsigDB\cite{msigdb} and
-\gls{kegg}\cite{kegg}. 
+\gls{kegg}\cite{kegg}.
 
 We used the experience building Kvik Pathways to completely re-design and
 re-implement the R interface in Kvik. From having an R server that can run a
@@ -662,6 +664,15 @@ computation and storage. In addition, benefits such as using different
 programming languages for a single application, and packaging a microservice as
 a software container, help to outweigh the operational burden related to using
 microservices to build applications. 
+
+Of the related systems OpenCPU provides the most similar interface to analyze
+datasets as the R interface in Kvik. While we started to explore OpenCPU for use
+in our applications, we found through our benchmarking that it did not provide
+satisfactory performance for our applications. It does however provide a richer
+set of functionality, such as exporting data in many more formats and running
+user-submitted scripts. We did not find it necessary for these additions and
+implemented our own R interface that could provide the necessary interface for
+us to implement data exploration applications. 
 
 We have reused the microservices for running statistical analyses and
 fetch biological metadata, and share these between applications. This makes it
