@@ -245,7 +245,7 @@ Users can select from containers pre-installed with bioinformatics tools, or bui
 their own using a standard Dockerfile. Through software containers
 \texttt{walrus} can provide a reproducible execution environment for the
 pipeline, and containers provide simple execution on a wide range of software
-and hardware platforms.  With initiatives such as
+and hardware platforms. With initiatives such as
 BioContainers, researchers can make use of already existing
 containers without having to re-write their own. Data in each pipeline step is
 automatically mounted and made available within each Docker container. By simply
@@ -530,13 +530,13 @@ pipeline, when executing a pipeline in Pachyderm. They unfortunately do not show
 the time to import data into \gls{pfs}, run the full pipeline, and optionally
 investigate different versions of the intermediate, or output datasets. 
 
-We believe that the approach in Pachyderm with
-version controlling datasets and containerizing each pipeline step is, along
-with walrus, the correct approach to truly reproducible data analysis pipelines.
-The reason we did not use Kubernetes and Pachyderm was because our compute
-infrastructure did not support it. In addition, we did not want to use a
-separate tool, \gls{pfs}, for data versioning, we wanted to integrate it with
-our current practice of using git for versioning.  
+We believe that the approach in Pachyderm with version controlling datasets and
+containerizing each pipeline step is, along with walrus, the correct approach to
+truly reproducible data analysis pipelines.  The reason we did not use
+Kubernetes and Pachyderm was because our compute infrastructure did not support
+it. In addition, we did not want to use a separate tool, \gls{pfs}, for data
+versioning, we wanted to integrate it with our current practice of using git for
+versioning.  
 
 Snakemake is a long-running project for analyzing bioinformatic
 datasets.\cite{koster2012snakemake} It uses a Python-based language to describe
@@ -555,7 +555,16 @@ year later than walrus.
 Another alternative to develop analysis pipelines is
 Nextflow.\cite{di2017nextflow} Nextflow uses its own language to describe
 analysis pipelines and supports execution within Docker and Singularity
-containers. 
+containers. Nextflow uses a dataflow programming model that streams data
+through a pipeline as apposed to fist constructing a \gls{dag} and executing it.
+
+While the previous related systems all package each tool into a single
+container, Bio-Docklet and elasticHPC are systems that bundle entire
+pipelines into single Docker containers. Bio-Docklets are standardized
+workflows contained in a single Docker image, and have been used used to build
+\gls{ngs} analysis pipelines.\cite{biodocklets} elasticHPC is an initiative to
+make it easier to deploy containerized analysis pipeline on private or
+commercial cloud solutions such as Amazon.\cite{ali2016case} 
 
 As discussed in \cite{NIK, fjukstad2017review}, recent projects propose to use
 containers for life science research. The BioContainers and
@@ -610,9 +619,11 @@ and input parameters.
 target users with single large compute nodes, \texttt{walrus} can run within a
 Docker container making Docker its only dependency. Systems such as Nextflow,
 Galaxy or Pachyderm all require users to set up and manage complex compute
-infrastructures. The simplicity of \texttt{walrus} enables repeatable
-computational analyses without any of these obstacles, and is one of the
-strengths of our tool. 
+infrastructures. As previously mentioned, since we leverage existing Docker
+images without any modification in \texttt{walrus}, users can reuse
+existing container images from BioContainers or Bioboxes in their workflows.
+The simplicity of \texttt{walrus} enables repeatable computational analyses
+without any of these obstacles, and is one of the strengths of our tool. 
 
 Unlike other proposed solutions for executing data analysis pipelines,
 \texttt{walrus} is the only system we have discovered that explicitly uses git,
@@ -637,10 +648,18 @@ these, and will handle this for the user. This will in turn make the pipeline
 descriptions of \texttt{walrus} shorter in terms of lines of code.  
 
 While systems such as Galaxy provide a graphical user interface, \texttt{walrus}
-requires that its users know how to navigate the commandline and use systems
-such as git and Docker, to analyze a dataset. For some users this may an
-obstacle, but we believe that it provides a more hands-on and transparent view
-of the whole data analysis process. 
+requires that its users know how to navigate the commandline and have experience
+with systems such as git and Docker, to analyze a dataset. Using a commandline
+interface to run analysis pipelines has the potential of speeding up the
+analysis process, since its users do not have to click through a user interface
+before running a pipeline.
+
+We have tried to minimize the number of available commands in \texttt{walrus},
+and compared to other tools it shows its benefit when comparing a pipeline run
+to previous results. E.g. in Pachyderm users have to explicitly import data into
+the system using a set of commands. \texttt{walrus} does not require explicit
+import of data, and allows users to investigate, or roll back, data to a
+previous run in a single command.
 
 While we provide one approach to version control datasets, there are still some
 drawbacks. \texttt{git-lfs} supports large files, but in our results it added

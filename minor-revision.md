@@ -38,11 +38,13 @@ Suggested for further discussion and analysis in the revison could include:
 
 
 [ ] Discussion
-
 1.	Significance in bioinformatics/computer science.
 2.	Significance in a clinical setting/biology/life sciences
 3.  Benefit and limitations of the system in comparison to the systems from
     the related work
+
+## Chaoter 1
+- Expand 1.1 w/ forskerstandpunkt 
 
 ## Chapter 2
 
@@ -83,7 +85,6 @@ Discussion
   pathways and how they handle the whole data-thing (analyses bla bla bla) 
 - [ ] References found in online version, but not part of the committees printed
   version. **Solution**: add them. 
-
 - [ ] The paper present design and implementation of the MIxT application
   clearly, altough a broader context would be beneficial. **Solution**: 
 - [ ] Have a look at the footnote on page 43, runaway "benchmark." 
@@ -113,11 +114,13 @@ Discussion
   to distribute, version, ect. pipeline descriptions, toosl, and data? 
   **Solution**: Expand discussion 4.4 that looks at other tools 
 
-- [ ] Compared to the related work on running bioinformatics tools in software
+- [x] Compared to the related work on running bioinformatics tools in software
   containers (biocontainers, bioblocks, etc.) does this work, does this work
   claim to use containers in a fundamentally different manner? Does this work
   allow reusability in ways that have not been possible before? 
-  **Solution**: Expand section 4.4 with a description of these differences etc.
+  **Solution**: No fundamental difference to previous related work, but I have
+  added two related systems that are actually different. These put an entire
+  workflow into a single container rather than one container per tool. 
 
 - [ ] If usability is to be considered a first-class contribution of this work,
   is it possible to present a more quantitative evaluation of this aspct of the
@@ -126,12 +129,14 @@ Discussion
   others, etc. Would it be possible to quanntify things such as the number of
   lines in pipeline configuration files, number of commands/steps requred to
   re-run previous analyses, etc.? 
-  **Solution**: Investigate LOC and number of commands to rerun bla bla bla.
+  **Solution**:  Updated discussion, explicit mention number of lines of code
+  and number of commands.
   
-- [ ] A more comprehensive comparison and benchmarking would be beneficial.
-  **Solution**: Expand 4.4 maybe mention some more tools? 
-  do not fix benchmark.
+- [x] A more comprehensive comparison and benchmarking would be beneficial.
+  **Solution**: Expanded related works w/ more tools. Did not perform any
+  additional benchmarking.
 
+--------- FROM REVIEWERS OF PAPER ------------
 - [ ] Discussion: disadvantages such as prerequisites and dependencies,
   understanding of docker technology, data transfer consisteration, latency,
   less flexibility than cli (wtf, reviewer), scalability
@@ -141,7 +146,7 @@ Discussion
 - [ ] Other container technologies such as Shifter or singularity?
 
 - [ ] Have a look at https://f1000research.com/posters/7-916
-
+------------------END REVIEWERS -----------------------
 
 ## Structure
 - The structure of the dissertation could be improved. The lesson learned and
@@ -152,4 +157,23 @@ Discussion
   **Solution**: Do nothing. 
 
 
-  
+-i både intro og diskusjon: løfte blikket, generaliserbarhet av problemene og
+ løsningene, knytt opp mot litteratur
+-hvis duskusjonen utvides så kan enkelte andre deler kuttes ned på 
+- kill your
+ darlings :)
+-vær tro mot kommentarene: svar punkt for punkt, gi dem det de vil ha, gjerne
+ med teskje 
+
+ unngå at verktøy skal ligge brakk? 
+ fremtidig verdi av arbeidet> 
+ forutsetninger for fortsatt bruk? 
+ security data access> GDPR? helsedata? nevne dette, hvor er data? 
+ et nytt delkapittel med en generell diskusjon
+
+discussion
+conclusiion & lesson
+future work
+
+diskusjonkapittel: The dissertation should have had a broader discussed of the
+concepts, needs of the users and comparable tools and approaches.
