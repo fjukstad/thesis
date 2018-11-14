@@ -481,7 +481,9 @@ MSigDB.}
 For the original analyses we built an R package, mixtR,\footnote{Available
 online at \url{github.com/vdumeaux/mixtR.}} with the statistical methods and
 static visualizations for identifying associations between modules across
-tissues. To make the results more easily accessible we built a web application
+tissues. The mixtR package is based on the \gls{wgcna} R package to compute the
+correlation networks\cite{langfelder2008wgcna}.  To make the results more easily
+accessible we built a web application
 that interfaces with the R package, but also online databases to retrieve
 relevant metadata. To make it possible to easily update or re-implement parts of
 the system without effecting the entire application, and we developed it using a
@@ -605,6 +607,35 @@ Meteorological Institute.
 
     
 \section{Related Work} 
+
+The \gls{wgcna} Shiny app\footnote{Online a shiny.etriks.org/wgcna} is an
+interactive application for performing, and exploring results from, \gls{wgcna}.
+The online version allows users to explore two demo datasets, and it is possible
+to download the application and change out the datasets locally. In short it is
+a web implementation of the \gls{wgcna} R package that allows users without any
+R experience perform \gls{wgcna}. It is developed and maintained by the eTRIKS
+platform.\cite{bussery2018etriks}
+
+There are a wealth of resources for exploring biological pathway maps.
+KEGG\cite{kegg} provides a large collection of static pathway maps that users
+can navigate through and download. They provide a \gls{rest} \gls{api} that
+developers can use to integrate both pathway maps and other information in their
+application. In \gls{kegg} Pathways we heavily rely on the data from \gls{kegg}. 
+Reactome is an open-source peer-reviewed online knowledgeabse of biomolecular
+pathways.\cite{fabregat2018reactome} Users can download the entire graph
+database or explore it in their pathway visualization tool. They have not yet
+made an API open for developers, but are planning to do so. Libraries such as
+KEGGViewer\cite{villaveces2014keggviewer} allow developers to integrate pathway
+visualization maps in web appplications, but while it generates pathway maps
+from the \gls{kegg} it does not provide the same visual cues as the static
+\gls{kegg} pathway maps.  enRoute\cite{partl2012enroute} is a desktop
+application for exploring pathway maps from \gls{kegg} that combines the static
+pathway maps from \gls{kegg} in an interactive application. Pathview is both an
+R package and an online web application for exploring pathway
+maps.\cite{luo2017pathview} The online web application is built on top of the R
+package and provides the same functionality, but through a \gls{gui}. Pathway
+generates static pathway visualizations based on pathway maps from \gls{kegg}. 
+
 OpenCPU is a system for embedded scientific computing and reproducible
 research.\cite{opencpu} Similar to the compute service in Kvik, it offers an
 HTTP API to the R programming language to provide an interface with statistical
