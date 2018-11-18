@@ -80,11 +80,11 @@ Discussion
   Expand section 3.5 with a paragraph that describes that Kvik is formerly known
   as Kvik Pathways. 
 - [x] Not reachable at kvik.cs.uit.no. **Solution**: do not fix. 
-- [ ] The discission should provide a more comprehensive comparison to other
-  applications. **Solution**: Expand section 3.6 with applications that look at
-  pathways and how they handle the whole data-thing (analyses bla bla bla) 
-- [ ] References found in online version, but not part of the committees printed
-  version. **Solution**: add them. 
+- [x] The discission should provide a more comprehensive comparison to other
+  applications. **Solution**: Add more related and discission.
+- [x] References found in online version, but not part of the committees printed
+  version. **Solution**: include pdf command in latex was missing one page.
+  added it. 
 - [ ] The paper present design and implementation of the MIxT application
   clearly, altough a broader context would be beneficial. **Solution**: 
 - [ ] Have a look at the footnote on page 43, runaway "benchmark." 

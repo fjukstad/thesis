@@ -20,7 +20,7 @@ are useful for building exploration applications that integrate with statistical
 analyses written in the R programming language.To interpret data, experts
 regularly exploit prior knowledge via database queries and the primary
 scientific literature. There are a wealth of online databases, some of which
-provide open APIs in addition to web user interfaces that application developers
+provide open \glspl{api} in addition to web user interfaces that application developers
 can make use of. For visually exploring biological data there are a range of
 tools, such as Cytoscape\cite{cytoscape} and Circos\cite{circos}, that support
 importing an already-analyzed dataset to visualize and browse the data. One
@@ -199,7 +199,7 @@ data repository stored on a secure server on our local supercomputer. In Kvik
 Pathways all gene expression data is stored on the computer that runs the Data
 Engine. The Data Engine runs an R session accessible over remote procedure calls
 (RPCs) from the front-end layer using RPy2\cite{rpy2} to interface with R. To
-access data and run analyses the Data Interface exposes a HTTP API to the
+access data and run analyses the Data Interface exposes a HTTP \gls{api} to the
 browser layer (Table \ref{interfacetable} provides the interfaces).
 
 \begin{figure}[htb]
@@ -237,20 +237,20 @@ The REST interface to the Data Engine. For example, use \texttt{/genes/} to
 \subsection{Implementation} 
 To create pathway visualizations the Kvik backend retrieves and parses the KEGG
 Markup Language (KGML) representation and pathway image from KEGG databases
-through its REST API.\cite{kgml} This KGML representation of a pathway is an XML
+through its REST \gls{api}.\cite{kgml} This KGML representation of a pathway is an XML
 file that contains a list of nodes (genes, proteins or compounds) and edges
 (reactions or relations). Kvik parses this file and generates a JSON
 representation that Kvik Pathway uses to create pathway visualizations.  Kvik
 Pathways uses Cytoscape.js\cite{cytoscapejs} to create a pathway visualization
 from the list of nodes and edges and overlay the nodes on the pathway image. See
 Figure \ref{fig:how2pathway} for a graphical illustration of the process. To
-reduce latency when using the KEGG REST API, we cache every response on our
-servers.  We use the average fold change between the groups (women with high or
-low plasma ratios of essential fatty acids) in the dataset to color the genes
-within the pathway maps.  To highlight $p$-values, the pathway visualization
-shows an additional colored frame around genes. We visualize fold change values
-for individual samples as a bar chart in a side panel.  This bar chart gives
-researchers a global view of the fold change in the
+reduce latency when using the \gls{kegg} \gls{rest} \gls{api}, we cache every
+response on our servers.  We use the average fold change between the groups
+(women with high or low plasma ratios of essential fatty acids) in the dataset
+to color the genes within the pathway maps.  To highlight $p$-values, the
+pathway visualization shows an additional colored frame around genes. We
+visualize fold change values for individual samples as a bar chart in a side
+panel.  This bar chart gives researchers a global view of the fold change in the
 entire dataset. 
 
 \begin{figure}[htb]
@@ -590,7 +590,7 @@ In addition to the MIxT web application for exploring the link between breast
 tumor and primary blood, we have also deployed a web application that
 investigates the link in another dataset\cite{boersma2008stromal} We have
 deployed the application online at \url{mixt-tumor-stroma.bci.mcgill.ca}. The
-web application is identical except that the R package accesses another dataset. 
+web application is identical, but the underlying dataset is different.
 
 \subsection{air:bit}
 We have also used the microservice architecture in an application where users
@@ -606,29 +606,28 @@ sources such as the Norwegian Institute for Air Research and the The Norwegian
 Meteorological Institute. 
 
     
-\section{Related Work} 
+\section{Related Work}\label{sec:int:rel}
+There are different technologies for developing different data exploration
+applications. We have surveyed comparable applications for exploring similar
+datasets to the ones we describe in this chapter, and underlying technology for
+developing these applications. 
 
-The \gls{wgcna} Shiny app\footnote{Online a shiny.etriks.org/wgcna} is an
-interactive application for performing, and exploring results from, \gls{wgcna}.
-The online version allows users to explore two demo datasets, and it is possible
-to download the application and change out the datasets locally. In short it is
-a web implementation of the \gls{wgcna} R package that allows users without any
-R experience perform \gls{wgcna}. It is developed and maintained by the eTRIKS
-platform.\cite{bussery2018etriks}
-
+\subsection{Applications} 
 There are a wealth of resources for exploring biological pathway maps.
 KEGG\cite{kegg} provides a large collection of static pathway maps that users
-can navigate through and download. They provide a \gls{rest} \gls{api} that
+can navigate through and download. They provide both static images of the
+pathways, as well as a textual representation of the pathway in the \gls{kgml}.
+\gls{kegg} provides a \gls{rest} \gls{api} that
 developers can use to integrate both pathway maps and other information in their
 application. In \gls{kegg} Pathways we heavily rely on the data from \gls{kegg}. 
-Reactome is an open-source peer-reviewed online knowledgeabse of biomolecular
+Reactome is an open-source peer-reviewed online knowledgebase of biomolecular
 pathways.\cite{fabregat2018reactome} Users can download the entire graph
 database or explore it in their pathway visualization tool. They have not yet
-made an API open for developers, but are planning to do so. Libraries such as
+made an \gls{api} open for developers, but are planning to do so. Libraries such as
 KEGGViewer\cite{villaveces2014keggviewer} allow developers to integrate pathway
-visualization maps in web appplications, but while it generates pathway maps
-from the \gls{kegg} it does not provide the same visual cues as the static
-\gls{kegg} pathway maps.  enRoute\cite{partl2012enroute} is a desktop
+visualization maps in web applications, but these are generated using the
+\gls{kgml} representations, that do not include additional visual cues found in
+the static \gls{kegg} pathway maps.  enRoute\cite{partl2012enroute} is a desktop
 application for exploring pathway maps from \gls{kegg} that combines the static
 pathway maps from \gls{kegg} in an interactive application. Pathview is both an
 R package and an online web application for exploring pathway
@@ -636,12 +635,24 @@ maps.\cite{luo2017pathview} The online web application is built on top of the R
 package and provides the same functionality, but through a \gls{gui}. Pathway
 generates static pathway visualizations based on pathway maps from \gls{kegg}. 
 
+There are few related systems that provide visualizations of \gls{wgcna}
+results. The R package from the original paper provides a wide range of
+different utility functions for visualization, but it is only accessible within
+the R environment.  The \gls{wgcna} Shiny app\footnote{Online a
+shiny.etriks.org/wgcna} is an interactive application for performing, and
+exploring results from, \gls{wgcna}.  The online version allows users to explore
+two demo datasets, and it is possible to download the application and change out
+the datasets locally. In short it is a web implementation of the \gls{wgcna} R
+package that allows users without any R experience perform \gls{wgcna}. It is
+developed and maintained by the eTRIKS platform.\cite{bussery2018etriks}
+
+\subsection{Technology} 
 OpenCPU is a system for embedded scientific computing and reproducible
 research.\cite{opencpu} Similar to the compute service in Kvik, it offers an
-HTTP API to the R programming language to provide an interface with statistical
-methods. It allows users to make function calls to any R package and retrieve
-the results in a wide variety of formats such as JSON or PDF. 
-OpenCPU provides a JavaScript library for interfacing with R, as well as Docker
+HTTP \gls{api} to the R programming language to provide an interface with
+statistical methods. It allows users to make function calls to any R package and
+retrieve the results in a wide variety of formats such as JSON or PDF.  OpenCPU
+provides a JavaScript library for interfacing with R, as well as Docker
 containers for easy installation, and has been used to build multiple
 applications.\footnote{\url{opencpu.org/apps.html}.}. The compute service in
 Kvik follows many of the design patterns in OpenCPU. Both systems interface with
@@ -665,7 +676,7 @@ packages must be re-built specifically for use in Renjin.
 Cytoscape is an open source software platform for visualizing complex networks
 and integrating these with any type of attribute
 data.\cite{shannon2003cytoscape} Through a Cytoscape App, cyREST, it allows
-external network creation and analysis through a REST API\cite{ono2015cyrest},
+external network creation and analysis through a REST \gls{api}\cite{ono2015cyrest},
 making it possible to use Cytoscape as a service.  To bring the visualization
 and analysis capabilities to the web applications the creators of Cytoscape have
 developed Cytoscape.js\footnote{\url{js.cytoscapejs.org}.}, a JavaScript library
@@ -684,6 +695,49 @@ data exploration applications for high-throughput biological datasets. We have
 iteratively developed these and ended up with an approach that allows us to
 develop applications from disparate systems. 
 
+
+As we have seen in \ref{sec:int:rel} there are many applications that provide
+visualization tools to view and browse pathway maps, most of which
+use \gls{kegg} as its main data source. The applications then either reuse
+the pathway maps, and augment them with gene expression data, or use the
+underlying \gls{kgml} description and generate their own graphical
+representation with gene expression data. Using the first method will provide
+the additional visual ques found in the static pathway images, but the
+visualizations are less flexible with regards to node and edge placement. Using
+the second method provides more flexible graphs with regards to layout, but this
+could make the visualizations less familiar to the users interpreting them. We
+believe that using the techniques that provides the most familiar representation
+of the pathways are easiest to interpret for the users. 
+
+With both of these techniques the underlying gene expression datasets are loaded
+using different techniques. Most systems allow users to specify gene expression
+values in some table format and render the values in top of the pathway map.
+These values are typically the end result of a long analysis process which users
+have to track manually. By integrating the visualization with the analysis
+software, typically R, it is possible to access data from anywhere in the
+analysis process, and also provide detailed information to the user regarding
+the underlying data analysis process.  What separates our approach in Kvik
+Pathways to the other related systems, is this integration between the end
+visualization and the gene expression datasets. By using Kvik it is possible to
+develop applications that automatically lets users access the underlying data
+analysis, and thereby connecting the interpretable end results with the
+analyses. 
+
+The \gls{wgcna} Shiny app provides similar visualizations as our MIxT web
+application, but the application is limited to that of a web application. Shiny
+lets its users develop applications written purely in R, including the backend
+server and the user interfaces. In MIxT we developed an R package with a set of
+resources, or endpoints, for application developers to access through a Kvik R
+service. This allows application developers to develop the user-facing logic
+using any type of technology or framework. The resources are available through
+the HTTP API in Kvik making it possible for anyone to develop an
+application on top of the dataset and analyses. We acknowledge the strength of R
+for data analysis, but not for developing complex user-facing applications. 
+
+% scientific contrib
+% bio: interpret gene exprs, also 
+% cs: develop such apps
+
 There are different arguments for reusing and sharing microservices over
 libraries in bioinformatics applications, that would justify the cost of hosting
 an maintaining a set of distributed microservices.  We argue that applications
@@ -696,7 +750,7 @@ programming languages for a single application, and packaging a microservice as
 a software container, help to outweigh the operational burden related to using
 microservices to build applications. 
 
-Of the related systems OpenCPU provides the most similar interface to analyze
+Of the related systems, OpenCPU provides the most similar interface to analyze
 datasets as the R interface in Kvik. While we started to explore OpenCPU for use
 in our applications, we found through our benchmarking that it did not provide
 satisfactory performance for our applications. It does however provide a richer
