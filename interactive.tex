@@ -15,17 +15,18 @@ frameworks. However, these specialized programming environments often do not
 provide interactive interfaces for researchers that want to explore the results
 from the analyses without using a programmatic interface.  Frameworks such as
 Shiny\cite{shiny} and OpenCPU\cite{opencpu} allow application developers to
-build systems to interactively explore results from statistical analyses. These
-are useful for building exploration applications that integrate with statistical
-analyses written in the R programming language.To interpret data, experts
-regularly exploit prior knowledge via database queries and the primary
-scientific literature. There are a wealth of online databases, some of which
-provide open \glspl{api} in addition to web user interfaces that application developers
-can make use of. For visually exploring biological data there are a range of
-tools, such as Cytoscape\cite{cytoscape} and Circos\cite{circos}, that support
-importing an already-analyzed dataset to visualize and browse the data. One
-problem with these are that they are decoupled from the analysis, making it
-difficult to retrace the data processing prior to the end results.  
+build systems to interactively explore results from statistical analyses in R.
+These systems can then provide understandable graphical user interfaces on top
+of complex statistical software that require programming skills to navigate.
+To interpret data, experts regularly exploit prior knowledge via database
+queries and the primary scientific literature. There are a wealth of online
+databases, some of which provide open \glspl{api} in addition to web user
+interfaces that application developers can make use of. For visually exploring
+biological data there are a range of tools, such as Cytoscape\cite{cytoscape}
+and Circos\cite{circos}, that support importing an already-analyzed dataset to
+visualize and browse the data. One problem with these are that they are
+decoupled from the analysis, making it difficult to retrace the data processing
+prior to the end results.  
 
 The main issue for developing these types of data exploration applications is
 that they require the integration of disparate systems and tools. The datasets
@@ -51,6 +52,8 @@ provide specialized user interfaces, we show how the design patterns and ideas
 can be used in a wide range of use cases. We also provide an evaluation that
 shows that our approach is suitable for this type of interactive applications. 
 
+This chapter is based on Papers 1 and 2, as well as the general descriptions of
+the MIxT system in Paper 3. 
 The rest of the chapter is organized as follows: First we present the two
 motivating use cases for our applications. We then detail the requirements for
 these types of interactive applications. Following the requirements we detail
@@ -66,21 +69,17 @@ work, and provide a conclusion.
 The need for interactive applications has come from two different previous
 projects in the \gls{nowac} study. Both of these rely on advanced statistical
 analyses and produce comprehensive results that are interpreted by researchers
-through integration with information from online databases and interactive
-visualizations. The end results are typically large tables that require manual
-inspection. Below we describe the two applications before we detail the
-requirements, design and implementation of the applications. 
-
-\subsection{High and Low Plasma Ratios of Essential Fatty Acids} 
-The aim of the first application was a to explore the
-results from a previous published project (\cite{olsen2013plasma}, doi:
-10.1371/journal.pone.0067270) that compared gene expression in blood from
-healthy women with high and low plasma ratios of essential fatty acids. Gene
-expression differences where assessed and determined that there were 184
-differentially expressed genes. When exploring this list of 184 genes,
-functional information was retrieved from GeneCards and other repositories, and
-the list was analyzed for overlap with known pathways using MSigDB (available
-online at
+in the context of related information from online biological databases.  The end
+results from the statistical analyses are typically large tables that require
+manual inspection and linking with known biology. Below we describe the two
+applications before we detail the The aim of the first application was a to
+explore the results from a previous published project that compared gene
+expression in blood from healthy women with high and low plasma ratios of
+essential fatty acids.\cite{olsen2013plasma}  Gene expression differences where
+assessed and determined that there were 184 differentially expressed genes. When
+exploring this list of 184 genes, functional information was retrieved from
+GeneCards and other repositories, and the list was analyzed for overlap with
+known pathways using MSigDB (available online at
 \href{broadinstitute.org/gsea/msigdb}{broadinstitute.org/gsea/msigdb}). The
 researchers had to manually maintain overview of single genes, gene networks or
 pathways, and gather functional information gene by gene while assessing
@@ -651,7 +650,7 @@ OpenCPU is a system for embedded scientific computing and reproducible
 research.\cite{opencpu} Similar to the compute service in Kvik, it offers an
 HTTP \gls{api} to the R programming language to provide an interface with
 statistical methods. It allows users to make function calls to any R package and
-retrieve the results in a wide variety of formats such as JSON or PDF.  OpenCPU
+retrieve the results in a wide variety of formats such as JSON or PDF. OpenCPU
 provides a JavaScript library for interfacing with R, as well as Docker
 containers for easy installation, and has been used to build multiple
 applications.\footnote{\url{opencpu.org/apps.html}.}. The compute service in
@@ -695,7 +694,6 @@ data exploration applications for high-throughput biological datasets. We have
 iteratively developed these and ended up with an approach that allows us to
 develop applications from disparate systems. 
 
-
 As we have seen in \ref{sec:int:rel} there are many applications that provide
 visualization tools to view and browse pathway maps, most of which
 use \gls{kegg} as its main data source. The applications then either reuse
@@ -734,10 +732,6 @@ the HTTP API in Kvik making it possible for anyone to develop an
 application on top of the dataset and analyses. We acknowledge the strength of R
 for data analysis, but not for developing complex user-facing applications. 
 
-% scientific contrib
-% bio: interpret gene exprs, also 
-% cs: develop such apps
-
 There are different arguments for reusing and sharing microservices over
 libraries in bioinformatics applications, that would justify the cost of hosting
 an maintaining a set of distributed microservices.  We argue that applications
@@ -758,6 +752,8 @@ set of functionality, such as exporting data in many more formats and running
 user-submitted scripts. We did not find it necessary for these additions and
 implemented our own R interface that could provide the necessary interface for
 us to implement data exploration applications. 
+
+From our experiences developing two different data exploration applications, we 
 
 We have reused the microservices for running statistical analyses and
 fetch biological metadata, and share these between applications. This makes it
@@ -816,4 +812,10 @@ approach to build an application in cancer research, we believe that the
 microservice architecture can be used to build data exploration systems in other
 disciplines as well. 
 
-
+In summary our primary lesson learned from the experiences with develop our two
+applications, is to compose and develop a data exploration system from
+independent parts.  We chose to implement our systems using three separate
+services. A compute service to provide statistical analyses, a database service
+to provide access to biological databases, and the user interface. This makes it
+possible to quickly re-implement parts of the system, but also allow others to
+interface with its underlying components, not just the user interface. 

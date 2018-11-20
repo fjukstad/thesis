@@ -86,7 +86,8 @@ Discussion
   version. **Solution**: include pdf command in latex was missing one page.
   added it. 
 - [ ] The paper present design and implementation of the MIxT application
-  clearly, altough a broader context would be beneficial. **Solution**: 
+  clearly, altough a broader context would be beneficial. **Solution**: what
+  does the system provide? 
 - [ ] Have a look at the footnote on page 43, runaway "benchmark." 
 
 ## Chapter 4: Paper 4
@@ -122,14 +123,14 @@ Discussion
   added two related systems that are actually different. These put an entire
   workflow into a single container rather than one container per tool. 
 
-- [ ] If usability is to be considered a first-class contribution of this work,
+- [x] If usability is to be considered a first-class contribution of this work,
   is it possible to present a more quantitative evaluation of this aspct of the
   work? Right now, this is justified in qualitative terms such as "familiar",
   mentions of technologies that are asserted to be more user-friendly than
   others, etc. Would it be possible to quanntify things such as the number of
   lines in pipeline configuration files, number of commands/steps requred to
   re-run previous analyses, etc.? 
-  **Solution**:  Updated discussion, explicit mention number of lines of code
+  **Solution**:  Updated discussion, had a look at number of lines of code
   and number of commands.
   
 - [x] A more comprehensive comparison and benchmarking would be beneficial.
