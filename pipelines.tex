@@ -484,19 +484,19 @@ specification and systems that provide versioning of data.
 tools.\cite{cwl} A pipeline is written as a \gls{json} or \gls{yaml} file,
 or a mix of the two, and describes each step in detail, e.g. what tool to run,
 its input parameters, input data and output data. The pipeline descriptions
-are text files that can be under version control and shared between projects. There
-are multiple implementations of \gls{cwl} workflow platforms, e.g. the reference
-implementation cwl\_runner\cite{cwl}, Arvados\cite{arvados}, Rabix\cite{rabix},
-Toil\cite{toil}, Galaxy\cite{goecks2010galaxy}, and AWE.\cite{awe} It is no
-requirement to run tools within containers, but implementations can support it.
-There are few of these tools that support versioning of the data.  Galaxy is an
-open web-based platform for reproducible analysis of large high-throughput
-datasets.\cite{goecks2010galaxy} It is possible to run Galaxy on local compute
-clusters, in the cloud, or using the online Galaxy site.\footnote{Available at
-\url{usegalaxy.org}.} In Galaxy users set up an analysis pipeline using a
-web-based graphical interface, and it is also possible to export or import an
-existing workflow to an \gls{xml} file.\footnote{An alpha version of Galaxy with
-\gls{cwl} support is available at
+are text files that can be under version control and shared between projects.
+There are multiple implementations of \gls{cwl} workflow platforms, e.g. the
+reference implementation cwl\_runner\cite{cwl}, Arvados\cite{arvados},
+Rabix\cite{rabix}, Toil\cite{toil}, Galaxy\cite{goecks2010galaxy}, and
+AWE.\cite{awe} It is no requirement to run tools within containers, but
+implementations can support it.  There are few of these tools that support
+versioning of the data.  Galaxy is an open web-based platform for reproducible
+analysis of large high-throughput datasets.\cite{goecks2010galaxy} It is
+possible to run Galaxy on local compute clusters, in the cloud, or using the
+online Galaxy site.\footnote{Available at \url{usegalaxy.org}.} In Galaxy users
+set up an analysis pipeline using a web-based graphical interface, and it is
+also possible to export or import an existing workflow to an \gls{xml}
+file.\footnote{An alpha version of Galaxy with \gls{cwl} support is available at
 \url{github.com/common-workflow-language/galaxy}.}  We chose not to use Galaxy
 because of missing command-line and scripting support, along with little support
 for running workflows with different configurations.\cite{spjuth2015experiences}
@@ -505,12 +505,12 @@ from the pipeline. This is similar to the checksums found in the git-lfs pointer
 files, but they do not store the original files for later. An interesting
 project that uses CWL in production is The Cancer Genomics
 Cloud\cite{lau2017cancer}. They currently support CWL version 1.0 and are
-planning on integrating Rabix as its CWL executor. 
-Arvados stores the data in a distributed storage system, Keep, that provides
-both storage and versioning of data. We chose not to use \gls{cwl} and its
-implementations because of its relaxed restrictions on having to use containers,
-its verbose pipeline descriptions, and the complex compute architecture required
-for some implementations. We are however experimenting with an extension to
+planning on integrating Rabix as its CWL executor.  Arvados stores the data in a
+distributed storage system, Keep, that provides both storage and versioning of
+data. We chose not to use \gls{cwl} and its implementations because of its
+relaxed restrictions on having to use containers, its verbose pipeline
+descriptions, and the complex compute architecture required for some
+implementations. We are however experimenting with an extension to
 \texttt{walrus} that translates pipeline descriptions written in \texttt{walrus}
 to \gls{cwl} pipeline descriptions. 
 
@@ -571,21 +571,19 @@ containers for life science research. The BioContainers and
 Bioboxes\cite{belmann2015bioboxes} projects address the challenge of installing
 bioinformatics data analysis tools by maintaining a repository of Docker
 containers for commonly used data analysis tools. Docker containers are shown to
-have better than, or equal performance as \glspl{vm}.\cite{di2015impact} Both
-forms of virtualization techniques introduce overhead in I/O-intensive
-workloads, especially in \glspl{vm}, but introduce negligible CPU and memory
-overhead. For precision medicine pipelines the overhead of Docker containers
-will be negligible since these tend to be compute-intensive and they typically
-run for several hours.\cite{di2015impact} Containers have also been proposed as
-a solution to improve experiment reproducibility, by ensuring that the data
-analysis tools are installed with the same
-responsibilities.\cite{boettiger2015introduction} 
-
+have better than, or equal performance as \glspl{vm}, and introduce negligible
+overhead opposed to executing on bare metal.\cite{di2015impact} 
+While Docker containers require a bootstrapping phase before executing any code,
+this phase is negligible in the compute-intensive precision medicine pipelines
+that run for several hours. Containers have also been proposed as a solution
+to improve experiment reproducibility, by ensuring that the data analysis tools
+are installed with the same responsibilities.\cite{boettiger2015introduction} 
 
 % 4 later: 
 % reinventing the wheel: 
 % - learning, want to learn
 % - the "wheel" is improved. it did not start out w/ rubber etc. 
+% - it's a phd, not 
 
 \section{Discussion}
 \texttt{walrus} is a general tool for analyzing any type of dataset from
