@@ -30,13 +30,11 @@ Suggested for further discussion and analysis in the revison could include:
 
 # TODOs  
 ## All chapters (2 -> 5) 
-[ ] Introduction/Motivation
-
+[ ] Introduction
 1. Describe the demands of the users.
 2. Highlight what impact such systems will have on the scientific community.
    i.e. broader impact on other groups etc. 
-
-
+   
 [ ] Discussion
 1.	Significance in bioinformatics/computer science.
 2.	Significance in a clinical setting/biology/life sciences
@@ -44,14 +42,15 @@ Suggested for further discussion and analysis in the revison could include:
     the related work
 
 ## Chaoter 1
-- Expand 1.1 w/ forskerstandpunkt 
+- [x] Expand 1.1 w/ forskerstandpunkt : Add paragraph on high-throughput and why
+  important to care about analyses
 
 ## Chapter 2
 
 Introduction
 
 - [x] Describe the demands of the users.
-- [ ] Highlight what impact such systems will have on the scientific community.
+- [x] Highlight what impact such systems will have on the scientific community.
    i.e. broader impact on other groups etc. 
 
 Discussion
@@ -65,15 +64,15 @@ Discussion
 ## Chapter 3 (Paper 1) 
 Introduction
 
-- [ ] Describe the demands of the users.
-- [ ] Highlight what impact such systems will have on the scientific community.
+- [x] Describe the demands of the users.
+- [x] Highlight what impact such systems will have on the scientific community.
    i.e. broader impact on other groups etc. 
 
 Discussion
 
-- [ ] Significance in bioinformatics/computer science.
-- [ ] Significance in a clinical setting/biology/life sciences
-- [ ]  Benefit and limitations of the system in comparison to the systems from
+- [x] Significance in bioinformatics/computer science.
+- [x] Significance in a clinical setting/biology/life sciences
+- [x]  Benefit and limitations of the system in comparison to the systems from
     the related work
 
 - [x] Vague in who and what the Kvik Framework is intended for. **Solution**:
@@ -85,10 +84,10 @@ Discussion
 - [x] References found in online version, but not part of the committees printed
   version. **Solution**: include pdf command in latex was missing one page.
   added it. 
-- [ ] The paper present design and implementation of the MIxT application
+- [x] The paper present design and implementation of the MIxT application
   clearly, altough a broader context would be beneficial. **Solution**: what
   does the system provide? 
-- [ ] Have a look at the footnote on page 43, runaway "benchmark." 
+- [x] Have a look at the footnote on page 43, runaway "benchmark." 
 
 ## Chapter 4: Paper 4
 
@@ -100,9 +99,9 @@ Introduction
 
 Discussion
 
-- [ ] Significance in bioinformatics/computer science.
-- [ ] Significance in a clinical setting/biology/life sciences
-- [ ]  Benefit and limitations of the system in comparison to the systems from
+- [x] Significance in bioinformatics/computer science.
+- [x] Significance in a clinical setting/biology/life sciences
+- [x]  Benefit and limitations of the system in comparison to the systems from
     the related work
 
 - [x] Not clear why the pipelines were chosen. **Solution**: Add a reference to
@@ -137,7 +136,7 @@ Discussion
   **Solution**: Expanded related works w/ more tools. Did not perform any
   additional benchmarking.
 
---------- FROM REVIEWERS OF PAPER ------------
+### FROM REVIEWERS OF PAPER
 - [ ] Discussion: disadvantages such as prerequisites and dependencies,
   understanding of docker technology, data transfer consisteration, latency,
   less flexibility than cli (wtf, reviewer), scalability
@@ -147,7 +146,6 @@ Discussion
 - [ ] Other container technologies such as Shifter or singularity?
 
 - [ ] Have a look at https://f1000research.com/posters/7-916
-------------------END REVIEWERS -----------------------
 
 ## Structure
 - The structure of the dissertation could be improved. The lesson learned and
@@ -157,24 +155,19 @@ Discussion
   figures int he discussion rather than putting the work in a broader context. 
   **Solution**: Do nothing. 
 
-
--i både intro og diskusjon: løfte blikket, generaliserbarhet av problemene og
+## Fra Karina: 
+- i både intro og diskusjon: løfte blikket, generaliserbarhet av problemene og
  løsningene, knytt opp mot litteratur
--hvis duskusjonen utvides så kan enkelte andre deler kuttes ned på 
+- hvis duskusjonen utvides så kan enkelte andre deler kuttes ned på 
 - kill your
- darlings :)
--vær tro mot kommentarene: svar punkt for punkt, gi dem det de vil ha, gjerne
- med teskje 
+  darlings :)
+- vær tro mot kommentarene: svar punkt for punkt, gi dem det de vil ha, gjerne
+  med teskje 
 
- unngå at verktøy skal ligge brakk? 
- fremtidig verdi av arbeidet> 
- forutsetninger for fortsatt bruk? 
- security data access> GDPR? helsedata? nevne dette, hvor er data? 
- et nytt delkapittel med en generell diskusjon
+- unngå at verktøy skal ligge brakk? 
+- fremtidig verdi av arbeidet> 
+- forutsetninger for fortsatt bruk? 
+- security data access> GDPR? helsedata? nevne dette, hvor er data? 
+- et nytt delkapittel med en generell diskusjon (discussion, conclusiion &
+  lesson, future work)
 
-discussion
-conclusiion & lesson
-future work
-
-diskusjonkapittel: The dissertation should have had a broader discussed of the
-concepts, needs of the users and comparable tools and approaches.

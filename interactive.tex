@@ -523,7 +523,7 @@ queries to each of its two supporting services.
 
 To evaluate the database service we measure the query time for retrieving
 information about a specific gene with and without caching.\footnote{More
-details online at \url{github.com/fjukstad/kvik/tree/master/db/benchmark}.} This
+details online at \url{github.com/fjukstad/kvik}.} This
 illustrates how we can improve performance in an application by using a database
 service rather than accessing the database directly. 
 We use a AWS EC2 \emph{t2.micro}\footnote{See
@@ -752,8 +752,6 @@ set of functionality, such as exporting data in many more formats and running
 user-submitted scripts. We did not find it necessary for these additions and
 implemented our own R interface that could provide the necessary interface for
 us to implement data exploration applications. 
-
-From our experiences developing two different data exploration applications, we 
 
 We have reused the microservices for running statistical analyses and
 fetch biological metadata, and share these between applications. This makes it

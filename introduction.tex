@@ -70,17 +70,17 @@ well-defined interfaces, configurations, and orchestration provide the necessary
 foundation for these systems. This allows for easy development and sharing of
 specialized analysis systems.
 
-\glsreset{sme}
+% \glsreset{sme}
 
-The resulting approach, which we have called \glspl{sme}, argues that
-applications for analyzing and exploring biological datasets should be modeled
-as a composition of individual systems and tools. We believe that the Unix
-philosophy to \emph{"Do one thing and do it well"}\cite{raymond2003art}
-appropriately summarizes many existing tools in bioinformatics, and we should
-aim to build applications as compositions of these tools. Our \gls{sme} approach
-resembles the traditional Unix-like pipelines, in combination with the
-service-oriented architecture\cite{erl2005service} or the microservice
-architectural style now popularized by web-scale distributed
+The resulting approach, which we have called \glsdisp{sme}{Small Modular
+Entities (SMEs)}, argues that applications for analyzing and exploring
+biological datasets should be modeled as a composition of individual systems and
+tools. We believe that the Unix philosophy to \emph{"Do one thing and do it
+well"}\cite{raymond2003art} appropriately summarizes many existing tools in
+bioinformatics, and we should aim to build applications as compositions of these
+tools. Our \gls{sme} approach resembles the traditional Unix-like pipelines, in
+combination with the service-oriented architecture\cite{erl2005service} or the
+microservice architectural style now popularized by web-scale distributed
 systems.\cite{nadareishvili2016microservice}
 
 The approach has several key advantages when implementing systems to analyze and
@@ -117,6 +117,16 @@ efficiently provide reproducible and easy to use environments to develop
 applications for exploring and analyzing biological datasets. 
 
 \section{Problems with Data Analysis and Exploration in Bioinformatics}
+High-throughput technologies for cheaper and faster data generation, as well
+as simpler access to the datasets have revolutionized
+biology.\cite{kahn2011future, alyass2015big} While these datasets can reveal the
+genetic basis of disease in patients, they require the collaborative efforts of
+experts from different fields to design and perform the analyses, and to to
+interpret the results.\cite{mardis20101} Since the inferences are only as good
+as the information they are based on, there is a need to ensure the quality of
+the underlying data and the analysis pipelines
+used.\cite{international2018biocuration}
+
 Today shell scripts are often used for building analysis pipelines in
 bioinformatics. This comes from the familiarity of the shell environment and the
 \gls{cli} of the different tools. However, there is a move towards using more
