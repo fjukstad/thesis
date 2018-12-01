@@ -356,7 +356,7 @@ changes and the person responsible for them. It is often necessary to roll back
 to previous versions or a dataset or analysis code, or to identify the
 researches that worked on specific analyses. 
 
-In the \gls{nowac} study we promote the use of git to version control both
+In the \gls{nowac} study we encourage the use of git to version control both
 source code and data. 
 
 \textbf{Collaborate and share code through \gls{scm} systems}. Traditional
@@ -373,17 +373,12 @@ Gitlab\cite{gitlab} installation. We also open-source code on Github.
 % \url{github.com/uit-bdps/nowac} and \url{github.com/uit-bdps/pippeline}. These
 % public repositories do not contain any data, but analysis code and
 % documentation. 
-While we aim to make all our code, documentation, and datasets public, we are
-unfortunately not there yet. We are working on a public version of the
-\texttt{nowac} R package and the Pippeline, but we must guarantee that the
-respective repositories do not contain any sensitive information from the
-datasets. This is ongoing work. 
 
 \section{Discussion}
 In this chapter we have proposed an approach to enable reproducible analyses in
-a complex epidemiological study. While we applied our approach to specific
-research study, we believe that it is generalizable to other scientific
-disciplines. 
+a complex epidemiological study. While we applied our approach to a specific
+epidemiological research study, we believe that it is generalizable to other
+biomedical analyses and even other scientific disciplines. 
 
 Making science reproducible is of growing interest. In this chapter we outlined
 the main best practices from our experiences in systems epidemiology research,
@@ -392,56 +387,53 @@ practices we arrived at follow the lines of other have described before
 us,\cite{sandve2013ten} and we believe that these are necessary for both our
 research group, but also to the scientific community, to follow. 
 
-We developed an R package for researchers in our study to simplify their
-computational analyses. With the R package researchers could investigate the
-available datasets and analyze them in the same environment. Providing a single
-software package shortens the time to analysis, and improves researcher
-productivity since they do not have to start from scratch when analyzing a new
-dataset. In addition, it standardizes the analyses and makes the data analysis
-process more transparent. We believe that our solution can be applied to
-other datasets and projects within different scientific disciplines, enabling
-more researchers to take advantage of the many collected, but not yet
-analysis-ready datasets. 
-
 Bundling and sharing the analysis code together with the datasets behind a
 research paper is not a new idea. Sharing these collections, or compendia, of
 data, text, and code have been described more than a decade
-ago.\cite{gentleman2007statistical}
-There are many examples of studies that put in significant efforts to develop
-tools in R for transparent data science, to produce better science in less
+ago.\cite{gentleman2007statistical} It is now becoming standard for researchers
+to submit the code and data along with their research manuscripts.  There are
+many examples of studies that put in significant efforts to develop tools in R
+for transparent data science, to produce better science in less
 time.\cite{lowndes2017our,mcmurdie2013phyloseq,finak2018datapackager} In common
 is the explicit documentation of the final results using reproducible data
 analysis reports, and functions from shared R packages to generate these. They
 also structure the datasets and document these in a standardized manner to
-simplify the analysis. Many of these packages are open-sourced for everyone to
-use, and we hope to do the same. 
+simplify the analysis. 
+
+While the majority of the researchers in \gls{nowac} have previously used the
+closed-source and heavily licensed SAS or STATA for their analyses of the
+questionnaire data, all researchers working on molecular data are using R.
+We developed an R package for researchers in our study to simplify
+their analyses on both questionnaire and molecular datasets.  With
+the R package researchers could investigate the available datasets and analyze
+them in the same environment. The great strength of R comes from its many
+up-to-date and actively maintained packages for analyzing, plotting, and
+interpreting data. Bioconductor\cite{bioconductor} and the \gls{cran}\cite{cran}
+provide online hosing for many packages, and users can mix and match these
+packages to fit their need. In addition, R is open-source and free to use on a
+wide range of operating systems and environments. Providing a single software
+package in \gls{nowac} simplifies the startup time for researchers to start
+analyzing datasets within the study.  In addition, it standardizes the analyses
+and makes the data analysis process more transparent.  We believe that our
+solution can be applied to other datasets and projects within different
+scientific disciplines, enabling more researchers to take advantage of the many
+collected, but not yet analysis-ready datasets. 
 
 While taking advantage of powerful computational tools is beneficial, they often
-require trained users.  A potential drawback of using an R package version
-controlled in \texttt{git} to manage, document, and analyze research datasets is
-the prerequisite programming skills for researchers. This may be an obstacle for
-many researchers, but once they master the skills needed to analyze their data
-programmatically, not just through a point-and-click interface, we believe that
-it provides deeper knowledge into the analyses. While programming skills may be
-absent in the training of many researchers, we believe that it is just a matter
-of time before programming skills are common in the scientific community. 
+require trained users. A potential drawback of using an R package that is
+version controlled in \texttt{git} to manage, document, and analyze research
+datasets is the prerequisite programming skills for researchers. This may be an
+obstacle for many researchers, but once they master the skills needed to analyze
+their data programmatically, not just through a point-and-click interface, we
+believe that it provides deeper knowledge into the analyses. While programming
+skills may be absent in the training of many researchers, we believe that it is
+just a matter of time before programming skills are common in the scientific
+community. 
 
-While the majority of the researchers that have worked on the project have used
-SAS for their analyses of the questionnaire data, all researchers working on
-molecular data are using R. The great strength of R comes from its many
-packages for analyzing, plotting, and interpreting data. An R package consists
-of a code, documentation, tests, and data.  Bioconductor\cite{bioconductor} and
-the \gls{cran}\cite{cran} provide online hosing for many packages, and users can
-mix and match these packages to fit their need. 
-
-There are many approaches to store and analyze biological datasets. Our approach
-is targeted towards R users by building an R package, but as we demonstrate in
-the next chapters, we have designed systems that interface directly with data
-and analyses from outside the R ecosystem. 
-
-One major drawback with the implementation of our approach in the \texttt{nowac}
-R package is its size. While microarray datasets are relatively small compared
-to sequencing data, when these datasets grow in number the total size grows as
+There are many approaches to store and analyze biological datasets. One major
+drawback with the implementation of our approach in the \texttt{nowac} R package
+is its size. While microarray datasets are relatively small compared to
+sequencing data, when these datasets grow in number the total size grows as
 well. This will impact the compile time for the R package, and also its size
 when it is shared with other researchers. Others have also reported that package
 size is an issue, but are also investigating
@@ -454,6 +446,18 @@ has been expanded to work with RNA-seq, Methylation and microRNA datasets as
 well. By using the Pippeline with new datasets researchers now have access to
 the full preprocessing history behind each dataset available in the research
 study. 
+
+As mentioned, we believe that our approach is applicable data management and
+anlysis in other research groups as well. Other research groups can follow the
+steps as described in this chapter to organize datasets and code in a software
+package, e.g. an R package, and share this both within and outside the research
+group. Sharing the analysis software through websites such as Github will help
+other researchers apply the techniques on their own datasets. While we aim to
+make all our code, documentation, and datasets public, we are unfortunately not
+there yet. We are working on a public version of the \texttt{nowac} R package
+and the Pippeline, but we must guarantee that the respective repositories do not
+contain any sensitive information from the datasets. This is ongoing work, but
+an important step toward making the research more transparent. 
 
 % GDPR & NOWAC, anything w/ a LPNR is sensitive 
 
@@ -472,6 +476,6 @@ studies:
         steps.
 \end{itemize} 
 
-In this chapter we have demonstrated one approach that we believe help
-researchers follow these to enable reproducible research. 
-
+In this chapter we have demonstrated one approach for reproducible management
+and analysis of biological data. The needs of the users that we describe in this
+chapter helped form the work in the next two chapters. 

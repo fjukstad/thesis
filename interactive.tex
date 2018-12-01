@@ -69,17 +69,21 @@ work, and provide a conclusion.
 The need for interactive applications has come from two different previous
 projects in the \gls{nowac} study. Both of these rely on advanced statistical
 analyses and produce comprehensive results that are interpreted by researchers
-in the context of related information from online biological databases.  The end
+in the context of related information from online biological databases. The end
 results from the statistical analyses are typically large tables that require
 manual inspection and linking with known biology. Below we describe the two
-applications before we detail the The aim of the first application was a to
-explore the results from a previous published project that compared gene
-expression in blood from healthy women with high and low plasma ratios of
-essential fatty acids.\cite{olsen2013plasma}  Gene expression differences where
-assessed and determined that there were 184 differentially expressed genes. When
-exploring this list of 184 genes, functional information was retrieved from
-GeneCards and other repositories, and the list was analyzed for overlap with
-known pathways using MSigDB (available online at
+applications before we detail the requirements, design and implementation of the
+applications.
+
+\subsection{High and Low Plasma Ratios of Essential Fatty Acids} 
+The aim of the first application was a to explore the results from a previous
+published project that compared gene expression in blood from healthy women with
+high and low plasma ratios of essential fatty acids.\cite{olsen2013plasma}  Gene
+expression differences where assessed and determined that there were 184
+differentially expressed genes. When exploring this list of 184 genes,
+functional information was retrieved from GeneCards and other repositories, and
+the list was analyzed for overlap with known pathways using MSigDB (available
+online at
 \href{broadinstitute.org/gsea/msigdb}{broadinstitute.org/gsea/msigdb}). The
 researchers had to manually maintain overview of single genes, gene networks or
 pathways, and gather functional information gene by gene while assessing
