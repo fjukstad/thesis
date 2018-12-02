@@ -1,17 +1,36 @@
 \chapter{Conclusion}
-How should we design systems for analyzing and exploring the high-throughput
+How should we design systems for analyzing and exploring high-throughput
 datasets that facilitate sharing, reuse, and reproducibility? This dissertation
 shows that in many cases the solution is to decompose the applications into
 small entities that communicate using open protocols. This enables the
 development of unified systems for reproducible exploration and analysis. 
 
-While high-throughput datasets and computing systems will undoubtedly evolve, we
+While biological datasets and computing systems will undoubtedly evolve, we
 believe that the \gls{sme} approach proposed here can offer a new perspective on
 developing applications for exploring and analyzing biological data. We hope
 that our approach can steer the development of bioinformatics applications away
 from large monolithic applications to applications composed of diverse systems.
-We believe that this approach can help the community develop new systems to
-faster meet the needs of the upcoming biological dataset analyses. 
+This approach facilitates reusing existing tools and systems, which will help
+the community develop new systems for exploring both current and new biological
+datasets. 
+
+In Chapter \ref{chap:intro} we identified four main challenges for application
+developers to undertake when building systems for analyzing and exploring
+biological datasets. In our data exploration applications, we solved the first
+challenge by organizing the analysis code and datasets in the \gls{nowac} study
+into a single versioned software package. In the long-running analysis pipelines
+we solved this in \texttt{walrus} by describing the pipeline using a textual
+representation, and putting it as well as input, intermediate, and output
+datasets, under version control. We solved the second challenge by integrating
+the user-facing visualizations with the underlying statistical analyses from
+different R packages. By implementing our data exploration applications as
+compositions of systems that communicated through open protocols, using a
+microservice architecture, we solved the third challenge.  In our data
+exploration applications we solved the fourth challenge by packaging each
+component in open-sourced Docker containers. We solved the fourth challenge in
+the data analysis pipelines by using an open format to describe the pipelines,
+along with sharing the Docker images used for all steps in the different
+pipelines.
 
 In Chapter \ref{biodata} we show an approach to store the microarray data and
 analysis code from a complex epidemiological study in a shareable software
@@ -22,36 +41,39 @@ future advances in cancer research is dependent on sharing of both datasets and
 analysis code. 
 % We also show the usefulness our approach as a basis for standardizing the
 % preprocessing of its biological datasets. 
-In chapter \ref{interactive} we show how we can build
-interactive data exploration applications that interface with these software
-packages through a microservice architecture. We have implemented this approach
-through the microservices in \emph{Kvik}. We show that this architecture style
-is suitable for building such applications, and have used it to develop the
-\emph{Kvik Pathways} and \emph{MIxT} web applications. These have been
-successfully used to explore transcriptional profiles in the \gls{nowac} study,
-especially to investigate the interactions between genes and pathways in the
-patient tumor and blood cells. 
-We believe that the cancer research community in general will benefit greatly if more
-projects start to develop their applications using our approach. It simplifies
-sharing of computational resources, and we believe that the future of cancer
-research will depend on collaborative efforts. 
-In chapter \ref{pipeline} use the same approach, to compose systems of disparate
-tools, for developing biological data
-analysis pipelines, implemented in \texttt{walrus}. 
-To ensure reproducible results, we supplement the processing
-with data versioning to track provenance of the data through the pipeline and
-across pipeline versions. We have used \texttt{walrus} in the clinical setting
-to develop a \gls{wes} pipeline for discovering \glspl{snp}, genomic
-variants, and somatic mutations, in a breast cancer patient's metastatic
-lesion. 
+In Chapter \ref{interactive} we show how we can build interactive data
+exploration applications that interface with these software packages through a
+microservice architecture. We have implemented this approach through the
+microservices in \emph{Kvik}. We show that this architecture style is suitable
+for building such applications, and have used it to develop the \emph{Kvik
+Pathways} and \emph{MIxT} web applications. These have been successfully used to
+explore transcriptional profiles in the \gls{nowac} study, especially to
+investigate the interactions between genes and pathways in the patient tumor and
+blood cells.  We believe that the cancer research community in general will
+benefit greatly if more projects start to develop their applications using our
+approach. It simplifies sharing of computational resources, and we believe that
+the future of cancer research will depend on collaborative efforts.  In Chapter
+\ref{pipeline} use the same approach, to compose systems of disparate tools, for
+developing biological data analysis pipelines, implemented in \texttt{walrus}.
+To ensure reproducible results, we supplement the processing with data
+versioning to track provenance of the data through the pipeline and across
+pipeline versions. We have used \texttt{walrus} in the clinical setting to
+develop a \gls{wes} pipeline for discovering \glspl{snp}, genomic variants, and
+somatic mutations, in a breast cancer patient's metastatic lesion. 
 
 Combined, these systems demonstrate the applicability of our approach across a
-range of different use cases. 
+range of different use cases. The systems have already showed their usability,
+and through their expansions they show the potential broader impact. As
+already mentioned, after this work was concluded the R package in Chapter
+\ref{biodata} has been used to analyze and manage new datasets. The MIxT
+application from Chapter \ref{interactive} has been expanded to new datasets.
+\texttt{walrus} from Chapter \ref{pipeline} have also been used to develop new
+pipelines for other datasets than we originally used it for. In addition, the
+ideas and approaches are generalizable to other disciplines and datasets. 
 
 In the rest of this chapter we summarize end-to-end lessons learned during this
-work. We then discuss the work in the context of cancer research and in the clinical
-setting,
-before we propose areas for future work. 
+work. We then discuss the work in the context of cancer research and in the
+clinical setting, before we propose areas for future work. 
 
 
 \section{Lessons Learned}

@@ -50,12 +50,12 @@ analysis will have completed. These features will together promote reproducible
 science and improve the overall quality of the analyses. 
 
 \subsection{Initial Data Analysis Pipeline} 
-We have analyzed DNA sequence data from a breast cancer patient's
-primary tumor and adjacent normal cells to identify the molecular signature of
-the patient's tumor and germline. When the patient  later relapsed we analyzed
-sequence data from the patient's metastasis to provide an extensive comparison
-against the primary and to identify the molecular drivers of the patient's
-tumor. 
+As part of a patient's treatment, we have analyzed DNA sequence data from the
+patient's primary tumor and adjacent normal cells to identify the molecular
+signature of the patient's tumor and germline. When the patient later relapsed
+we analyzed sequence data from the patient's metastasis to provide an extensive
+comparison against the primary and to identify the molecular drivers of the
+patient's tumor. 
 
 We used \gls{wgs} to sequence the primary tumor and adjacent normal cells at an
 average depth of 20, and \gls{wes} at an average depth of 300. The biological
@@ -76,9 +76,6 @@ developed the analysis pipeline. The pipeline consisted of tools including
 picard\cite{picard}, fastqc\cite{fastqc}, trimmomatic\cite{trimmomatic}, and the
 \gls{gatk}.\cite{gatk} While the analysis tools themselves provide the necessary
 functionality to give insights in the disease, 
-% LAB: Kan vi gi ett illustrerende eksempel på hvorfor dette var viktig i
-% "motivating use case". Ellers blir det rart hvis hovedpoenget med walrus ikke
-% var motivert.
 ensuring that the analyses could be fully reproduced later left areas in need of
 improvement.
 
@@ -109,12 +106,12 @@ noted features that pipeline management systems should satisfy:
         containers, such as Docker, and hosting them on an online registry
         simplifies the tool installation process since the only requirement is
         the container runtime.
-    \item While bash scripts have their
-        limitations, using a well-known format that closely resembles the normal
-        command-line use clearly have its advantages. It is easy to understand
-        what tools were used, their input parameters, and the data flow.
-        However, from our experience when these analysis scripts grow too large
-        they become too complex to modify and maintain. 
+    \item While bash scripts have their limitations, using a well-known format
+        that closely resembles the normal command-line use clearly have its
+        advantages. It is easy to understand what tools were used, their input
+        parameters, and the data flow.  However, from our experience when these
+        analysis scripts grow too large they become too complex to modify and
+        maintain. 
     \item While there are new and promising state-of-the art pipeline
         managers, many of these also require state-of-the-art computing
         infrastructure to run. This may not be the case at cancer research
@@ -160,17 +157,19 @@ tool that easily integrates with current bioinformatic tools and workflows. It
 runs both natively or within its own Docker container to simplify its
 installation process.
 
-With \texttt{walrus} we target pipeline developers that use command-line tools
-and scripting languages to build and run analysis pipelines. Users can use
-existing Docker containers from sources such as
-BioContainers\cite{biocontainers} or build containers with their own tools.  We
+With \texttt{walrus} we target pipeline developers that are familiar with
+command-line tools and scripting languages to build and run analysis pipelines.
+Users can use existing Docker containers from sources such as
+BioContainers\cite{biocontainers} or build containers with their own tools. We
+have created an open repository that currently contains 18 different Docker
+images with different tools for high-throughput data
+analysis.\footnote{Available at \url{github.com/fjukstad/seq}.}  We
 integrate with the current workflow using git to version control analysis
-scripts, and use \texttt{git-lfs} for versioning of datasets as well. We have
-designed the pipeline description format resembles the command line syntax as
-much as possible. This is one of the major strengths of walrus. It uses a
-familiar syntax and format, and does not require the users to explicitly
-declare which files in the pipeline to version control. 
-
+scripts, and use \texttt{git-lfs} for versioning of datasets as well.  The
+pipeline description format in \texttt{walrus} resembles standard command line
+syntax. In addition, \texttt{walrus} automatically track and version input,
+intermediate, and output files without users having to explicitly declare these
+in the description. 
 
 \subsection{Pipeline Configuration}
 Users configure analysis pipelines by writing pipeline description files in a
@@ -226,7 +225,7 @@ the command-line interface of \texttt{walrus} to run the analysis pipeline.
 it for the user. It uses the input and output fields of each pipeline stage to
 construct a \gls{dag} where each node is a pipeline stage and the links are
 input/output data to the stages. From this graph \texttt{walrus} can determine
-parallelizable stages and coordinate the execution of the pipeline. 
+parallel stages and coordinate the execution of the pipeline. 
 
 In \texttt{walrus}, each pipeline stage is run in a separate container, and
 users can specify container versions in the pipeline description to specify the
@@ -375,7 +374,7 @@ along with other example pipelines.
 \subsection{Example Dataset}
 To demonstrate the performance of \texttt{walrus} and the ability to track and
 detect changes in an analysis pipeline, we have implemented one of the variant
-calling pipelines from \cite{cornish2015comparison} using tools from picard and
+calling pipelines from \cite{cornish2015comparison} using tools from Picard and
 the \gls{gatk}. We show the storage and computational overhead of our approach,
 and the benefit of capturing the pipeline specification using a pipeline
 manager.  The pipeline description and code is available along with
@@ -409,7 +408,7 @@ previous pipeline configuration.
 
 Reproducing results from a scientific publication can be a difficult task. For
 example, because the rendering of the online version of the pipeline in
-\cite{cornish2015comparison} converts two consecutive hypens (\texttt{--})
+\cite{cornish2015comparison} converts two consecutive hyphens (\texttt{--})
 into single em dashes (---), the pipeline will not run using the specified input
 parameters. However, PDF versions of the paper lists the parameters correctly.
 In addition, the input filenames in the variant calling step do not correspond
@@ -591,16 +590,17 @@ different scientific disciplines, not just genomic datasets in bioinformatics.
 Users specify a workflow using either a \gls{yaml} or \gls{json} format, and
 each step in the workflow is run within a Docker container. \texttt{walrus}
 tracks input, intermediate, and output datasets with git to ensure transparency
-and reproducibility of the analyses. Through these features \texttt{walrus}
-helps to ensure repeatability of the computation analyses of a research project. 
+and reproducibility of the analyses. Through these features, \texttt{walrus}
+helps to ensure repeatability of the computation analyses of a research project.
 
 Precision medicine requires flexible analysis pipelines that allow researchers
-to explore different tools and parameters to analyze their data.  While there
+to explore different tools and parameters to analyze their data. While there
 are best practices to develop analysis pipelines for genomic datasets, e.g. to
 discover genomic variants, there is still no de-facto standard for sharing the
-detailed descriptions to simplify re-using and reproducing existing work. With
-\texttt{walrus} we provide one alternative to develop and share pipeline
-descriptions.  
+detailed descriptions to simplify re-using and reproducing existing work.
+\texttt{walrus} provides a solution to iteratively develop and execute
+analysis pipelines based on a simple textual description which can be shared
+across systems.
 
 Pipelines typically need to be tailored to fit each project and patient, and
 different patients will typically elicit different molecular patterns that
@@ -645,12 +645,14 @@ output data verbosely. We believe that the tool, \texttt{walrus}, can detect
 these, and will handle this for the user. This will in turn make the pipeline
 descriptions of \texttt{walrus} shorter in terms of lines of code.  
 
-While systems such as Galaxy provide a graphical user interface, \texttt{walrus}
-requires that its users know how to navigate the commandline and have experience
-with systems such as git and Docker, to analyze a dataset. Using a commandline
+While systems such as Galaxy provide \glspl{gui}, \texttt{walrus}
+requires that its users know how to navigate the command line and have experience
+with systems such as git and Docker, to analyze a dataset. Using a command line
 interface to run analysis pipelines has the potential of speeding up the
 analysis process, since its users do not have to click through a user interface
-before running a pipeline.
+before running a pipeline. We have therefore designed \texttt{walrus} for users
+that have experience with the command line, and are the ones who set up and
+maintain pipelines for others. 
 
 We have tried to minimize the number of available commands in \texttt{walrus},
 and compared to other tools it shows its benefit when comparing a pipeline run
@@ -667,6 +669,16 @@ there are only a few public \texttt{gif-lfs} hosting platforms for datasets
 larger than a few gigabytes, making it necessary to host these in-house.
 In-house hosting may also be a requirement at different medical institutions.  
 
+An additional benefit with \texttt{walrus} that we have not discussed yet, is
+its portability. By only relying on Docker, users can develop their pipeline on
+a local system, before moving the pipeline to a larger compute node, or the
+cloud. This may be helpful for developers implementing a pipeline for a large
+research study. The user can develop the pipeline locally for a single
+sample, before moving the pipeline execution to a powerful compute node and
+running it for all samples in the study.  
+
+
+\section{Future Work}
 We aim to investigate the performance of running analysis pipelines with
 \texttt{walrus}, and the potential benefit of its built-in data parallelism.
 While our \gls{wes} analysis pipeline successfully run steps in parallel for the
@@ -681,9 +693,13 @@ the lines of our proposed approach. Software container solutions provide
 valuable information in the reporting of the analyses, and they impose little
 performance overhead. Further, the development of container orchestration
 systems such as Kubernetes is getting wide adoption nowadays, especially in
-web-scale internet companies. However, the adoption of such systems in a
-clinical setting depend on support from more tools, and also the addition
-of new compute infrastructure. 
+web-scale internet companies. This will provide simpler orchestration of the
+individual pipeline steps in analysis pipelines based on software containers,
+such as the ones we develop in \texttt{walrus}. However, the adoption of such
+systems in a clinical setting depend on support from more tools, and also the
+addition of new compute infrastructure. 
+
+% Portability: move pipeline between dev comp, azure, hunt, stallo...
 
 \section{Conclusions} 
 We have designed and implemented \texttt{walrus}, a tool for developing 
@@ -695,3 +711,18 @@ provides the foundation for reproducible data analyses in the clinical setting.
 We have used \texttt{walrus} to analyze a patient's metastatic lesions and
 adjacent normal tissue to provide insights and recommendations for  cancer
 treatment. 
+
+From our experiences, we can extract general design principles for pipeline
+tools used in both precision medicine and other sciences. These tools should be
+designed such that they: 
+
+\begin{itemize} 
+    \item Provide version control mechanisms for input, intermediate, and output
+        data, as well as tool versions and their configuration.
+    \item Provide simple access to tools and their different versions, using for
+        example software container technology. 
+    \item Provide simple addition of new tools to existing pipeline
+        configurations. 
+    \item Use well-known formats to describe the setup of the analysis pipeline.
+\end{itemize}
+
