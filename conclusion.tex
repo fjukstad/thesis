@@ -18,17 +18,17 @@ In Chapter \ref{chap:intro} we identified four main challenges for application
 developers to undertake when building systems for analyzing and exploring
 biological datasets. In our data exploration applications, we solved the first
 challenge by organizing the analysis code and datasets in the \gls{nowac} study
-into a single versioned software package. In the long-running analysis pipelines
+into a single versioned software package. For long-running analysis pipelines,
 we solved this in \texttt{walrus} by describing the pipeline using a textual
-representation, and putting it as well as input, intermediate, and output
-datasets, under version control. We solved the second challenge by integrating
+representation, and versioning together with input, intermediate, and output
+datasets. We solved the second challenge by integrating
 the user-facing visualizations with the underlying statistical analyses from
 different R packages. By implementing our data exploration applications as
 compositions of systems that communicated through open protocols, using a
-microservice architecture, we solved the third challenge.  In our data
-exploration applications we solved the fourth challenge by packaging each
-component in open-sourced Docker containers. We solved the fourth challenge in
-the data analysis pipelines by using an open format to describe the pipelines,
+microservice architecture, we solved the third challenge.  Our data
+exploration applications solved the fourth challenge by packaging each
+component in open-sourced Docker containers. We solved the fourth challenge for
+data analysis pipelines by using an open format to describe the pipelines,
 along with sharing the Docker images used for all steps in the different
 pipelines.
 
@@ -41,6 +41,7 @@ future advances in cancer research is dependent on sharing of both datasets and
 analysis code. 
 % We also show the usefulness our approach as a basis for standardizing the
 % preprocessing of its biological datasets. 
+
 In Chapter \ref{interactive} we show how we can build interactive data
 exploration applications that interface with these software packages through a
 microservice architecture. We have implemented this approach through the
@@ -52,7 +53,9 @@ investigate the interactions between genes and pathways in the patient tumor and
 blood cells.  We believe that the cancer research community in general will
 benefit greatly if more projects start to develop their applications using our
 approach. It simplifies sharing of computational resources, and we believe that
-the future of cancer research will depend on collaborative efforts.  In Chapter
+the future of cancer research will depend on collaborative efforts. 
+
+In Chapter
 \ref{pipeline} use the same approach, to compose systems of disparate tools, for
 developing biological data analysis pipelines, implemented in \texttt{walrus}.
 To ensure reproducible results, we supplement the processing with data
@@ -72,14 +75,12 @@ pipelines for other datasets than we originally used it for. In addition, the
 ideas and approaches are generalizable to other disciplines and datasets. 
 
 In the rest of this chapter we summarize end-to-end lessons learned during this
-work. We then discuss the work in the context of cancer research and in the
-clinical setting, before we propose areas for future work. 
-
+work, and propose areas for future work.
 
 \section{Lessons Learned}
 Through the design of the \gls{sme} approach for analyzing and exploring
 biological datasets, as well as the different implementations of the approach,
-we have solved challenges and we habe learned some key lessons.
+we have solved challenges and we have learned some key lessons.
 
 \textbf{There is no single solution programming language or system.} 
 In the field of bioinformatics there have been tremendous efforts to develop
@@ -139,7 +140,7 @@ solutions for data storage, interactive applications, and data analysis
 pipelines, they all have areas of improvement with regards to performance,
 scalability, and robustness. 
 
-\item \textbf{Distributed execution:} while \texttt{walrus} orchestrate
+\item \textbf{Distributed execution:} while \texttt{walrus} orchestrates
 execution of Docker containers, we do not support the execution of these on
 multiple compute nodes. Distributing the computation on multiple machines will
 reduce the execution time if we can share the data across the

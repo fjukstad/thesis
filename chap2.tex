@@ -7,7 +7,7 @@ the scientific advances have been tremendous. Today, single week-long sequencing
 runs can produce as much data as did entire genome centers just years
 ago.\cite{kahn2011future}  These technologies allow researchers to produce data
 faster, cheaper and more efficiently, now making it possible to sequence the
-entire genome from a patient in less than a day. In addition to faster
+entire genome of a patient in less than a day. In addition to faster
 data generation, the new datasets are also of higher quality.
 
 Ensuring reproducibility through sharing of analysis code and datasets is
@@ -20,12 +20,12 @@ best practices are also necessary for large and complex research studies where
 data collection, analysis, and interpretation may span decades, and therefore be
 done in several iterations. 
 
-Ensuring reproducible science is a necessity for individual researchers, within
-research groups, between research groups, and to the greater society. It is not
+Ensuring reproducible science is important to individual researchers, 
+research groups, and to the greater society. It is not
 just about simplifying the replication of results, but is also related to
 advancing science from known results and methods. Within science, it is
-problematic for individual research and research groups to waste time and effort
-to re-apply previous results to new datasets because of poorly documented
+important to individual researchers and research groups not to waste time and
+effort to re-apply previous results to new datasets because of poorly documented
 studies and results. Outside of science, it is problematic to \emph{trust}
 science when studies are difficult or impossible to replicate or reproduce. 
 
@@ -113,7 +113,7 @@ Surveys are the traditional data collection method in epidemiology. But
 today, questionnaire responses are increasingly integrated with molecular data.
 However, surveys are still important for designing a study that can answer
 particular research questions.  In this section we describe how such integrated
-data analysis was done in \gls{nowac} before we developed our approach. We
+data analysis was done in \gls{nowac} prior to this work. We
 believe many studies have, or are still, analyzing epidemiological data using
 a similar practice. 
 
@@ -137,7 +137,7 @@ In the \gls{nowac} study we have processed our biological samples outside our
 research institution. The received raw datasets were then stored on a
 local server and made available to researchers on demand. Because of the
 complexity of the biological datasets, many of these require extensive
-pre-processing before they are analysis-ready. 
+pre-processing before they are ready for analysis. 
 
 % \section{Reproducible Research} 
 
@@ -146,12 +146,13 @@ To enable reproducible research in the \gls{nowac} study we have developed a
 system for managing and documenting the available datasets, a standardized data
 preprocessing and preparation system, and a set of best practices for data
 analysis and management. We designed our management and analysis system as a
-\gls{sme} that we could later use in the Pippeline system. To determine the
-demands of the users, we collaboratively identified issues with our previous
+\gls{sme} that we could later use in the Pippeline system for standardizing
+thes extensive pre-processing steps. To determine the
+demands of the users, we collaboratively identified issues with the previous
 practice and a set of requirements for a system to solve these issues.
 
-We first identified issues with our previous practice: 
-\begin{enumerate} 
+The issues with the previous practice were: 
+\begin{itemize} 
     \item It was difficult to keep track of the available datasets, and to
         determine how these had been processed. We had no standard data storage
         platform or structure, and there were limited reports for exported
@@ -167,7 +168,7 @@ We first identified issues with our previous practice:
         preprocessing, sharing of analysis tools, and full documentation of the
         analysis process. 
         
-\end{enumerate} 
+\end{itemize} 
 
 To solve these issues and enable reproducible research in the \gls{nowac} study,
 we had to develop a system for managing the data, code, and our proposed best
@@ -276,7 +277,7 @@ using a familiar tool, namely git.
 
 \section{Standardized Data Analysis}
 Analyzing the biological data in the \gls{nowac} study consists of four major
-parts as show on Figure \ref{fig:uit_pippeline}. First, as explained above the
+parts as show on Figure \ref{fig:uit_pippeline}. First, as explained above, the
 raw datasets are added to the \texttt{nowac} R package and documented thoroughly
 by a data manager.  Second, we manually examine the biological datasets to
 detect outliers. We add information about outliers to the \texttt{nowac} R
@@ -317,7 +318,7 @@ uses the \texttt{nowac} R package to retrieve all datasets.
 \begin{figure}
     \includegraphics[width=\linewidth]{figures/scr_filtering.pdf}
     \caption[A screenshot of the web-interface of Pippeline.]{A screenshot of
-    the web-interface of Pippeline. In the screenshot users can define at what
+    the web-interface of Pippeline. In the screenshot, users can define at what
     level they want to filter out probes in the gene expression dataset. Users
     can define that the output dataset will only include gene expression probes
     that are present in a percent of the observation.}
@@ -326,7 +327,7 @@ uses the \texttt{nowac} R package to retrieve all datasets.
 
 \section{Best Practices} 
 From our experiences we have developed a set of best practices for data
-analysis. These apply both to researchers, and developers and the technical
+analysis. These apply both to researchers, developers, and the technical
 staff managing the data in a research study: 
 
 \textbf{Document every step in the analysis}. Analysis of modern datasets is a
@@ -348,7 +349,7 @@ In the \gls{nowac} study we produce reports from R code. These include
 pre-processing and data delivery of datasets to researchers. One example of a
 report is the analyses done in \cite{kiselev2018transcription} where we
 documented the association between PAX6 gene expression and PAX6 target genes.
-Through a simple R script we could share the results and underlying analysses.
+Through a simple R script we could share the results and underlying analyses.
 
 \textbf{Version control everything}. Both code and data changes over the course
 of a research project. Version control everything to make it possible to retrace
@@ -436,7 +437,7 @@ There are many approaches to store and analyze biological datasets. One major
 drawback with the implementation of our approach in the \texttt{nowac} R package
 is its size. While microarray datasets are relatively small compared to
 sequencing data, when these datasets grow in number the total size grows as
-well. This will impact the compile time for the R package, and also its size
+well. This will impact the build time for the R package, and also its size
 when it is shared with other researchers. Others have also reported that package
 size is an issue, but are also investigating
 alternatives.\cite{finak2018datapackager} With larger datasets we might
@@ -458,7 +459,7 @@ other researchers apply the techniques on their own datasets. While we aim to
 make all our code, documentation, and datasets public, we are unfortunately not
 there yet. We are working on a public version of the \texttt{nowac} R package
 and the Pippeline, but we must guarantee that the respective repositories do not
-contain any sensitive information from the datasets. This is ongoing work, but
+contain any sensitive information from the datasets. This is ongoing work, and
 an important step toward making the research more transparent. 
 
 % GDPR & NOWAC, anything w/ a LPNR is sensitive 
