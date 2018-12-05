@@ -114,7 +114,8 @@ subtypes of breast cancer).
 \section{Requirements} 
 From these two studies we identified a set of requirements that the data
 exploration applications should satisfy. These are all based on the needs of the
-researchers in the \gls{nowac} study. 
+researchers in the \gls{nowac} study, and we believe that they are generalizable
+to other studies. 
 
 \begin{description} 
 \item[Interactive] The applications should provide interactive exploration
@@ -397,7 +398,7 @@ to biology databases for retrieving meta-data on genes and processes.  We
 currently have packages for interfacing with E-utilities\cite{sayers2009entrez},
 MSigDB, HGNC\cite{gray2014genenames}, and KEGG.
 
-\section{\gls{mixt}}
+\section{Matched Interactions Across Tissues (\gls{mixt})}
 The \gls{mixt} system is an online web application for exploring and comparing
 transcriptional profiles from blood and tumor
 samples.\cite{fjukstad2017building,dumeaux2017interactions} It provides users
@@ -618,7 +619,7 @@ We have surveyed comparable applications for exploring similar datasets to the
 ones we describe in this chapter, and underlying technology for developing these
 applications. 
 
-\subsection{Applications} 
+\subsection{Data Exploration Applications} 
 There are a wealth of resources for exploring biological pathway maps.
 \gls{kegg} provides a large collection of static pathway maps that users
 can navigate through and download.\cite{kegg} They provide both static images of
@@ -653,7 +654,9 @@ the datasets locally. In short it is a web implementation of the \gls{wgcna} R
 package that allows users without any R experience perform \gls{wgcna}. It is
 developed and maintained by the eTRIKS platform.\cite{bussery2018etriks}
 
-\subsection{Technology} 
+\subsection{Enabling Approaches} 
+Developers can pick and choose from various frameworks and libraries to build
+interactive data exploration applications. 
 OpenCPU is a system for embedded scientific computing and reproducible
 research.\cite{opencpu} Similar to the compute service in Kvik, it offers an
 HTTP \gls{api} to the R programming language to provide an interface with
@@ -834,12 +837,10 @@ approach to build an application in cancer research, we believe that the
 microservice architecture is suitable for data exploration systems in other
 disciplines as well. This is because they can compose applications from
 specialized tools and services required to visualize and analyze the different
-possible datasets. 
-
-In summary, our primary lesson learned from the experiences with develop our two
-applications, is to compose and develop a data exploration system from
-independent parts.  We chose to implement our systems using three separate
-services. A compute service to provide statistical analyses, a database service
-to provide access to biological databases, and the user interface. This makes it
-possible to quickly re-implement parts of the system, but also allow others to
-interface with its underlying components, not just the user interface. 
+possible datasets. From our experiences, the primary takeaway is to
+compose and develop a data exploration system from independent parts.  We chose
+to implement our systems using three separate services. A compute service to
+provide statistical analyses, a database service to provide access to biological
+databases, and the user interface. This makes it possible to quickly
+re-implement parts of the system, but also allow others to interface with its
+underlying components, not just the user interface. 

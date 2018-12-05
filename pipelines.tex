@@ -578,12 +578,6 @@ that run for several hours. Containers have also been proposed as a solution
 to improve experiment reproducibility, by ensuring that the data analysis tools
 are installed with the same responsibilities.\cite{boettiger2015introduction} 
 
-% 4 later: 
-% reinventing the wheel: 
-% - learning, want to learn
-% - the "wheel" is improved. it did not start out w/ rubber etc. 
-% - it's a phd, not 
-
 \section{Discussion}
 \texttt{walrus} is a general tool for analyzing any type of dataset from
 different scientific disciplines, not just genomic datasets in bioinformatics.
@@ -600,7 +594,8 @@ discover genomic variants, there is still no de-facto standard for sharing the
 detailed descriptions to simplify re-using and reproducing existing work.
 \texttt{walrus} provides a solution to iteratively develop and execute
 analysis pipelines based on a simple textual description which can be shared
-across systems.
+across systems. Further, \texttt{walrus} allows researchers to track 
+input, intermediate, and resulting datasets to help ensure reproducible results. 
 
 Pipelines typically need to be tailored to fit each project and patient, and
 different patients will typically elicit different molecular patterns that
